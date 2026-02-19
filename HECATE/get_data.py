@@ -6,9 +6,9 @@ from matplotlib.colors import Normalize
 from astropy.io import fits
 import os
 import glob
-from . import utils
+from utils import get_phase_mu
 
-def get_CCFs(planet_params:dict, directory_path:str='Eduardos_code/white_light_ccfs/', day:str='2021-08-11', index_to_remove:str="last", plot:bool=True):
+def get_CCFs(planet_params:dict, directory_path:str='/home/telmo/phd_seminar/Eduardos_code/white_light_ccfs/', day:str='2021-08-11', index_to_remove:str="last", plot:bool=True):
     """Fetch ESPRESSO white-light CCFs data.
 
     Parameters
@@ -74,10 +74,10 @@ def get_CCFs(planet_params:dict, directory_path:str='Eduardos_code/white_light_c
         step = h['HIERARCH ESO RV STEP']
         X = np.arange(a,a+step*N,step)
 
-        CCFs[i,0,:] = d[-1]
-        CCFs[i,1,:] = de[-1]
-        CCFs[i,2,:] = X 
-
+        CCFs[i,0,:] = X 
+        CCFs[i,1,:] = d[-1]
+        CCFs[i,2,:] = de[-1]
+        
         time[i] = h['HIERARCH ESO QC BJD']
         airmass[i] = h['HIERARCH ESO TEL1 AIRM START'] 
         berv[i] = h['HIERARCH ESO QC BERV']
@@ -85,7 +85,7 @@ def get_CCFs(planet_params:dict, directory_path:str='Eduardos_code/white_light_c
         snr[i] = h['HIERARCH ESO QC ORDER111 SNR'] #order 567.76 nm to 576.42 nm
 
     if plot:
-        phases = utils.get_phase_mu(planet_params, time).phases
+        phases = get_phase_mu(planet_params, time).phases
         norm = Normalize(vmin=phases.min(), vmax=phases.max())
         cmap = plt.get_cmap('coolwarm_r')
 
@@ -93,7 +93,7 @@ def get_CCFs(planet_params:dict, directory_path:str='Eduardos_code/white_light_c
 
         for i in range(CCFs.shape[0]):
             color = cmap(norm(phases[i]))
-            ax.plot(CCFs[i,2], CCFs[i,0], c=color)
+            ax.plot(CCFs[i,0], CCFs[i,1], c=color)
 
         sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
         sm.set_array([])  
@@ -109,7 +109,7 @@ def get_CCFs(planet_params:dict, directory_path:str='Eduardos_code/white_light_c
     return CCFs, time, airmass, berv, bervmax, snr, list_ccfs
 
 
-def get_spectra(directory_path:str='Eduardos_code/telluric_corrected_spectra/', day:str='2021-08-11', index_to_remove:str="last"):
+def get_spectra(directory_path:str='/home/telmo/phd_seminar/Eduardos_code/telluric_corrected_spectra/', day:str='2021-08-11', index_to_remove:str="last"):
     """Fetch ESPRESSO spectra.
 
     Parameters
@@ -135,6 +135,8 @@ def get_spectra(directory_path:str='Eduardos_code/telluric_corrected_spectra/', 
         maximum BERV.
     snr : `numpy array` 
         signal-to-noise ratio of observation.
+    rv : `numpy array`
+        radial velocity of observation.
     list_spectra : `str` 
         list of spectra file path and names.
     """
@@ -160,6 +162,7 @@ def get_spectra(directory_path:str='Eduardos_code/telluric_corrected_spectra/', 
     berv = np.zeros(len(list_spectra))
     bervmax = np.zeros(len(list_spectra))
     snr = np.zeros(len(list_spectra))
+    rv = np.zeros(len(list_spectra))
     
     for i in range(len(list_spectra)):
 
@@ -178,5 +181,6 @@ def get_spectra(directory_path:str='Eduardos_code/telluric_corrected_spectra/', 
         berv[i] = hdr['HIERARCH ESO QC BERV']
         bervmax[i] = hdr['HIERARCH ESO QC BERVMAX']
         snr[i] = hdr['HIERARCH ESO QC ORDER111 SNR'] #order 567.76 nm to 576.42 nm
+        rv[i] = hdr['HIERARCH ESO QC CCF RV']
 
-    return spectra, time, airmass, berv, bervmax, snr, list_spectra
+    return spectra, time, airmass, berv, bervmax, snr, rv, list_spectra

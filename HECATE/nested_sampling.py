@@ -76,7 +76,8 @@ class run_nestedsampler:
         else:
             labels = ["b", "ln_f"]
 
-        if verbose: print("Linear fit parameters:")
+        if verbose: 
+            print("Linear fit parameters:")
 
         for i, label in enumerate(labels):
             q50 = np.percentile(posterior_samples[:, i], 50)

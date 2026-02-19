@@ -4,7 +4,7 @@ from bisect import bisect_left
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.colors import Normalize
-from . import utils
+from utils import get_phase_mu
 
 class build_CCF:
     """Class to build CCFs from spectra and a spectral line-list. Method adapted from iCCF.meta.espdr_compute_CCF_fast of iCCF package.
@@ -42,15 +42,15 @@ class build_CCF:
             ccf = self.compute_CCF(ll = spectra[i,0], flux = spectra[i,1], error = spectra[i,2], quality = spectra[i,3],
                             RV_reference = RV_reference, mask = mask, berv = berv[i], bervmax = bervmax[i], mask_width = 0.5, plot=False)
             
-            CCFs[i,0] = ccf[0]
-            CCFs[i,1] = ccf[1]
-            CCFs[i,2] = RV_reference
+            CCFs[i,0] = RV_reference
+            CCFs[i,1] = ccf[0]
+            CCFs[i,2] = ccf[1]
         
         self.CCFs = CCFs
 
         if plot:
             
-            phases = utils.get_phase_mu(planet_params, time).phases
+            phases = get_phase_mu(planet_params, time).phases
             norm = Normalize(vmin=phases.min(), vmax=phases.max())
             cmap = plt.get_cmap('coolwarm_r')
 
@@ -58,7 +58,7 @@ class build_CCF:
 
             for i in range(CCFs.shape[0]):
                 color = cmap(norm(phases[i]))
-                ax.plot(CCFs[i,2], CCFs[i,0], c=color)
+                ax.plot(CCFs[i,0], CCFs[i,1], c=color)
 
             sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
             sm.set_array([])  

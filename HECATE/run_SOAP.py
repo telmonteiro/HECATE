@@ -4,7 +4,7 @@ import SOAP # type: ignore
 from ldtk import LDPSetCreator, BoxcarFilter
 import matplotlib.pyplot as plt
 import numpy as np
-from . import utils
+from utils import *
 
 class run_SOAP:
     """Wrapper around SOAPv4.
@@ -50,13 +50,13 @@ class run_SOAP:
         inc_planet = planet_params["inc_planet"]
         lbda       = planet_params["lbda"]
 
-        phase_mu = utils.get_phase_mu(planet_params, time)
+        phase_mu = get_phase_mu(planet_params, time)
         phases, tr_dur, tr_ingress_egress = phase_mu.phases, phase_mu.tr_dur, phase_mu.tr_ingress_egress
 
         filters = [BoxcarFilter('filter', min_wav, max_wav)] 
         sc = LDPSetCreator(teff=(Teff, Teff_err), logg = (logg, logg_err), z = (FeH, FeH_err), filters=filters)
-        ps = sc.create_profiles() #create the limb darkening profiles
-        ldcn, _ = ps.coeffs_qd(do_mc=True) #coefficients and quadratic profile errors
+        ps = sc.create_profiles(nsamples=1000) #create the limb darkening profiles
+        ldcn, _ = ps.coeffs_qd(do_mc=True, n_mc_samples=20000, mc_thin=25, mc_burn=500) #coefficients and quadratic profile errors
 
         sim = SOAP.Simulation(active_regions=[]) #light curve
         sim.star.set(prot=P_rot, incl=inc_star, radius=R_star, teff=Teff, u1=ldcn[0,0], u2=ldcn[0,1])
