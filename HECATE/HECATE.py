@@ -19,7 +19,7 @@ class HECATE:
 
     """Main class for HECATE operations, allowing for the easy application of the Doppler Shadow technique to high-resolution data.
 
-    This class encapsulates the extraction of local spectra/CCFs, as well as the analysis of CCF shapes (width, intensity, RV) and their behavior (linearity).
+    This class encapsulates the extraction of local spectra/CCFs, as well as the analysis of their shapes (width, intensity, RV) and behavior (linearity, for now).
 
     Parameters
     ----------
@@ -121,6 +121,8 @@ class HECATE:
         average_out_of_transit_CCF : `numpy array`
             matrix with the average out-of-transit CCF profile, with shape (3, N_points).
         """
+        self.data_type = "CCF"
+
         # systemic velocity correction
         CCFs_sysvel_corr, _, _ = self.sysvel_correction_CCF(self.CCFs, model=model_fit, print_output=False, plot_fits=plot["fits_initial_CCF"], plot_sys_vel=plot["sys_vel_ccf"], save=save)
 
@@ -164,6 +166,12 @@ class HECATE:
         if plot["local_CCFs"] == True: #local CCFs + tomography
             plot_local_profile(self, local_CCFs, CCFs_sub_all, profile_type="CCF", photometrical_rescale=plot["photometrical_rescale"], save=save)
 
+        self.local_CCFs_data = {
+            "local_CCFs": local_CCFs,
+            "CCFs_flux_corr": CCFs_flux_corr,
+            "CCFs_sub_all": CCFs_sub_all,
+            "avg_out_of_transit_CCF": avg_out_of_transit_CCF}
+
         return local_CCFs, CCFs_flux_corr, CCFs_sub_all, avg_out_of_transit_CCF
     
 
@@ -197,6 +205,8 @@ class HECATE:
         avg_out_of_transit_spectrum : `numpy array`
             matrix with the average out-of-transit spectral line profile, with shape (3, N_points).
         """
+        self.data_type = "spectral_line"
+
         # systemic velocity correction
         _, _, linear_fit_params = self.sysvel_correction_CCF(self.CCFs, model=model_fit_ccf, print_output=False, plot_fits=plot["fits_initial_CCF"], plot_sys_vel=plot["sys_vel_CCF"], save=save)
 
@@ -255,6 +265,12 @@ class HECATE:
 
         if plot["local_spec_line"] == True: #local spectral line + tomography
             plot_local_profile(self, local_spectra, spectra_sub_all, profile_type="line", wave_lims=wave_lims, line_name=line_name, photometrical_rescale=plot["photometrical_rescale"], save=save)
+
+        self.local_spectra_data = {
+            "local_spectra": local_spectra,
+            "spectra_flux_corr": spectra_flux_corr,
+            "spectra_sub_all": spectra_sub_all,
+            "avg_out_of_transit_spectrum": avg_out_of_transit_spectrum}
 
         return local_spectra, spectra_flux_corr, spectra_sub_all, avg_out_of_transit_spectrum
     
@@ -383,10 +399,7 @@ class HECATE:
             x = profiles[l,0]
             flux = profiles[l,1]
 
-            if profile_type == "CCF":
-                flux_e = cov_matrix[l]  # full covariance matrix
-            else:
-                flux_e = diags(profiles[l,2,:])**2 # diagonal covariance matrix (no correlation between wavelength points)
+            flux_e = cov_matrix[l] if profile_type == "CCF" else diags(profiles[l,2,:])**2 # full covariance matrix for CCFs, diagonal covariance matrix for spectral lines
             
             # build interpolation matrix for this CCF → target grid
             W = linear_interpolation_matrix(x, x_reference) 
@@ -400,7 +413,6 @@ class HECATE:
             profile_interp[l,2,:] = y_i_e
 
             if l in self.phases_out_indices:
-
                 out_of_transit_profiles[k,0,:] = x_reference
                 out_of_transit_profiles[k,1,:] = y_i
                 out_of_transit_profiles[k,2,:] = y_i_e
@@ -439,30 +451,25 @@ class HECATE:
             whether to print fit output.
         plot_fit : `bool` 
             whether to plot the fit.
-        wave_ctr_line : `list`; optional
+        wave_ctr_line : `list`, optional
             central wavelength of spectral lines.
-        mask_x : `numpy array`; optional
+        mask_x : `numpy array`, optional
             mask intervals for fitting region.
-        save : `str`; optional
+        save : `str`, optional
             path to save plot.
 
         Returns
         -------
-        central_rv_array : `numpy array` or `list` of `numpy array`
-            central RV of the input CCFs/spectral lines. Single array for single line, list of arrays for multiple lines.
-        continuum_array : `numpy array`
-            continuum level of the input CCFs/spectral lines.
-        intensity_array : `numpy array` or `list` of `numpy array`
-            intensity of the input CCFs/spectral lines. Single array for single line, list of arrays for multiple lines.
-        width_array : `numpy array` or `list` of `numpy array`
-            width measure of the input CCFs/spectral lines. Single array for single line, list of arrays for multiple lines.
-        R2_array : `numpy array`
-            coefficient of determination of all fits.
+        dict : `dict`
+            Dictionary containing:
+            - 'central_rv': central RV of the input CCFs/spectral lines. Single array for single line, list of arrays for multiple lines.
+            - 'continuum': continuum level of the input CCFs/spectral lines.
+            - 'intensity': intensity of the input CCFs/spectral lines. Single array for single line, list of arrays for multiple lines.
+            - 'width': width measure of the input CCFs/spectral lines. Single array for single line, list of arrays for multiple lines.
+            - 'R2': coefficient of determination of all fits.
+            - 'flux_fit_params': list of fit parameters for all profiles.
         """
-        if observation_type == "local":
-            N = profiles.shape[0]
-        elif observation_type == "master":
-            N = 1
+        N = profiles.shape[0] if observation_type == "local" else 1
 
         continuum_array = np.zeros((N,2))
         R2_array = np.zeros(N)
@@ -470,7 +477,6 @@ class HECATE:
 
         num_lines = len(wave_ctr_line)
 
-        # Initialize arrays based on number of lines
         if num_lines == 1:
             intensity_array = np.zeros((N,2))
             central_rv_array = np.zeros((N,2))
@@ -536,10 +542,12 @@ class HECATE:
         if plot_fit and observation_type == "local":
             plot_R2(self.in_phases, R2_array, threshold=0.8, save=save)
         
-        return central_rv_array, continuum_array, intensity_array, width_array, R2_array, flux_fit_params
+        return {"central_rv": central_rv_array, "continuum": continuum_array, 
+                "intensity": intensity_array, "width": width_array, 
+                "R2": R2_array, "flux_fit_params": flux_fit_params}
     
 
-    def _local_params_linear_fit(self, local_param:np.array, indices_final:np.array, title:str, priors:list, plot_nested:bool, axes_to_fit:list=None):
+    def local_params_linear_fit(self, local_param:np.array, indices_final:np.array, title:str, priors:list, plot_nested:bool, axes_to_fit:list=None):
         """Performs a tentative linear fit by applying nested sampling through `dynesty, comparing between a constant and unconstrained models, and then between a linear model with a positive slope and one with a negative slope.
         Useful for a first approximation analysis of the local CCF parameters.
 
@@ -593,8 +601,7 @@ class HECATE:
             print("-"*40)
             print(data["label"])
             
-            # Filter out NaN values
-            valid_mask = ~(np.isnan(x) | np.isnan(y) | np.isnan(yerr))
+            valid_mask = ~(np.isnan(x) | np.isnan(y) | np.isnan(yerr)) # filter out NaN values
             x_clean = x[valid_mask]
             y_clean = y[valid_mask]
             yerr_clean = yerr[valid_mask]
@@ -622,7 +629,6 @@ class HECATE:
             residual = y_clean - y_fit
             residual_err = np.sqrt(yerr_clean**2) # + dy_fit**2)
 
-            # Update data dict with filtered x values and computed fit
             data["x"] = x_clean
             data["x_grid"] = x_grid
             data["y_fit"] = np.array([y_fit, dy_fit])
@@ -659,11 +665,7 @@ class HECATE:
             path to save plots.
         """
         if linear_fit_pairs is None:
-            if linear_fit:
-                # if linear_fit=True, fit all pairs
-                linear_fit_pairs_set = {(axis, i) for axis in ["phases", "mu"] for i in range(3)}
-            else:
-                linear_fit_pairs_set = set()
+            linear_fit_pairs_set = {(axis, i) for axis in ["phases", "mu"] for i in range(3)} if linear_fit else set()
         else:
             linear_fit_pairs_set = set(linear_fit_pairs)
         
@@ -689,8 +691,9 @@ class HECATE:
                 fig_ph, axes_ph = plt.subplots(nrows=1, ncols=3, figsize=(16,4.2))
                 fig_mu, axes_mu = plt.subplots(nrows=1, ncols=3, figsize=(16,4.2))
 
-        titles = ['Central Radial Velocity [km/s]', 'Line-width measure [km/s]', 'Line-center intensity [%]']
-        ylabels = ["[km/s]", "[km/s]", "[%]"]
+        width_unit = "km/s" if self.data_type == "CCF" else r"$\AA$"
+        titles = ['Central Radial Velocity [km/s]', f'Line-width measure [{width_unit}]', 'Line-center intensity [%]']
+        ylabels = ["[km/s]", f"[{width_unit}]", "[%]"]
 
         ph_range = [-self.tr_dur/2, self.tr_dur/2]
         ph_range_inner = [self.tr_ingress_egress/2-self.tr_dur/2, self.tr_dur/2-self.tr_ingress_egress/2]
@@ -701,10 +704,9 @@ class HECATE:
 
         for i in range(len(ylabels)):
 
-            if need_linear_fit: 
-                plot_index = (0,i)
-            else: 
-                plot_index = (i)
+            plot_index = (0,i) if need_linear_fit else (i)
+
+            if need_linear_fit is None: 
                 axes_ph[plot_index].set_xlabel("Orbital phases")
                 axes_mu[plot_index].set_xlabel(r"$\mu$")
 
@@ -729,8 +731,6 @@ class HECATE:
                 ax[plot_index].set_xlim(x_range)
 
             if ("phases", i) in linear_fit_pairs_set or ("mu", i) in linear_fit_pairs_set:
-
-                # Determine which axes to fit
                 axes_to_fit = []
                 if ("phases", i) in linear_fit_pairs_set:
                     axes_to_fit.append("phases")
@@ -744,7 +744,7 @@ class HECATE:
                 elif i == 2: 
                     priors = [100, 100]
 
-                phases_data, mu_data = self._local_params_linear_fit(local_params[i], indices_final, titles[i], priors, plot_nested, axes_to_fit=axes_to_fit)
+                phases_data, mu_data = self.local_params_linear_fit(local_params[i], indices_final, titles[i], priors, plot_nested, axes_to_fit=axes_to_fit)
 
                 for key in plot_data.keys():
 
@@ -759,7 +759,6 @@ class HECATE:
                     x_range_inner = plot_data[key][2]
                     data = phases_data if key == "phases" else mu_data
                     
-                    # Skip if this axis was not computed (None) and clear the subplot
                     if data is None:
                         ax[1,i].clear()
                         ax[1,i].axis('off')

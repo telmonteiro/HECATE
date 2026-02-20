@@ -157,21 +157,14 @@ def plot_avg_out_of_transit_profile(avg_out_of_transit_prof:np.array, profile_ty
     ax.set_title(f'Averaged out of transit {profile_type}')
     ax.grid()
     ax.set_axisbelow(True)
+    ax.set_xlabel(r'Wavelength [$\AA$]' if profile_type != "CCF" else 'Radial Velocities [km/s]')
+    ax.set_ylabel('Normalized Flux')
 
     if profile_type == "CCF":
-
         ax.scatter(avg_out_of_transit_prof[0], avg_out_of_transit_prof[1])
         ax.errorbar(x=avg_out_of_transit_prof[0], y=avg_out_of_transit_prof[1], yerr=avg_out_of_transit_prof[2], capsize=7, capthick=1, color='black', linewidth=0, elinewidth=1)
-        
-        ax.set_xlabel('Radial Velocities [km/s]')
-        ax.set_ylabel('Normalized Flux')
-
     else:
-
         ax.plot(avg_out_of_transit_prof[0], avg_out_of_transit_prof[1], color='black') 
-
-        ax.set_xlabel(r'Wavelength [$\AA$]')
-        ax.set_ylabel('Normalized Flux')
 
     if save: 
         plt.savefig(save+f"avg_out_of_transit_{profile_type}.pdf", dpi=200, bbox_inches="tight")
@@ -214,10 +207,7 @@ def plot_profile_fit(data:np.ndarray, y_fit:np.ndarray, phase:float, data_type:s
 
     fig.suptitle(title)
 
-    if data_type == "CCF":
-        x_label = 'Radial Velocities [km/s]'
-    else:
-        x_label = r'Wavelength [$\AA$]'
+    x_label = 'Radial Velocities [km/s]' if data_type == "CCF" else r'Wavelength [$\AA$]'
 
     axes[0,0].scatter(x, y, color="k")
     axes[0,0].errorbar(x, y, yerr=y_err, color='black', capsize=5, linewidth=0, elinewidth=1)
@@ -247,12 +237,7 @@ def plot_profile_fit(data:np.ndarray, y_fit:np.ndarray, phase:float, data_type:s
     plt.tight_layout()
 
     if save:
-        
-        if observation_type == "master":
-            file_name = save+f"{data_type}_fit_master.pdf"
-        else:
-            file_name = save+f"{data_type}_fit_{str(phase)[:6]}.pdf"
-
+        file_name = save+f"{data_type}_fit_master.pdf" if observation_type == "master" else save+f"{data_type}_fit_{str(phase)[:6]}.pdf"
         plt.savefig(file_name, dpi=300, bbox_inches="tight")
 
     plt.show()
@@ -340,12 +325,8 @@ def plot_local_profile(hecate, local_profiles:np.array, profiles_sub_all:np.arra
 
     axes[1].set_ylabel('Orbital Phase')
     
-    if profile_type == "CCF":
-        axes[1].set_xlabel('Radial Velocities [km/s]')
-        axes[0].set_title(f'Local CCFs (Out-of-transit - In-transit)')
-    else:
-        axes[1].set_xlabel(r'Wavelength [$\AA$]')
-        axes[0].set_title(f'Local {line_name} (Out-of-transit - In-transit)')
+    axes[1].set_xlabel('Radial Velocities [km/s]' if profile_type == "CCF" else r'Wavelength [$\AA$]')
+    axes[0].set_title(f'Local CCFs (Out-of-transit - In-transit)' if profile_type == "CCF" else f'Local {line_name} (Out-of-transit - In-transit)')  
 
     cbar2 = fig.colorbar(im, ax=axes[1])
     cbar2.set_label('Residual flux [total stellar flux]')
@@ -353,10 +334,7 @@ def plot_local_profile(hecate, local_profiles:np.array, profiles_sub_all:np.arra
     plt.tight_layout()
 
     if save is not None: 
-        if profile_type == "CCF":
-            plt.savefig(save+f"local_CCFs.pdf", dpi=300, bbox_inches="tight")
-        else:
-            plt.savefig(save+f"local_{line_name}.pdf", dpi=300, bbox_inches="tight")
+        plt.savefig(save+f"local_CCFs.pdf" if profile_type == "CCF" else save+f"local_{line_name}.pdf", dpi=300, bbox_inches="tight")
 
     plt.show()
 

@@ -1,4 +1,5 @@
 # Miscellaneous classes and functions for utility.
+
 import numpy as np
 from scipy.sparse import lil_matrix
 from scipy.optimize import curve_fit
@@ -69,13 +70,6 @@ class get_phase_mu:
 
         return np.sqrt(1 - b**2 - (a_R*np.sin(2*np.pi*np.abs(phases)))**2)
     
-
-
-# Doppler shift wavelength
-def doppler_shift(wavelength, RV):
-    c = 299792.458 #km/s
-    doppler_factor = np.sqrt((1+RV/c) / (1 - RV/c))
-    return wavelength * doppler_factor
 
 
 # linear interpolation taking into account covariances
@@ -445,6 +439,8 @@ class fit_profile:
 
         if print_output:
 
+            width_unit = "km/s" if self.data_type == "CCF" else r"$\AA$"
+
             print("#"*50)
             print(f"Fitting {self.model_type} model to {self.observation_type} {self.data_type} profile")
             if self.observation_type == "local":
@@ -463,7 +459,7 @@ class fit_profile:
                 print(f"Central RV [km/s]: {central_rvs[0][0]:.06f} ± {central_rvs[0][1]:.06f}")
                 print(f"Continuum: {continuum[0]:.06f} ± {continuum[1]:.06f}")
                 print(f"Line-center intensity [%]: {intensities[0][0]:.06f} ± {intensities[0][1]:.06f}")
-                print(f"Line-width measure [km/s]: {widths[0][0]:.06f} ± {widths[0][1]:.06f}")
+                print(f"Line-width measure [{width_unit}]: {widths[0][0]:.06f} ± {widths[0][1]:.06f}")
             else:
                 for i in range(num_lines):
                     print(f"\nLine {i+1}:")
@@ -471,7 +467,7 @@ class fit_profile:
                         print(f"  Central wavelength [Å]: {central_wvs[i][0]:.06f} ± {central_wvs[i][1]:.06f}")
                     print(f"  Central RV [km/s]: {central_rvs[i][0]:.06f} ± {central_rvs[i][1]:.06f}")
                     print(f"  Line-center intensity [%]: {intensities[i][0]:.06f} ± {intensities[i][1]:.06f}")
-                    print(f"  Line-width measure [km/s]: {widths[i][0]:.06f} ± {widths[i][1]:.06f}")
+                    print(f"  Line-width measure [{width_unit}]: {widths[i][0]:.06f} ± {widths[i][1]:.06f}")
                 print(f"\nContinuum: {continuum[0]:.06f} ± {continuum[1]:.06f}")
 
         return profile_parameters, R2, data, y_fit, popt
@@ -496,3 +492,13 @@ class fit_profile:
         sstot = np.sum((y-np.mean(y))**2)
         r = 1 - ssres/sstot
         return r
+    
+
+"""
+# Doppler shift wavelength
+def doppler_shift(wavelength, RV):
+    c = 299792.458 #km/s
+    doppler_factor = np.sqrt((1+RV/c) / (1 - RV/c))
+    return wavelength * doppler_factor
+
+"""
