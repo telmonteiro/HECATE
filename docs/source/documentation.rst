@@ -21,3 +21,5 @@ HECATE Modules
    HECATE.utils
    HECATE.plots
    HECATE.nested_sampling
+   HECATE.spectral_normalization
+   HECATE.multi_night_analysis
