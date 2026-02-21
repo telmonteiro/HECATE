@@ -6,7 +6,7 @@ from matplotlib.colors import Normalize
 from astropy.io import fits
 import os
 import glob
-from utils import get_phase_mu
+from .utils import get_phase_mu
 
 def get_CCFs(planet_params:dict, directory_path:str='/home/telmo/phd_seminar/Eduardos_code/white_light_ccfs/', day:str='2021-08-11', index_to_remove:str="last", plot:bool=True):
     """Fetch ESPRESSO white-light CCFs data.
