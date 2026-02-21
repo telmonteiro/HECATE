@@ -1,3 +1,4 @@
+__all__ = ["HECATE"]
 from . import run_SOAP
 from . import get_data
 from . import build_CCF

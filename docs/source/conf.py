@@ -25,6 +25,17 @@ extensions = [
     'sphinx.ext.viewcode',
 ]
 
+autodoc_default_options = {
+    "members": True,
+    "undoc-members": False,
+    "private-members": False,
+    "special-members": "__init__",
+    "inherited-members": True,
+    "show-inheritance": True,
+}
+
+autodoc_member_order = "bysource"
+
 autosummary_generate = True
 napoleon_numpy_docstring = True
 napoleon_include_init_with_doc = True
