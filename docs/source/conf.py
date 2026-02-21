@@ -23,6 +23,8 @@ extensions = [
     'sphinx.ext.autosummary',
     'sphinx.ext.napoleon',
     'sphinx.ext.viewcode',
+    "sphinx_copybutton",
+    "sphinx.ext.autosectionlabel"
 ]
 
 autodoc_default_options = {
@@ -41,6 +43,8 @@ napoleon_numpy_docstring = True
 napoleon_include_init_with_doc = True
 napoleon_use_param = True
 napoleon_use_rtype = True
+
+autodoc_typehints = "description"
 
 autodoc_mock_imports = ["SOAP", "matplotlib", "dynesty", "ldtk", "numpy", "scipy", "bisect", "astropy"]
 
