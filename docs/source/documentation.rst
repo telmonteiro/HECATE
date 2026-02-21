@@ -1,12 +1,3 @@
-API Documentation
-=================
-
-.. autosummary::
-   :toctree: generated
-   :recursive:
-
-   HECATE
-
 HECATE Modules
 --------------
 
