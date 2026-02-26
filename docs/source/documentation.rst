@@ -1,16 +1,15 @@
-HECATE Modules
---------------
+User Guide
+==========
 
-.. autosummary::
-   :toctree: generated
-   :recursive:
+This section explains how to install, configure, and use HECATE.
 
-   HECATE.HECATE
-   HECATE.build_CCF
-   HECATE.get_data
-   HECATE.run_SOAP
-   HECATE.utils
-   HECATE.plots
-   HECATE.nested_sampling
-   HECATE.spectral_normalization
-   HECATE.multi_night_analysis
+Contents
+--------
+
+.. toctree::
+   :maxdepth: 2
+
+   installation
+   quickstart
+   tutorials/index
+   examples/index

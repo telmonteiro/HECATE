@@ -19,10 +19,14 @@ Implemented spectrographs:
 HECATE Documentation
 --------------------
 
+HECATE Documentation
+--------------------
+
 .. toctree::
    :maxdepth: 2
 
    documentation
+   api
 
 
 
