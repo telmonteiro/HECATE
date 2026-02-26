@@ -28,31 +28,26 @@ extensions = [
     "sphinx.ext.viewcode",
     "sphinx.ext.autosectionlabel",
     "sphinx_copybutton",
-    "nbsphinx"
 ]
 
-# autosummary
 autosummary_generate = True
 
-# autodoc defaults (controls API layout)
+add_module_names = False
+autodoc_class_signature = "separated"
+
 autodoc_default_options = {
     "members": True,
     "undoc-members": False,
-    "private-members": False,
-    "special-members": "__init__",
-    "inherited-members": True,
-    "show-inheritance": True,
+    "show-inheritance": False,
 }
 
 autodoc_member_order = "bysource"
 autodoc_typehints = "description"
 
-# Napoleon settings (NumPy docstrings)
 napoleon_numpy_docstring = True
-napoleon_google_docstring = False
+napoleon_use_param = False
+napoleon_use_rtype = False
 napoleon_include_init_with_doc = True
-napoleon_use_param = True
-napoleon_use_rtype = True
 
 # Mock heavy imports so docs build fast
 autodoc_mock_imports = [
