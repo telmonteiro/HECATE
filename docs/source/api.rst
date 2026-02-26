@@ -5,7 +5,8 @@ Core Class
 ----------
 
 .. autosummary::
-   :toctree: generated
+   :toctree: generated/methods
+   :template: method-table.html
 
    HECATE.HECATE
    HECATE.HECATE.extract_local_CCF

@@ -1,0 +1,16 @@
+<table class="docutils">
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in items %}
+    <tr>
+      <td><a class="reference internal" href="{{ item.docname }}.html">{{ item.name }}</a></td>
+      <td>{{ item.brief or '—' }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
