@@ -8,25 +8,32 @@
 
 import os
 import sys
-sys.path.insert(0, os.path.abspath('..'))
 
-project = 'HECATE'
-copyright = '2025, Telmo Monteiro'
-author = 'Telmo Monteiro'
-release = '0.0.1'
+# Make project importable
+sys.path.insert(0, os.path.abspath("../.."))
+
+# -- Project information -----------------------------------------------------
+
+project = "HECATE"
+copyright = "2026, Telmo Monteiro"
+author = "Telmo Monteiro"
+release = "0.0.1"
 
 # -- General configuration ---------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
-    'sphinx.ext.autodoc',
-    'sphinx.ext.autosummary',
-    'sphinx.ext.napoleon',
-    'sphinx.ext.viewcode',
+    "sphinx.ext.autodoc",
+    "sphinx.ext.autosummary",
+    "sphinx.ext.napoleon",
+    "sphinx.ext.viewcode",
+    "sphinx.ext.autosectionlabel",
     "sphinx_copybutton",
-    "sphinx.ext.autosectionlabel"
 ]
 
+# autosummary
+autosummary_generate = True
+
+# autodoc defaults (controls API layout)
 autodoc_default_options = {
     "members": True,
     "undoc-members": False,
@@ -37,24 +44,46 @@ autodoc_default_options = {
 }
 
 autodoc_member_order = "bysource"
+autodoc_typehints = "description"
 
-autosummary_generate = True
+# Napoleon settings (NumPy docstrings)
 napoleon_numpy_docstring = True
+napoleon_google_docstring = False
 napoleon_include_init_with_doc = True
 napoleon_use_param = True
 napoleon_use_rtype = True
 
-autodoc_typehints = "description"
+# Mock heavy imports so docs build fast
+autodoc_mock_imports = [
+    "SOAP",
+    "matplotlib",
+    "dynesty",
+    "ldtk",
+    "numpy",
+    "scipy",
+    "astropy",
+]
 
-autodoc_mock_imports = ["SOAP", "matplotlib", "dynesty", "ldtk", "numpy", "scipy", "bisect", "astropy"]
+# templates
+templates_path = ["_templates"]
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
-templates_path = ['_templates']
-exclude_patterns = []
+# Section labels usable across files
+autosectionlabel_prefix_document = True
 
-language = 'Python'
-
-# -- Options for HTML output -------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
+# -- HTML output -------------------------------------------------------------
 
 html_theme = "sphinx_rtd_theme"
-html_static_path = ['_static']
+
+# Only include if folder exists
+html_static_path = ["_static"]
+
+# nicer sidebar depth
+html_theme_options = {
+    "navigation_depth": 4,
+    "collapse_navigation": False,
+}
+
+# copybutton config
+copybutton_prompt_text = r">>> |\.\.\. "
+copybutton_prompt_is_regexp = True
