@@ -30,26 +30,24 @@ extensions = [
     "sphinx_copybutton",
 ]
 
-autosummary_generate = True
-
+# --- autodoc behavior ---
 add_module_names = False
 autodoc_class_signature = "separated"
+autodoc_docstring_signature = False
+autodoc_member_order = "bysource"
 
-# Prevent autosummary from showing full signatures on class pages
 autodoc_default_options = {
-    "members": True,
     "show-inheritance": True,
     "inherited-members": True,
     "undoc-members": False,
-    "member-order": "bysource",
-    "no-special-members": True,
 }
 
-autodoc_member_order = "bysource"
-autodoc_typehints = "description"
+# --- autosummary ---
+autosummary_generate = True
 
+# --- napoleon ---
 napoleon_numpy_docstring = True
-napoleon_use_param = True
+napoleon_use_param = False
 napoleon_use_rtype = True
 
 # Mock heavy imports so docs build fast
