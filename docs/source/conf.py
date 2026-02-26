@@ -35,19 +35,22 @@ autosummary_generate = True
 add_module_names = False
 autodoc_class_signature = "separated"
 
+# Prevent autosummary from showing full signatures on class pages
 autodoc_default_options = {
     "members": True,
+    "show-inheritance": True,
+    "inherited-members": True,
     "undoc-members": False,
-    "show-inheritance": False,
+    "member-order": "bysource",
+    "no-special-members": True,
 }
 
 autodoc_member_order = "bysource"
 autodoc_typehints = "description"
 
 napoleon_numpy_docstring = True
-napoleon_use_param = False
-napoleon_use_rtype = False
-napoleon_include_init_with_doc = True
+napoleon_use_param = True
+napoleon_use_rtype = True
 
 # Mock heavy imports so docs build fast
 autodoc_mock_imports = [

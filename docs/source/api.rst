@@ -6,7 +6,7 @@ Core Class
 
 .. autosummary::
    :toctree: generated
-   :recursive:
+   :nosignatures:
 
    HECATE.HECATE
 
@@ -16,7 +16,7 @@ Modules
 
 .. autosummary::
    :toctree: generated
-   :recursive:
+   :nosignatures:
 
    HECATE.build_CCF
    HECATE.get_data
