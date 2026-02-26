@@ -16,10 +16,8 @@ Implemented spectrographs:
 
 - ESPRESSO
 
-HECATE Documentation
---------------------
 
-HECATE Documentation
+Documentation
 --------------------
 
 .. toctree::
