@@ -4,7 +4,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import cm
-from nested_sampling import run_nestedsampler
+from .nested_sampling import run_nestedsampler
 
 
 class multi_night_analysis:
