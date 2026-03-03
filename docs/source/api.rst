@@ -33,3 +33,4 @@ Modules
    HECATE.nested_sampling
    HECATE.spectral_normalization
    HECATE.multi_night_analysis
+   HECATE.multi_night_analysis
