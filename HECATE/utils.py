@@ -109,7 +109,9 @@ def linear_interpolation_matrix(x_old, x_new):
         W[i, j]   = w1
         W[i, j+1] = w2
 
-    return W.tocsr()
+    W = W.tocsr()
+
+    return W
 
 
 
@@ -485,12 +487,13 @@ class fit_profile:
 
         Returns
         -------
-        r : float
+        r : `float`
             coefficient of determination.
         """
         ssres = np.sum((y-yfit)**2)
         sstot = np.sum((y-np.mean(y))**2)
         r = 1 - ssres/sstot
+
         return r
     
 

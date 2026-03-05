@@ -28,9 +28,9 @@ class run_SOAP:
         save
             path to save the plot.
 
-    Returns
-    -------
-        Flux_SOAP : `numpy array` 
+    Attributes
+    ----------
+        flux : `numpy array` 
             simulated flux from SOAP.
     """
     def __init__(self, time:np.array, stellar_params:dict, planet_params:dict, min_wav:int=380, max_wav:int=788, plot:bool=True, save=None):

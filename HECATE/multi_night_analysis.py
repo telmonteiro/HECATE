@@ -284,7 +284,7 @@ class multi_night_analysis:
         
         Returns
         -------
-        fit_data : `dict` or None
+        fit_results : `dict` or None
             Dictionary containing:
             - 'x': cleaned input x values
             - 'x_grid': regular grid for smooth predictions
@@ -332,14 +332,16 @@ class multi_night_analysis:
         
         residual = y_clean - y_fit
         residual_err = np.sqrt(yerr_clean**2)
+
+        fit_results = {"x": x_clean,
+                        "x_grid": x_grid,
+                        "y_fit": np.array([y_fit, dy_fit]),
+                        "y_grid": np.array([y_grid, dy_grid]),
+                        "residual": np.array([residual, residual_err]),
+                        "slope": slope,
+                        "slope_err": slope_err,
+                        "intercept": intercept,
+                        "intercept_err": intercept_err,
+                        "model": model}
         
-        return {"x": x_clean,
-            "x_grid": x_grid,
-            "y_fit": np.array([y_fit, dy_fit]),
-            "y_grid": np.array([y_grid, dy_grid]),
-            "residual": np.array([residual, residual_err]),
-            "slope": slope,
-            "slope_err": slope_err,
-            "intercept": intercept,
-            "intercept_err": intercept_err,
-            "model": model}
+        return fit_results

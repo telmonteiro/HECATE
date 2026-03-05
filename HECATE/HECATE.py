@@ -460,7 +460,7 @@ class HECATE:
 
         Returns
         -------
-        dict : `dict`
+        profile_params : `dict`
             Dictionary containing:
             - 'central_rv': central RV of the input CCFs/spectral lines. Single array for single line, list of arrays for multiple lines.
             - 'continuum': continuum level of the input CCFs/spectral lines.
@@ -542,9 +542,14 @@ class HECATE:
         if plot_fit and observation_type == "local":
             plot_R2(self.in_phases, R2_array, threshold=0.8, save=save)
         
-        return {"central_rv": central_rv_array, "continuum": continuum_array, 
-                "intensity": intensity_array, "width": width_array, 
-                "R2": R2_array, "flux_fit_params": flux_fit_params}
+        profile_params = {"central_rv": central_rv_array, 
+                          "continuum": continuum_array, 
+                          "intensity": intensity_array, 
+                          "width": width_array, 
+                          "R2": R2_array, 
+                          "flux_fit_params": flux_fit_params}
+        
+        return profile_params
     
 
     def local_params_linear_fit(self, local_param:np.array, indices_final:np.array, title:str, priors:list, plot_nested:bool, axes_to_fit:list=None):
