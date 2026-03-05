@@ -1,0 +1,521 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HECATE.multi_night_analysis &mdash; HECATE 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            HECATE
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../documentation.html">User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart.html">Quickstart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/index.html">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#core-class">Core Class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.HECATE.html">HECATE.HECATE</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.HECATE.html#HECATE.HECATE.HECATE"><code class="docutils literal notranslate"><span class="pre">HECATE</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#modules">Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.build_CCF.html">HECATE.build_CCF</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.build_CCF.html#HECATE.build_CCF.build_CCF"><code class="docutils literal notranslate"><span class="pre">build_CCF</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.get_data.html">HECATE.get_data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.get_data.html#HECATE.get_data.get_CCFs"><code class="docutils literal notranslate"><span class="pre">get_CCFs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.get_data.html#HECATE.get_data.get_spectra"><code class="docutils literal notranslate"><span class="pre">get_spectra()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.run_SOAP.html">HECATE.run_SOAP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.run_SOAP.html#HECATE.run_SOAP.run_SOAP"><code class="docutils literal notranslate"><span class="pre">run_SOAP</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.utils.html">HECATE.utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.utils.html#HECATE.utils.get_phase_mu"><code class="docutils literal notranslate"><span class="pre">get_phase_mu</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.utils.html#HECATE.utils.linear_interpolation_matrix"><code class="docutils literal notranslate"><span class="pre">linear_interpolation_matrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.utils.html#HECATE.utils.profile_models"><code class="docutils literal notranslate"><span class="pre">profile_models</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.utils.html#HECATE.utils.fit_profile"><code class="docutils literal notranslate"><span class="pre">fit_profile</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.plots.html">HECATE.plots</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.plots.html#HECATE.plots.plot_air_snr"><code class="docutils literal notranslate"><span class="pre">plot_air_snr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.plots.html#HECATE.plots.plot_R2"><code class="docutils literal notranslate"><span class="pre">plot_R2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.plots.html#HECATE.plots.plot_sysvel_corr_CCF"><code class="docutils literal notranslate"><span class="pre">plot_sysvel_corr_CCF()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.plots.html#HECATE.plots.plot_avg_out_of_transit_profile"><code class="docutils literal notranslate"><span class="pre">plot_avg_out_of_transit_profile()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.plots.html#HECATE.plots.plot_profile_fit"><code class="docutils literal notranslate"><span class="pre">plot_profile_fit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.plots.html#HECATE.plots.plot_local_profile"><code class="docutils literal notranslate"><span class="pre">plot_local_profile()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.nested_sampling.html">HECATE.nested_sampling</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.nested_sampling.html#HECATE.nested_sampling.run_nestedsampler"><code class="docutils literal notranslate"><span class="pre">run_nestedsampler</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.spectral_normalization.html">HECATE.spectral_normalization</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.spectral_normalization.html#HECATE.spectral_normalization.norm_spec"><code class="docutils literal notranslate"><span class="pre">norm_spec</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.multi_night_analysis.html">HECATE.multi_night_analysis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.multi_night_analysis.html#HECATE.multi_night_analysis.multi_night_analysis"><code class="docutils literal notranslate"><span class="pre">multi_night_analysis</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">HECATE</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">HECATE.multi_night_analysis</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for HECATE.multi_night_analysis</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Multi-night analysis module for HECATE.</span>
+<span class="c1"># Aggregate and compare profile parameters across multiple observation nights.</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">cm</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.nested_sampling</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_nestedsampler</span>
+
+
+<div class="viewcode-block" id="multi_night_analysis">
+<a class="viewcode-back" href="../../generated/HECATE.multi_night_analysis.html#HECATE.multi_night_analysis.multi_night_analysis">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">multi_night_analysis</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Aggregate and analyze profile parameters across multiple observation nights.</span>
+<span class="sd">    This class enables comparison of local CCF/spectral line parameters (RV, width, intensity)</span>
+<span class="sd">    across different observation nights, with flexible fitting and visualization options.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    nights_data : `dict`</span>
+<span class="sd">        Dictionary mapping night identifiers to data dictionaries. Each night dict should contain:</span>
+<span class="sd">        {</span>
+<span class="sd">            &#39;hecate&#39;: HECATE_instance,</span>
+<span class="sd">            &#39;indices&#39;: indices_array (good data indices),</span>
+<span class="sd">            &#39;local_params&#39;: local_params_array (shape: 3, N, 2),</span>
+<span class="sd">            &#39;master_params&#39;: master_params_array (shape: 3, 1, 2),</span>
+<span class="sd">            &#39;color&#39;: optional_matplotlib_color,</span>
+<span class="sd">            &#39;label&#39;: optional_label_string</span>
+<span class="sd">        }</span>
+
+<span class="sd">    data_type : `str`</span>
+<span class="sd">        Type of data being analyzed, either &#39;CCF&#39; or &#39;line&#39;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="multi_night_analysis.__init__">
+<a class="viewcode-back" href="../../generated/HECATE.multi_night_analysis.html#HECATE.multi_night_analysis.multi_night_analysis.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nights_data</span><span class="p">:</span><span class="nb">dict</span><span class="p">,</span> <span class="n">data_type</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="s1">&#39;CCF&#39;</span><span class="p">):</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">nights_data</span> <span class="o">=</span> <span class="n">nights_data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">night_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">nights_data</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_type</span> <span class="o">=</span> <span class="n">data_type</span>
+        
+        <span class="n">n_nights</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">night_names</span><span class="p">)</span>
+        <span class="n">cmap</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;tab10&#39;</span><span class="p">)</span>
+        
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">night</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">nights_data</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+            <span class="k">if</span> <span class="s1">&#39;color&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+                <span class="n">data</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmap</span><span class="p">(</span><span class="n">i</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_nights</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="k">if</span> <span class="s1">&#39;label&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+                <span class="n">data</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">night</span><span class="p">)</span></div>
+
+    
+    
+<div class="viewcode-block" id="multi_night_analysis.plot_parameters">
+<a class="viewcode-back" href="../../generated/HECATE.multi_night_analysis.html#HECATE.multi_night_analysis.multi_night_analysis.plot_parameters">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param_type</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="s1">&#39;phases&#39;</span><span class="p">,</span> <span class="n">fit_each_night</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fit_combined</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">combined_night_names</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fit_param_indices</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">plot_nested</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">suptitle</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Plot profile parameters from all nights with optional linear fits.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        param_type : `str`</span>
+<span class="sd">            &#39;phases&#39; or &#39;mu&#39; - which x-axis to plot against.</span>
+<span class="sd">        fit_each_night : `bool`</span>
+<span class="sd">            Whether to fit each night individually.</span>
+<span class="sd">        fit_combined : `bool`</span>
+<span class="sd">            Whether to fit combined nights.</span>
+<span class="sd">        combined_night_names : `numpy array`, optional</span>
+<span class="sd">            List of night names to combine for fitting. If None and fit_combined=True, uses all nights.</span>
+<span class="sd">        fit_param_indices : `numpy array`, optional</span>
+<span class="sd">            Parameter indices to fit (0, 1, 2). If None and fit_each_night or fit_combined is True, fits all.</span>
+<span class="sd">        plot_nested : `bool`</span>
+<span class="sd">            Whether to plot Dynesty trace/corner plots.</span>
+<span class="sd">        suptitle : `str`, optional</span>
+<span class="sd">            Figure title.</span>
+<span class="sd">        save</span>
+<span class="sd">            Path to save plots.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        fit_results : `dict`</span>
+<span class="sd">            Dictionary with fit results keyed by (night, param_idx, param_type).</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="n">combined_label</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">fit_combined</span> <span class="ow">and</span> <span class="n">combined_night_names</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="c1"># use all nights</span>
+            <span class="n">combined_night_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">night_names</span>
+        
+        <span class="k">if</span> <span class="n">combined_night_names</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">combined_label</span> <span class="o">=</span> <span class="s1">&#39;+&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">combined_night_names</span><span class="p">)</span>
+        
+        <span class="n">need_fits</span> <span class="o">=</span> <span class="n">fit_each_night</span> <span class="ow">or</span> <span class="n">fit_combined</span>
+        
+        <span class="c1"># default fit_param_indices to all if fits are requested</span>
+        <span class="k">if</span> <span class="n">need_fits</span> <span class="ow">and</span> <span class="n">fit_param_indices</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">fit_param_indices</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+
+        <span class="n">width_unit</span> <span class="o">=</span> <span class="s2">&quot;km/s&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_type</span> <span class="o">==</span> <span class="s2">&quot;CCF&quot;</span> <span class="k">else</span> <span class="sa">r</span><span class="s2">&quot;$\AA$&quot;</span>
+        <span class="n">titles</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Central Radial Velocity [km/s]&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Line-width measure [</span><span class="si">{</span><span class="n">width_unit</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">,</span> <span class="s1">&#39;Line-center intensity [%]&#39;</span><span class="p">]</span>
+        <span class="n">ylabels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;[km/s]&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">width_unit</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">,</span> <span class="s2">&quot;[%]&quot;</span><span class="p">]</span>
+        
+        <span class="n">n_rows</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">need_fits</span> <span class="k">else</span> <span class="mi">1</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="n">n_rows</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mf">7.5</span> <span class="k">if</span> <span class="n">need_fits</span> <span class="k">else</span> <span class="mf">5.5</span><span class="p">),</span>
+                                 <span class="n">gridspec_kw</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;height_ratios&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]}</span> <span class="k">if</span> <span class="n">need_fits</span> <span class="k">else</span> <span class="p">{},</span>
+                                 <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span> <span class="k">if</span> <span class="n">suptitle</span> <span class="k">else</span> <span class="kc">False</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">suptitle</span><span class="p">:</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="n">suptitle</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+        
+        <span class="n">fit_results</span> <span class="o">=</span> <span class="p">{}</span>
+        
+        <span class="c1"># calculate global mu span for consistent x-limits</span>
+        <span class="n">global_mu_min</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">global_mu_max</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">param_type</span> <span class="o">==</span> <span class="s1">&#39;mu&#39;</span><span class="p">:</span>
+            <span class="n">mu_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+            <span class="k">for</span> <span class="n">night</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">night_names</span><span class="p">:</span>
+                <span class="n">hecate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nights_data</span><span class="p">[</span><span class="n">night</span><span class="p">][</span><span class="s1">&#39;hecate&#39;</span><span class="p">]</span>
+                <span class="n">indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nights_data</span><span class="p">[</span><span class="n">night</span><span class="p">][</span><span class="s1">&#39;indices&#39;</span><span class="p">]</span>
+                <span class="n">mu_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">mu_all</span><span class="p">,</span> <span class="n">hecate</span><span class="o">.</span><span class="n">mu_in</span><span class="p">[</span><span class="n">indices</span><span class="p">]])</span>
+            
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">mu_all</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">global_mu_min</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmin</span><span class="p">(</span><span class="n">mu_all</span><span class="p">)</span>
+                <span class="n">global_mu_max</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">mu_all</span><span class="p">)</span>
+        
+        <span class="n">legend_lines</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">legend_labels</span> <span class="o">=</span> <span class="p">[]</span>
+        
+        <span class="k">for</span> <span class="n">param_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span> <span class="c1"># rv, width, intensity</span>
+            <span class="n">ax_idx</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">param_idx</span><span class="p">)</span> <span class="k">if</span> <span class="n">need_fits</span> <span class="k">else</span> <span class="p">(</span><span class="n">param_idx</span><span class="p">,)</span>
+            <span class="n">axes</span><span class="p">[</span><span class="n">ax_idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">titles</span><span class="p">[</span><span class="n">param_idx</span><span class="p">],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">17</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">need_fits</span><span class="p">:</span>
+                <span class="n">axes</span><span class="p">[</span><span class="n">ax_idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Orbital phases&quot;</span> <span class="k">if</span> <span class="n">param_type</span> <span class="o">==</span> <span class="s2">&quot;phases&quot;</span> <span class="k">else</span> <span class="sa">r</span><span class="s2">&quot;$\mu$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+
+            <span class="n">axes</span><span class="p">[</span><span class="n">ax_idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Value &quot;</span> <span class="o">+</span> <span class="n">ylabels</span><span class="p">[</span><span class="n">param_idx</span><span class="p">],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+            <span class="n">axes</span><span class="p">[</span><span class="n">ax_idx</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+            <span class="n">axes</span><span class="p">[</span><span class="n">ax_idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_axisbelow</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="n">param_type</span> <span class="o">==</span> <span class="s1">&#39;phases&#39;</span><span class="p">:</span>
+                <span class="n">x_range</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">nights_data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">night_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s1">&#39;hecate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tr_dur</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nights_data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">night_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s1">&#39;hecate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tr_dur</span><span class="o">/</span><span class="mi">2</span><span class="p">]</span>
+                <span class="n">x_range_inner</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">nights_data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">night_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s1">&#39;hecate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tr_ingress_egress</span><span class="o">/</span><span class="mi">2</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">nights_data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">night_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s1">&#39;hecate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tr_dur</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> 
+                                 <span class="bp">self</span><span class="o">.</span><span class="n">nights_data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">night_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s1">&#39;hecate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tr_dur</span><span class="o">/</span><span class="mi">2</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">nights_data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">night_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s1">&#39;hecate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tr_ingress_egress</span><span class="o">/</span><span class="mi">2</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">global_mu_min</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">global_mu_max</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="c1"># first night&#39;s bounds as fallback</span>
+                    <span class="n">hecate_first</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nights_data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">night_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s1">&#39;hecate&#39;</span><span class="p">]</span>
+                    <span class="n">x_range</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.6</span><span class="o">*</span><span class="n">hecate_first</span><span class="o">.</span><span class="n">mu_min</span><span class="p">,</span> <span class="mf">1.1</span><span class="o">*</span><span class="n">hecate_first</span><span class="o">.</span><span class="n">mu_max</span><span class="p">]</span>
+                    <span class="n">x_range_inner</span> <span class="o">=</span> <span class="p">[</span><span class="n">hecate_first</span><span class="o">.</span><span class="n">mu_min</span><span class="p">,</span> <span class="n">hecate_first</span><span class="o">.</span><span class="n">mu_max</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">x_range</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.65</span><span class="o">*</span><span class="n">global_mu_min</span><span class="p">,</span> <span class="mf">1.05</span><span class="o">*</span><span class="n">global_mu_max</span><span class="p">]</span>
+                    <span class="n">x_range_inner</span> <span class="o">=</span> <span class="p">[</span><span class="n">global_mu_min</span><span class="p">,</span> <span class="n">global_mu_max</span><span class="p">]</span>
+            
+            <span class="k">for</span> <span class="n">night</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">night_names</span><span class="p">:</span>
+
+                <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nights_data</span><span class="p">[</span><span class="n">night</span><span class="p">]</span>
+                <span class="n">hecate</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;hecate&#39;</span><span class="p">]</span>
+                <span class="n">indices</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;indices&#39;</span><span class="p">]</span>
+                <span class="n">local_params</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;local_params&#39;</span><span class="p">]</span>
+                <span class="n">master_params</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;master_params&#39;</span><span class="p">]</span>
+                
+                <span class="k">if</span> <span class="n">param_type</span> <span class="o">==</span> <span class="s1">&#39;phases&#39;</span><span class="p">:</span>
+                    <span class="n">x</span> <span class="o">=</span> <span class="n">hecate</span><span class="o">.</span><span class="n">in_phases</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">x</span> <span class="o">=</span> <span class="n">hecate</span><span class="o">.</span><span class="n">mu_in</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span>
+                
+                <span class="k">if</span> <span class="n">night</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">night_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                    <span class="n">l0</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">ax_idx</span><span class="p">]</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">x_range</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x_range</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+                    <span class="n">l1</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">ax_idx</span><span class="p">]</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">x_range_inner</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x_range_inner</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+                
+                <span class="n">l2</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">ax_idx</span><span class="p">]</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">master_params</span><span class="p">[</span><span class="n">param_idx</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Master OoT </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                
+                <span class="c1"># plot night&#39;s data</span>
+                <span class="n">l3</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">ax_idx</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">local_params</span><span class="p">[</span><span class="n">param_idx</span><span class="p">,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">][</span><span class="n">indices</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39; values&#39;</span><span class="p">)</span>
+                
+                <span class="k">if</span> <span class="n">param_idx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">legend_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">l2</span><span class="p">)</span>
+                    <span class="n">legend_labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">l2</span><span class="o">.</span><span class="n">get_label</span><span class="p">())</span>
+                    <span class="n">legend_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">l3</span><span class="p">)</span>
+                    <span class="n">legend_labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">l3</span><span class="o">.</span><span class="n">get_label</span><span class="p">())</span>
+
+                <span class="n">axes</span><span class="p">[</span><span class="n">ax_idx</span><span class="p">]</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">local_params</span><span class="p">[</span><span class="n">param_idx</span><span class="p">,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">][</span><span class="n">indices</span><span class="p">],</span> <span class="n">yerr</span><span class="o">=</span><span class="n">local_params</span><span class="p">[</span><span class="n">param_idx</span><span class="p">,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">][</span><span class="n">indices</span><span class="p">],</span>
+                                     <span class="n">capsize</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">capthick</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">elinewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+                
+            <span class="n">axes</span><span class="p">[</span><span class="n">ax_idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">x_range</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">fit_each_night</span> <span class="ow">and</span> <span class="n">param_idx</span> <span class="ow">in</span> <span class="n">fit_param_indices</span><span class="p">:</span>
+
+                <span class="k">for</span> <span class="n">night</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">night_names</span><span class="p">:</span>
+                    <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nights_data</span><span class="p">[</span><span class="n">night</span><span class="p">]</span>
+                    <span class="n">hecate</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;hecate&#39;</span><span class="p">]</span>
+                    <span class="n">indices</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;indices&#39;</span><span class="p">]</span>
+                    <span class="n">local_params</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;local_params&#39;</span><span class="p">]</span>
+                    
+                    <span class="n">x</span> <span class="o">=</span> <span class="n">hecate</span><span class="o">.</span><span class="n">in_phases</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span> <span class="k">if</span> <span class="n">param_type</span> <span class="o">==</span> <span class="s1">&#39;phases&#39;</span> <span class="k">else</span> <span class="n">hecate</span><span class="o">.</span><span class="n">mu_in</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span>
+                    <span class="n">y</span> <span class="o">=</span> <span class="n">local_params</span><span class="p">[</span><span class="n">param_idx</span><span class="p">,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">][</span><span class="n">indices</span><span class="p">]</span>
+                    <span class="n">yerr</span> <span class="o">=</span> <span class="n">local_params</span><span class="p">[</span><span class="n">param_idx</span><span class="p">,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">][</span><span class="n">indices</span><span class="p">]</span>
+                    
+                    <span class="n">fit_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fit_parameter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">yerr</span><span class="p">,</span> <span class="n">param_idx</span><span class="p">,</span> <span class="n">plot_nested</span><span class="p">)</span>
+                    
+                    <span class="k">if</span> <span class="n">fit_data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="k">continue</span>
+                    
+                    <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">night</span><span class="p">,</span> <span class="n">param_idx</span><span class="p">,</span> <span class="n">param_type</span><span class="p">)</span>
+                    <span class="n">fit_results</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">fit_data</span>
+                    
+                    <span class="n">axes</span><span class="p">[</span><span class="n">ax_idx</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fit_data</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="n">fit_data</span><span class="p">[</span><span class="s1">&#39;y_fit&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+                    <span class="n">axes</span><span class="p">[</span><span class="n">ax_idx</span><span class="p">]</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">fit_data</span><span class="p">[</span><span class="s1">&#39;x_grid&#39;</span><span class="p">],</span> <span class="n">fit_data</span><span class="p">[</span><span class="s1">&#39;y_grid&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">fit_data</span><span class="p">[</span><span class="s1">&#39;y_grid&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+                                            <span class="n">fit_data</span><span class="p">[</span><span class="s1">&#39;y_grid&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">fit_data</span><span class="p">[</span><span class="s1">&#39;y_grid&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                    
+            <span class="k">if</span> <span class="n">fit_combined</span> <span class="ow">and</span> <span class="n">combined_night_names</span> <span class="ow">and</span> <span class="n">param_idx</span> <span class="ow">in</span> <span class="n">fit_param_indices</span><span class="p">:</span> <span class="c1"># combine data from specified nights</span>
+                
+                <span class="n">x_combined</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+                <span class="n">y_combined</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+                <span class="n">yerr_combined</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+                
+                <span class="k">for</span> <span class="n">night</span> <span class="ow">in</span> <span class="n">combined_night_names</span><span class="p">:</span>
+                    <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nights_data</span><span class="p">[</span><span class="n">night</span><span class="p">]</span>
+                    <span class="n">hecate</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;hecate&#39;</span><span class="p">]</span>
+                    <span class="n">indices</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;indices&#39;</span><span class="p">]</span>
+                    <span class="n">local_params</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;local_params&#39;</span><span class="p">]</span>
+                    
+                    <span class="n">x</span> <span class="o">=</span> <span class="n">hecate</span><span class="o">.</span><span class="n">in_phases</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span> <span class="k">if</span> <span class="n">param_type</span> <span class="o">==</span> <span class="s1">&#39;phases&#39;</span> <span class="k">else</span> <span class="n">hecate</span><span class="o">.</span><span class="n">mu_in</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span>
+                    <span class="n">x_combined</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">x_combined</span><span class="p">,</span> <span class="n">x</span><span class="p">])</span>
+                    <span class="n">y_combined</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">y_combined</span><span class="p">,</span> <span class="n">local_params</span><span class="p">[</span><span class="n">param_idx</span><span class="p">,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">][</span><span class="n">indices</span><span class="p">]])</span>
+                    <span class="n">yerr_combined</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">yerr_combined</span><span class="p">,</span> <span class="n">local_params</span><span class="p">[</span><span class="n">param_idx</span><span class="p">,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">][</span><span class="n">indices</span><span class="p">]])</span>
+                
+                <span class="n">fit_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fit_parameter</span><span class="p">(</span><span class="n">x_combined</span><span class="p">,</span> <span class="n">y_combined</span><span class="p">,</span> <span class="n">yerr_combined</span><span class="p">,</span> <span class="n">param_idx</span><span class="p">,</span> <span class="n">plot_nested</span><span class="p">)</span>
+                
+                <span class="k">if</span> <span class="n">fit_data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">combined_label</span><span class="p">,</span> <span class="n">param_idx</span><span class="p">,</span> <span class="n">param_type</span><span class="p">)</span>
+                    <span class="n">fit_results</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">fit_data</span>
+                    
+                    <span class="n">axes</span><span class="p">[</span><span class="n">ax_idx</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fit_data</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="n">fit_data</span><span class="p">[</span><span class="s1">&#39;y_fit&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+                    <span class="n">axes</span><span class="p">[</span><span class="n">ax_idx</span><span class="p">]</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">fit_data</span><span class="p">[</span><span class="s1">&#39;x_grid&#39;</span><span class="p">],</span> <span class="n">fit_data</span><span class="p">[</span><span class="s1">&#39;y_grid&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">fit_data</span><span class="p">[</span><span class="s1">&#39;y_grid&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+                                             <span class="n">fit_data</span><span class="p">[</span><span class="s1">&#39;y_grid&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">fit_data</span><span class="p">[</span><span class="s1">&#39;y_grid&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="n">need_fits</span> <span class="ow">and</span> <span class="n">param_idx</span> <span class="ow">in</span> <span class="n">fit_param_indices</span><span class="p">:</span> <span class="c1"># add residuals subplot only for fitted parameters</span>
+                <span class="n">ax_res</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">param_idx</span><span class="p">)</span>
+                <span class="n">axes</span><span class="p">[</span><span class="n">ax_res</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Orbital phases&quot;</span> <span class="k">if</span> <span class="n">param_type</span> <span class="o">==</span> <span class="s2">&quot;phases&quot;</span> <span class="k">else</span> <span class="sa">r</span><span class="s2">&quot;$\mu$&quot;</span><span class="p">)</span>
+                <span class="n">axes</span><span class="p">[</span><span class="n">ax_res</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Residuals &quot;</span> <span class="o">+</span> <span class="n">ylabels</span><span class="p">[</span><span class="n">param_idx</span><span class="p">])</span>
+                <span class="n">axes</span><span class="p">[</span><span class="n">ax_res</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+                <span class="n">axes</span><span class="p">[</span><span class="n">ax_res</span><span class="p">]</span><span class="o">.</span><span class="n">set_axisbelow</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">axes</span><span class="p">[</span><span class="n">ax_res</span><span class="p">]</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+                <span class="n">axes</span><span class="p">[</span><span class="n">ax_res</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">x_range</span><span class="p">)</span>
+                <span class="n">axes</span><span class="p">[</span><span class="n">ax_res</span><span class="p">]</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">x_range</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x_range</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+                <span class="n">axes</span><span class="p">[</span><span class="n">ax_res</span><span class="p">]</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">x_range_inner</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x_range_inner</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+                
+                <span class="k">for</span> <span class="n">night</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">night_names</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">night</span><span class="p">,</span> <span class="n">param_idx</span><span class="p">,</span> <span class="n">param_type</span><span class="p">)</span> <span class="ow">in</span> <span class="n">fit_results</span><span class="p">:</span>
+                        <span class="n">fit_data</span> <span class="o">=</span> <span class="n">fit_results</span><span class="p">[(</span><span class="n">night</span><span class="p">,</span> <span class="n">param_idx</span><span class="p">,</span> <span class="n">param_type</span><span class="p">)]</span>
+                        <span class="n">axes</span><span class="p">[</span><span class="n">ax_res</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">fit_data</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="n">fit_data</span><span class="p">[</span><span class="s1">&#39;residual&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nights_data</span><span class="p">[</span><span class="n">night</span><span class="p">][</span><span class="s1">&#39;color&#39;</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+                        <span class="n">axes</span><span class="p">[</span><span class="n">ax_res</span><span class="p">]</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">fit_data</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">fit_data</span><span class="p">[</span><span class="s1">&#39;residual&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">yerr</span><span class="o">=</span><span class="n">fit_data</span><span class="p">[</span><span class="s1">&#39;residual&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+                                             <span class="n">capsize</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">capthick</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">elinewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+                
+                <span class="k">if</span> <span class="n">combined_label</span> <span class="ow">and</span> <span class="p">(</span><span class="n">combined_label</span><span class="p">,</span> <span class="n">param_idx</span><span class="p">,</span> <span class="n">param_type</span><span class="p">)</span> <span class="ow">in</span> <span class="n">fit_results</span><span class="p">:</span>
+                    <span class="n">fit_data</span> <span class="o">=</span> <span class="n">fit_results</span><span class="p">[(</span><span class="n">combined_label</span><span class="p">,</span> <span class="n">param_idx</span><span class="p">,</span> <span class="n">param_type</span><span class="p">)]</span>
+                    <span class="n">axes</span><span class="p">[</span><span class="n">ax_res</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">fit_data</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="n">fit_data</span><span class="p">[</span><span class="s1">&#39;residual&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+                    <span class="n">axes</span><span class="p">[</span><span class="n">ax_res</span><span class="p">]</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">fit_data</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">fit_data</span><span class="p">[</span><span class="s1">&#39;residual&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">yerr</span><span class="o">=</span><span class="n">fit_data</span><span class="p">[</span><span class="s1">&#39;residual&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+                                         <span class="n">capsize</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">capthick</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">elinewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+                
+                <span class="n">axes</span><span class="p">[</span><span class="n">ax_res</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">x_range</span><span class="p">)</span>
+            
+            <span class="k">elif</span> <span class="n">need_fits</span><span class="p">:</span>  <span class="c1"># hide residuals subplot for unfitted parameters</span>
+                <span class="n">axes</span><span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="n">param_idx</span><span class="p">)]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+        
+        <span class="n">legend_lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">l0</span><span class="p">,</span> <span class="n">l1</span><span class="p">]</span> <span class="o">+</span> <span class="n">legend_lines</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Partially in-transit&#39;</span><span class="p">,</span><span class="s1">&#39;Fully in-transit&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">legend_labels</span>
+        
+        <span class="n">fig</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">legend_lines</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower center&#39;</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">rect</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.12</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">save</span><span class="p">:</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">save</span><span class="si">}</span><span class="s2">multi_night_parameters_</span><span class="si">{</span><span class="n">param_type</span><span class="si">}</span><span class="s2">.pdf&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+        
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">fit_results</span></div>
+
+    
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">_fit_parameter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">yerr</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">param_idx</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span> <span class="n">plot_nested</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform linear fit on a parameter using nested sampling.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        x : `numpy array`</span>
+<span class="sd">            Independent variable (orbital phases or mu values).</span>
+<span class="sd">        y : `numpy array`</span>
+<span class="sd">            Parameter values to fit.</span>
+<span class="sd">        yerr : `numpy array`</span>
+<span class="sd">            Parameter uncertainties/errors.</span>
+<span class="sd">        param_idx : `int`</span>
+<span class="sd">            Parameter index (0=RV, 1=width, 2=intensity) for setting prior ranges.</span>
+<span class="sd">        plot_nested : `bool`</span>
+<span class="sd">            Whether to plot Dynesty trace and corner plots for diagnostic purposes.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        fit_results : `dict` or None</span>
+<span class="sd">            Dictionary containing:</span>
+<span class="sd">            - &#39;x&#39;: cleaned input x values</span>
+<span class="sd">            - &#39;x_grid&#39;: regular grid for smooth predictions</span>
+<span class="sd">            - &#39;y_fit&#39;: array [values, uncertainties] at data points</span>
+<span class="sd">            - &#39;y_grid&#39;: array [values, uncertainties] on grid</span>
+<span class="sd">            - &#39;residual&#39;: array [residuals, errors]</span>
+<span class="sd">            - &#39;slope&#39;, &#39;slope_err&#39;: linear slope and uncertainty</span>
+<span class="sd">            - &#39;intercept&#39;, &#39;intercept_err&#39;: intercept and uncertainty</span>
+<span class="sd">            - &#39;model&#39;: &#39;linear&#39; or &#39;zero&#39; (constant)</span>
+<span class="sd">            </span>
+<span class="sd">            Returns None if insufficient valid data points (&lt; 3).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">param_idx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">m_span</span><span class="p">,</span> <span class="n">b_span</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">10</span>  <span class="c1"># wider priors for RV</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">m_span</span><span class="p">,</span> <span class="n">b_span</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span>  <span class="c1"># narrower for width/intensity</span>
+        
+        <span class="n">valid_mask</span> <span class="o">=</span> <span class="o">~</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">yerr</span><span class="p">))</span> <span class="c1"># filter out NaN values</span>
+        <span class="n">x_clean</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">valid_mask</span><span class="p">]</span>
+        <span class="n">y_clean</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">valid_mask</span><span class="p">]</span>
+        <span class="n">yerr_clean</span> <span class="o">=</span> <span class="n">yerr</span><span class="p">[</span><span class="n">valid_mask</span><span class="p">]</span>
+        
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_clean</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        
+        <span class="n">results_nested</span> <span class="o">=</span> <span class="n">run_nestedsampler</span><span class="p">(</span><span class="n">x_clean</span><span class="p">,</span> <span class="n">y_clean</span><span class="p">,</span> <span class="n">yerr_clean</span><span class="p">,</span> <span class="n">m_span</span><span class="p">,</span> <span class="n">b_span</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="n">plot_nested</span><span class="p">)</span><span class="o">.</span><span class="n">results</span>
+        <span class="n">lin_params</span><span class="p">,</span> <span class="n">model</span> <span class="o">=</span> <span class="n">results_nested</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">results_nested</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        
+        <span class="n">x_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x_clean</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">x_clean</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">100</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">model</span> <span class="o">==</span> <span class="s2">&quot;zero&quot;</span><span class="p">:</span>
+            <span class="n">y_fit</span> <span class="o">=</span> <span class="n">lin_params</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">x_clean</span><span class="p">)</span>
+            <span class="n">dy_fit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">lin_params</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">x_clean</span><span class="p">)</span>
+            <span class="n">y_grid</span> <span class="o">=</span> <span class="n">lin_params</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">x_grid</span><span class="p">)</span>
+            <span class="n">dy_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">lin_params</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">x_grid</span><span class="p">)</span>
+            <span class="n">slope</span><span class="p">,</span> <span class="n">slope_err</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+            <span class="n">intercept</span><span class="p">,</span> <span class="n">intercept_err</span> <span class="o">=</span> <span class="n">lin_params</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">lin_params</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">y_fit</span> <span class="o">=</span> <span class="n">x_clean</span> <span class="o">*</span> <span class="n">lin_params</span><span class="p">[</span><span class="s2">&quot;m&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">lin_params</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">dy_fit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">x_clean</span> <span class="o">*</span> <span class="n">lin_params</span><span class="p">[</span><span class="s2">&quot;m&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">lin_params</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">y_grid</span> <span class="o">=</span> <span class="n">x_grid</span> <span class="o">*</span> <span class="n">lin_params</span><span class="p">[</span><span class="s2">&quot;m&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">lin_params</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">dy_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">x_grid</span> <span class="o">*</span> <span class="n">lin_params</span><span class="p">[</span><span class="s2">&quot;m&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">lin_params</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">slope</span><span class="p">,</span> <span class="n">slope_err</span> <span class="o">=</span> <span class="n">lin_params</span><span class="p">[</span><span class="s2">&quot;m&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">lin_params</span><span class="p">[</span><span class="s2">&quot;m&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">intercept</span><span class="p">,</span> <span class="n">intercept_err</span> <span class="o">=</span> <span class="n">lin_params</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">lin_params</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+        
+        <span class="n">residual</span> <span class="o">=</span> <span class="n">y_clean</span> <span class="o">-</span> <span class="n">y_fit</span>
+        <span class="n">residual_err</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">yerr_clean</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="n">fit_results</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="n">x_clean</span><span class="p">,</span>
+                        <span class="s2">&quot;x_grid&quot;</span><span class="p">:</span> <span class="n">x_grid</span><span class="p">,</span>
+                        <span class="s2">&quot;y_fit&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">y_fit</span><span class="p">,</span> <span class="n">dy_fit</span><span class="p">]),</span>
+                        <span class="s2">&quot;y_grid&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">y_grid</span><span class="p">,</span> <span class="n">dy_grid</span><span class="p">]),</span>
+                        <span class="s2">&quot;residual&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">residual</span><span class="p">,</span> <span class="n">residual_err</span><span class="p">]),</span>
+                        <span class="s2">&quot;slope&quot;</span><span class="p">:</span> <span class="n">slope</span><span class="p">,</span>
+                        <span class="s2">&quot;slope_err&quot;</span><span class="p">:</span> <span class="n">slope_err</span><span class="p">,</span>
+                        <span class="s2">&quot;intercept&quot;</span><span class="p">:</span> <span class="n">intercept</span><span class="p">,</span>
+                        <span class="s2">&quot;intercept_err&quot;</span><span class="p">:</span> <span class="n">intercept_err</span><span class="p">,</span>
+                        <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="n">model</span><span class="p">}</span>
+        
+        <span class="k">return</span> <span class="n">fit_results</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Telmo Monteiro.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

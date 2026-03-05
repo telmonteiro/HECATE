@@ -1,0 +1,430 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HECATE.spectral_normalization &mdash; HECATE 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            HECATE
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../documentation.html">User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart.html">Quickstart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/index.html">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#core-class">Core Class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.HECATE.html">HECATE.HECATE</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.HECATE.html#HECATE.HECATE.HECATE"><code class="docutils literal notranslate"><span class="pre">HECATE</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#modules">Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.build_CCF.html">HECATE.build_CCF</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.build_CCF.html#HECATE.build_CCF.build_CCF"><code class="docutils literal notranslate"><span class="pre">build_CCF</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.get_data.html">HECATE.get_data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.get_data.html#HECATE.get_data.get_CCFs"><code class="docutils literal notranslate"><span class="pre">get_CCFs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.get_data.html#HECATE.get_data.get_spectra"><code class="docutils literal notranslate"><span class="pre">get_spectra()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.run_SOAP.html">HECATE.run_SOAP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.run_SOAP.html#HECATE.run_SOAP.run_SOAP"><code class="docutils literal notranslate"><span class="pre">run_SOAP</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.utils.html">HECATE.utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.utils.html#HECATE.utils.get_phase_mu"><code class="docutils literal notranslate"><span class="pre">get_phase_mu</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.utils.html#HECATE.utils.linear_interpolation_matrix"><code class="docutils literal notranslate"><span class="pre">linear_interpolation_matrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.utils.html#HECATE.utils.profile_models"><code class="docutils literal notranslate"><span class="pre">profile_models</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.utils.html#HECATE.utils.fit_profile"><code class="docutils literal notranslate"><span class="pre">fit_profile</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.plots.html">HECATE.plots</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.plots.html#HECATE.plots.plot_air_snr"><code class="docutils literal notranslate"><span class="pre">plot_air_snr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.plots.html#HECATE.plots.plot_R2"><code class="docutils literal notranslate"><span class="pre">plot_R2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.plots.html#HECATE.plots.plot_sysvel_corr_CCF"><code class="docutils literal notranslate"><span class="pre">plot_sysvel_corr_CCF()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.plots.html#HECATE.plots.plot_avg_out_of_transit_profile"><code class="docutils literal notranslate"><span class="pre">plot_avg_out_of_transit_profile()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.plots.html#HECATE.plots.plot_profile_fit"><code class="docutils literal notranslate"><span class="pre">plot_profile_fit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.plots.html#HECATE.plots.plot_local_profile"><code class="docutils literal notranslate"><span class="pre">plot_local_profile()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.nested_sampling.html">HECATE.nested_sampling</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.nested_sampling.html#HECATE.nested_sampling.run_nestedsampler"><code class="docutils literal notranslate"><span class="pre">run_nestedsampler</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.spectral_normalization.html">HECATE.spectral_normalization</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.spectral_normalization.html#HECATE.spectral_normalization.norm_spec"><code class="docutils literal notranslate"><span class="pre">norm_spec</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.multi_night_analysis.html">HECATE.multi_night_analysis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.multi_night_analysis.html#HECATE.multi_night_analysis.multi_night_analysis"><code class="docutils literal notranslate"><span class="pre">multi_night_analysis</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">HECATE</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">HECATE.spectral_normalization</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for HECATE.spectral_normalization</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Class to normalize spectra, both globally and locally.</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.colors</span><span class="w"> </span><span class="kn">import</span> <span class="n">Normalize</span>
+
+<div class="viewcode-block" id="norm_spec">
+<a class="viewcode-back" href="../../generated/HECATE.spectral_normalization.html#HECATE.spectral_normalization.norm_spec">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">norm_spec</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Class to normalize spectra, both globally and locally. </span>
+<span class="sd">        </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    phases : `numpy array`</span>
+<span class="sd">        orbital phases of the spectra.</span>
+<span class="sd">    spectra : `numpy array`</span>
+<span class="sd">        matrix with the systemic velocity corrected spectra (wavelenth, flux, flux error).</span>
+<span class="sd">    </span>
+<span class="sd">    Methods</span>
+<span class="sd">    -------</span>
+<span class="sd">    global_norm(mask, plot=True, plot_masks=None)</span>
+<span class="sd">        Performs global normalization of the spectra using a given wavelength range to act as reference.</span>
+<span class="sd">    cut_spectrum(spectra_global_norm, wave_min=6450, wave_max=6650)</span>
+<span class="sd">        Cut the globally normalized spectra to a specific wavelength region to spare memory.</span>
+<span class="sd">    local_norm(spectra_region, mask_line=[(6530,6590)], mask_poly=[(6538.8,6545.8),(6546.9,6551.4),(6575.6,6579.8),(6581.4,6586.05)], plot=True, line_name=&#39;Halpha&#39;)</span>
+<span class="sd">        Normalize locally the spectra around the spectral line of interest by fitting a linear polynomial to the continuum.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="norm_spec.__init__">
+<a class="viewcode-back" href="../../generated/HECATE.spectral_normalization.html#HECATE.spectral_normalization.norm_spec.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">phases</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">spectra</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">phases</span> <span class="o">=</span> <span class="n">phases</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">spectra</span> <span class="o">=</span> <span class="n">spectra</span></div>
+
+
+
+<div class="viewcode-block" id="norm_spec.global_norm">
+<a class="viewcode-back" href="../../generated/HECATE.spectral_normalization.html#HECATE.spectral_normalization.norm_spec.global_norm">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">global_norm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mask</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="o">=</span><span class="p">[(</span><span class="mi">6400</span><span class="p">,</span><span class="mi">6800</span><span class="p">)],</span> <span class="n">plot</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">plot_masks</span><span class="p">:</span><span class="nb">dict</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Performs global normalization of the spectra using a given wavelength range to act as reference.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        phases : `numpy array`</span>
+<span class="sd">            orbital phases of the spectra.</span>
+<span class="sd">        spectra : `numpy array`</span>
+<span class="sd">            matrix with the systemic velocity corrected spectra (wavelenth, flux, flux error).</span>
+<span class="sd">        mask : list of tuples</span>
+<span class="sd">            wavelength range(s) to use as reference for the normalization.</span>
+<span class="sd">        plot : `bool`</span>
+<span class="sd">            wether to plot the normalized spectra and different zoomed in regions.</span>
+<span class="sd">        plot_masks : `dict`, optional</span>
+<span class="sd">            wavelength ranges for zoomed plots in the form of dictionary with key being the subplot title and value being the interval as a tuple. </span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        spectra_global_norm : `numpy array`</span>
+<span class="sd">            matrix with the globally normalized spectra (wavelenth, flux, flux error).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">spectra_global_norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">spectra</span><span class="p">)</span>
+        
+        <span class="n">wave</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spectra</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:]</span>
+
+        <span class="n">norm_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">wave</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span> <span class="c1">#mask for the normalization regions</span>
+        <span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="n">mask</span><span class="p">:</span>
+            <span class="n">norm_mask</span> <span class="o">|=</span> <span class="p">(</span><span class="n">wave</span> <span class="o">&gt;=</span> <span class="n">interval</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">wave</span> <span class="o">&lt;=</span> <span class="n">interval</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">spectra_global_norm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+
+            <span class="n">wave</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spectra</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">,:]</span>
+            <span class="n">flux</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spectra</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">,:]</span>
+            <span class="n">flux_err</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spectra</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">,:]</span>
+
+            <span class="n">med</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">flux</span><span class="p">[</span><span class="n">norm_mask</span><span class="p">])</span>
+
+            <span class="n">flux_norm</span> <span class="o">=</span> <span class="n">flux</span><span class="o">/</span><span class="n">med</span>
+            <span class="n">median_err</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">flux_err</span><span class="p">[</span><span class="n">norm_mask</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">flux_err</span><span class="p">[</span><span class="n">norm_mask</span><span class="p">])</span>
+
+            <span class="n">spectra_global_norm</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">wave</span>
+            <span class="n">spectra_global_norm</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">flux_norm</span>
+            <span class="n">spectra_global_norm</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">flux_norm</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">flux_err</span><span class="o">/</span><span class="n">flux</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="p">(</span><span class="n">median_err</span><span class="o">/</span><span class="n">med</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">spectra_global_norm</span> <span class="o">=</span> <span class="n">spectra_global_norm</span>
+
+        <span class="k">if</span> <span class="n">plot</span><span class="p">:</span>
+            
+            <span class="k">if</span> <span class="n">plot_masks</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">plot_masks</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Full spectrum&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                    <span class="s1">&#39;382.0 to 384.5 nm&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">3820</span><span class="p">,</span> <span class="mi">3845</span><span class="p">),</span>
+                    <span class="s1">&#39;460 to 462.5 nm&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">4600</span><span class="p">,</span> <span class="mi">4625</span><span class="p">),</span>
+                    <span class="s1">&#39;585 to 593.5 nm&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">5850</span><span class="p">,</span> <span class="mi">5935</span><span class="p">),</span>
+                    <span class="s1">&#39;640 to 680 nm&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">6400</span><span class="p">,</span> <span class="mi">6800</span><span class="p">),</span>
+                    <span class="s1">&#39;775.5 to 778.0 nm&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">7755</span><span class="p">,</span> <span class="mi">7780</span><span class="p">)}</span>
+
+            <span class="n">norm</span> <span class="o">=</span> <span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">phases</span><span class="p">),</span> <span class="n">vmax</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">phases</span><span class="p">))</span>
+            <span class="n">normalized_phases</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">phases</span><span class="p">)</span>
+            <span class="n">cmap</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">)</span>
+
+            <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">plot_masks</span><span class="p">),</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mf">3.5</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">plot_masks</span><span class="p">)))</span>
+
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">spectra_global_norm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                <span class="n">color</span> <span class="o">=</span> <span class="n">cmap</span><span class="p">(</span><span class="n">normalized_phases</span><span class="p">[</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                
+                <span class="n">wave</span> <span class="o">=</span> <span class="n">spectra_global_norm</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:]</span>
+                <span class="n">flux_norm</span> <span class="o">=</span> <span class="n">spectra_global_norm</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:]</span>
+                
+                <span class="k">for</span> <span class="n">plot_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">wavelength_range</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">plot_masks</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+                    <span class="k">if</span> <span class="n">wavelength_range</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">ax</span><span class="p">[</span><span class="n">plot_idx</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wave</span><span class="p">,</span> <span class="n">flux_norm</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">plot_mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">wave</span> <span class="o">&gt;=</span> <span class="n">wavelength_range</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">wave</span> <span class="o">&lt;=</span> <span class="n">wavelength_range</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                        <span class="n">ax</span><span class="p">[</span><span class="n">plot_idx</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wave</span><span class="p">[</span><span class="n">plot_mask</span><span class="p">],</span> <span class="n">flux_norm</span><span class="p">[</span><span class="n">plot_mask</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+
+            <span class="n">sm</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">ScalarMappable</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">norm</span><span class="p">)</span>
+            <span class="n">sm</span><span class="o">.</span><span class="n">set_array</span><span class="p">([])</span>  
+            <span class="n">cbar</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">sm</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">fraction</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+            <span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">&#39;Orbital Phase&#39;</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">plot_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">plot_masks</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+                <span class="n">ax</span><span class="p">[</span><span class="n">plot_idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+                <span class="n">ax</span><span class="p">[</span><span class="n">plot_idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Relative flux&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">plot_idx</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">plot_masks</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">ax</span><span class="p">[</span><span class="n">plot_idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Wavelength [$\AA$]&#39;</span><span class="p">)</span>
+
+            <span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">spectra_global_norm</span></div>
+
+    
+
+<div class="viewcode-block" id="norm_spec.cut_spectrum">
+<a class="viewcode-back" href="../../generated/HECATE.spectral_normalization.html#HECATE.spectral_normalization.norm_spec.cut_spectrum">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">cut_spectrum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spectra_global_norm</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">wave_min</span><span class="p">:</span><span class="nb">float</span><span class="o">=</span><span class="mi">6450</span><span class="p">,</span> <span class="n">wave_max</span><span class="p">:</span><span class="nb">float</span><span class="o">=</span><span class="mi">6650</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;Cut the globally normalized spectra to a specific wavelength region to spare memory.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        spectra_global_norm : `numpy array`</span>
+<span class="sd">            matrix with the globally normalized spectra (wavelength, flux, flux error).</span>
+<span class="sd">        wave_min : `float`</span>
+<span class="sd">            minimum wavelength of the region.</span>
+<span class="sd">        wave_max : `float`</span>
+<span class="sd">            maximum wavelength of the region.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        spectra_region : `numpy array`</span>
+<span class="sd">            cut spectra (wavelength, flux, flux error).</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">wv_first</span> <span class="o">=</span> <span class="n">spectra_global_norm</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,:]</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">wv_first</span> <span class="o">&gt;=</span> <span class="n">wave_min</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">wv_first</span> <span class="o">&lt;=</span> <span class="n">wave_max</span><span class="p">)</span>
+
+        <span class="n">spectra_region</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">spectra_global_norm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">3</span><span class="p">,</span><span class="n">wv_first</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">spectra_global_norm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+
+            <span class="n">spectra_region</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">spectra_global_norm</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">,:][</span><span class="n">mask</span><span class="p">]</span>
+            <span class="n">spectra_region</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">spectra_global_norm</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">,:][</span><span class="n">mask</span><span class="p">]</span>
+            <span class="n">spectra_region</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">spectra_global_norm</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">,:][</span><span class="n">mask</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">spectra_region</span></div>
+
+
+    
+<div class="viewcode-block" id="norm_spec.local_norm">
+<a class="viewcode-back" href="../../generated/HECATE.spectral_normalization.html#HECATE.spectral_normalization.norm_spec.local_norm">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">local_norm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spectra_region</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">mask_line</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="o">=</span><span class="p">[(</span><span class="mi">6535</span><span class="p">,</span><span class="mi">6590</span><span class="p">)],</span> <span class="n">mask_continuum</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="o">=</span><span class="p">[(</span><span class="mf">6538.8</span><span class="p">,</span><span class="mf">6545.8</span><span class="p">),(</span><span class="mf">6546.9</span><span class="p">,</span><span class="mf">6551.4</span><span class="p">),(</span><span class="mf">6575.6</span><span class="p">,</span><span class="mf">6579.8</span><span class="p">),(</span><span class="mf">6581.4</span><span class="p">,</span><span class="mf">6586.05</span><span class="p">)],</span> <span class="n">plot</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">line_name</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;H$\alpha$&#39;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;Normalize locally the spectra around the spectral line of interest by fitting a linear polynomial to the continuum.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        spectra_region : `numpy array`</span>
+<span class="sd">            matrix with the globally normalized and sliced spectra (wavelength, flux, flux error).</span>
+<span class="sd">        mask_line : `list of tuples`</span>
+<span class="sd">            list of tuples with the wavelength ranges around the line for plot and memory saving purposes.</span>
+<span class="sd">        mask_poly : `list of tuples`</span>
+<span class="sd">            list of tuples with the wavelength ranges of the continuum.</span>
+<span class="sd">        plot : `bool`</span>
+<span class="sd">            whether to plot the normalization.</span>
+<span class="sd">        line_name : `str`</span>
+<span class="sd">            spectral line(s) name for plot titles.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        spectra_local_norm : `numpy array`</span>
+<span class="sd">            locally normalized spectra (wavelength, flux, flux error).</span>
+<span class="sd">        poly_coefs_array : `numpy array`</span>
+<span class="sd">            polynomial coefficients used for the normalization of each spectrum.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">wave</span> <span class="o">=</span> <span class="n">spectra_region</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,:]</span> <span class="c1">#first spectrum as example</span>
+
+        <span class="n">line_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">wave</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span> <span class="c1">#mask for the line region</span>
+        <span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="n">mask_line</span><span class="p">:</span>
+            <span class="n">line_mask</span> <span class="o">|=</span> <span class="p">(</span><span class="n">wave</span> <span class="o">&gt;=</span> <span class="n">interval</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">wave</span> <span class="o">&lt;=</span> <span class="n">interval</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        
+        <span class="n">poly_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">wave</span><span class="p">[</span><span class="n">line_mask</span><span class="p">]),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span> <span class="c1">#mask for the continuum regions</span>
+        <span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="n">mask_continuum</span><span class="p">:</span>
+            <span class="n">poly_mask</span> <span class="o">|=</span> <span class="p">(</span><span class="n">wave</span><span class="p">[</span><span class="n">line_mask</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">interval</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">wave</span><span class="p">[</span><span class="n">line_mask</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">interval</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="n">spectra_local_norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">spectra_region</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">3</span><span class="p">,</span><span class="n">wave</span><span class="p">[</span><span class="n">line_mask</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+
+        <span class="n">poly_coefs_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">spectra_region</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">2</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">spectra_region</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+
+            <span class="n">wave</span> <span class="o">=</span> <span class="n">spectra_region</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">,:][</span><span class="n">line_mask</span><span class="p">]</span>
+            <span class="n">flux</span> <span class="o">=</span> <span class="n">spectra_region</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">,:][</span><span class="n">line_mask</span><span class="p">]</span>
+            <span class="n">flux_err</span> <span class="o">=</span> <span class="n">spectra_region</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">,:][</span><span class="n">line_mask</span><span class="p">]</span>
+            
+            <span class="n">poly_coefs</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">wave</span><span class="p">[</span><span class="n">poly_mask</span><span class="p">],</span> <span class="n">flux</span><span class="p">[</span><span class="n">poly_mask</span><span class="p">],</span> <span class="n">w</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">flux_err</span><span class="p">[</span><span class="n">poly_mask</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">deg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cov</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">flux_norm</span> <span class="o">=</span> <span class="n">flux</span><span class="o">/</span><span class="p">(</span><span class="n">poly_coefs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">wave</span><span class="o">+</span><span class="n">poly_coefs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+            <span class="n">spectra_local_norm</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">wave</span>
+            <span class="n">spectra_local_norm</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">flux_norm</span>
+            <span class="n">spectra_local_norm</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">flux_norm</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">flux_err</span><span class="o">/</span><span class="n">flux</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+            <span class="n">poly_coefs_array</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">poly_coefs</span>
+
+    
+        <span class="k">if</span> <span class="n">plot</span><span class="p">:</span> 
+
+            <span class="n">norm</span> <span class="o">=</span> <span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">phases</span><span class="p">),</span> <span class="n">vmax</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">phases</span><span class="p">))</span>
+            <span class="n">normalized_phases</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">phases</span><span class="p">)</span>
+            <span class="n">cmap</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;coolwarm_r&#39;</span><span class="p">)</span>
+
+            <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">15</span><span class="p">))</span>
+
+            <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spectra_local_norm</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,:],</span> <span class="n">spectra_local_norm</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,:],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span> 
+            <span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="n">mask_continuum</span><span class="p">:</span>
+                <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">spectra_local_norm</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,:]</span> <span class="o">&gt;=</span> <span class="n">interval</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">spectra_local_norm</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,:]</span> <span class="o">&lt;=</span> <span class="n">interval</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spectra_local_norm</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,:][</span><span class="n">mask</span><span class="p">],</span> <span class="n">spectra_local_norm</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,:][</span><span class="n">mask</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            
+            <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Continuum around </span><span class="si">{</span><span class="n">line_name</span><span class="si">}</span><span class="s1"> for local normalization&#39;</span><span class="p">)</span>
+            <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Relative flux&#39;</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">spectra_local_norm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+
+                <span class="n">flux</span> <span class="o">=</span> <span class="n">spectra_region</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">,:][</span><span class="n">line_mask</span><span class="p">]</span>
+                <span class="n">wave</span> <span class="o">=</span> <span class="n">spectra_region</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">,:][</span><span class="n">line_mask</span><span class="p">]</span>
+
+                <span class="n">color</span> <span class="o">=</span> <span class="n">cmap</span><span class="p">(</span><span class="n">normalized_phases</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+                <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wave</span><span class="p">,</span> <span class="n">flux</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+                <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wave</span><span class="p">,</span> <span class="n">poly_coefs_array</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">wave</span><span class="o">+</span><span class="n">poly_coefs_array</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Continuum fit&#39;</span><span class="p">)</span>
+
+                <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wave</span><span class="p">,</span><span class="n">flux_norm</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+            
+            <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">line_name</span><span class="si">}</span><span class="s1"> spectra with continuum fit&#39;</span><span class="p">)</span>
+            <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Relative flux&#39;</span><span class="p">)</span>
+
+            <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Locally normalized </span><span class="si">{</span><span class="n">line_name</span><span class="si">}</span><span class="s1"> spectra&#39;</span><span class="p">)</span>
+            <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Wavelength [$\AA$]&#39;</span><span class="p">)</span>
+            <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Relative flux&#39;</span><span class="p">)</span>
+
+            <span class="n">sm</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">ScalarMappable</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">norm</span><span class="p">)</span>
+            <span class="n">cbar_ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">0.92</span><span class="p">,</span> <span class="mf">0.11</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.49</span><span class="p">])</span>
+            <span class="n">cbar1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">sm</span><span class="p">,</span><span class="n">cax</span><span class="o">=</span><span class="n">cbar_ax1</span><span class="p">)</span>
+            <span class="n">cbar1</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">&#39;Orbital phases&#39;</span><span class="p">)</span>
+
+            <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">spectra_local_norm</span><span class="p">,</span> <span class="n">poly_coefs_array</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Telmo Monteiro.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

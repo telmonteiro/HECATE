@@ -1,0 +1,12 @@
+﻿HECATE.multi\_night\_analysis
+=============================
+
+.. automodule:: HECATE.multi_night_analysis
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      multi_night_analysis
+   

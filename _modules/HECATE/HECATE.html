@@ -1,0 +1,1135 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HECATE.HECATE &mdash; HECATE 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            HECATE
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../documentation.html">User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart.html">Quickstart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/index.html">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#core-class">Core Class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.HECATE.html">HECATE.HECATE</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.HECATE.html#HECATE.HECATE.HECATE"><code class="docutils literal notranslate"><span class="pre">HECATE</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#modules">Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.build_CCF.html">HECATE.build_CCF</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.build_CCF.html#HECATE.build_CCF.build_CCF"><code class="docutils literal notranslate"><span class="pre">build_CCF</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.get_data.html">HECATE.get_data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.get_data.html#HECATE.get_data.get_CCFs"><code class="docutils literal notranslate"><span class="pre">get_CCFs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.get_data.html#HECATE.get_data.get_spectra"><code class="docutils literal notranslate"><span class="pre">get_spectra()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.run_SOAP.html">HECATE.run_SOAP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.run_SOAP.html#HECATE.run_SOAP.run_SOAP"><code class="docutils literal notranslate"><span class="pre">run_SOAP</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.utils.html">HECATE.utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.utils.html#HECATE.utils.get_phase_mu"><code class="docutils literal notranslate"><span class="pre">get_phase_mu</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.utils.html#HECATE.utils.linear_interpolation_matrix"><code class="docutils literal notranslate"><span class="pre">linear_interpolation_matrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.utils.html#HECATE.utils.profile_models"><code class="docutils literal notranslate"><span class="pre">profile_models</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.utils.html#HECATE.utils.fit_profile"><code class="docutils literal notranslate"><span class="pre">fit_profile</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.plots.html">HECATE.plots</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.plots.html#HECATE.plots.plot_air_snr"><code class="docutils literal notranslate"><span class="pre">plot_air_snr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.plots.html#HECATE.plots.plot_R2"><code class="docutils literal notranslate"><span class="pre">plot_R2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.plots.html#HECATE.plots.plot_sysvel_corr_CCF"><code class="docutils literal notranslate"><span class="pre">plot_sysvel_corr_CCF()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.plots.html#HECATE.plots.plot_avg_out_of_transit_profile"><code class="docutils literal notranslate"><span class="pre">plot_avg_out_of_transit_profile()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.plots.html#HECATE.plots.plot_profile_fit"><code class="docutils literal notranslate"><span class="pre">plot_profile_fit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.plots.html#HECATE.plots.plot_local_profile"><code class="docutils literal notranslate"><span class="pre">plot_local_profile()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.nested_sampling.html">HECATE.nested_sampling</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.nested_sampling.html#HECATE.nested_sampling.run_nestedsampler"><code class="docutils literal notranslate"><span class="pre">run_nestedsampler</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.spectral_normalization.html">HECATE.spectral_normalization</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.spectral_normalization.html#HECATE.spectral_normalization.norm_spec"><code class="docutils literal notranslate"><span class="pre">norm_spec</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.multi_night_analysis.html">HECATE.multi_night_analysis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.multi_night_analysis.html#HECATE.multi_night_analysis.multi_night_analysis"><code class="docutils literal notranslate"><span class="pre">multi_night_analysis</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">HECATE</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">HECATE.HECATE</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for HECATE.HECATE</h1><div class="highlight"><pre>
+<span></span><span class="c1"># HECATE-DS -- HarvEsting loCAl specTra with Exoplanets (Doppler Shadow)</span>
+<span class="c1"># Hecate is a goddess in ancient Greek religion and mythology, most often shown holding a pair of torches,</span>
+<span class="c1"># a key, or snakes, or accompanied by dogs, and in later periods depicted as three-formed or triple-bodied. </span>
+<span class="c1"># Hecate is often associated with illuminating what is hidden and find your way in cross-roads.</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.sparse</span><span class="w"> </span><span class="kn">import</span> <span class="n">diags</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.run_SOAP</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_SOAP</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.nested_sampling</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_nestedsampler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.spectral_normalization</span><span class="w"> </span><span class="kn">import</span> <span class="n">norm_spec</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.utils</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.plots</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+
+
+<div class="viewcode-block" id="HECATE">
+<a class="viewcode-back" href="../../generated/HECATE.HECATE.html#HECATE.HECATE.HECATE">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">HECATE</span><span class="p">:</span>
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Main class for HECATE operations, allowing for the easy application of the Doppler Shadow technique to high-resolution data.</span>
+
+<span class="sd">    This class encapsulates the extraction of local spectra/CCFs, as well as the analysis of their shapes (width, intensity, RV) and behavior (linearity, for now).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    planet_params : `dict`</span>
+<span class="sd">        dictionary containing the following planetary parameters: orbital period, system scale, planet-to-star radius ratio, mid-transit time, eccentricity, argument of periastron, planetary inclination and spin-orbit angle.</span>
+<span class="sd">    stellar_params : `dict`</span>
+<span class="sd">        dictionary containing the following stellar parameters: effective temperature and error, superficial gravity and error, metallicity and error, rotation period, radius and stellar inclination.</span>
+<span class="sd">    time : `numpy array` </span>
+<span class="sd">        time of observations in BJD.</span>
+<span class="sd">    CCFs : `numpy array` </span>
+<span class="sd">        matrix with the CCF profiles (RV, flux and flux error), with shape (N_CCFs, 3, N_points).</span>
+<span class="sd">    spectra : `numpy array`</span>
+<span class="sd">        matrix with spectral line profiles (wavelength, flux and flux error), with shape (N_spectra, 3, N_points).</span>
+<span class="sd">    soap_wv : `numpy array`, optional</span>
+<span class="sd">        wavelength interval [min, max] in nm for SOAP simulation. Default is [380, 788].</span>
+<span class="sd">    plot_soap : `bool`, optional</span>
+<span class="sd">        whether to plot the simulated light curve from SOAP. Default is False.</span>
+
+<span class="sd">    Methods</span>
+<span class="sd">    -------</span>
+<span class="sd">    extract_local_CCF(model_fit, plot, save)</span>
+<span class="sd">        run all steps of the Doppler Shadow extraction and returns the local CCFs. Ideal for quick extraction.</span>
+<span class="sd">    extract_local_spectral_line(model_fit_ccf, plot, line_name, wave_lims, masks_dict, save)</span>
+<span class="sd">        run all steps of the Doppler Shadow extraction for spectral lines and returns the local spectra.</span>
+<span class="sd">    avg_out_of_transit_profile(profiles, x_reference, profile_type, plot, save)</span>
+<span class="sd">        computes the average out-of-transit profile (CCF or spectral line).</span>
+<span class="sd">    get_profile_parameters(profiles, data_type, observation_type, model, print_output, plot_fit, wave_ctr_line, mask_x, save)</span>
+<span class="sd">        computes profile parameters (central RV, width, intensity) for CCFs or spectral lines.</span>
+<span class="sd">    sysvel_correction_CCF(CCFs, model, print_output, plot_fits, plot_sys_vel, save)</span>
+<span class="sd">        removes the stellar systemic velocity from the initial CCFs RVs.</span>
+<span class="sd">    _local_params_linear_fit(local_param, indices_final, title, priors, plot_nested, axes_to_fit)</span>
+<span class="sd">        tests the linearity of local CCF parameters via nested sampling from Dynesty.</span>
+<span class="sd">    plot_local_params(indices_final, local_params, master_params, suptitle, linear_fit, plot_nested, linear_fit_pairs, save)</span>
+<span class="sd">        plots the local CCF parameters in function of orbital phases and mu.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    This tool was based on the work of Gonçalves, E. et al. (2026) and contains a wrapper of SOAPv4 (Cristo, E. et al., 2025).</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    [1] Gonçalves, E. et al., &quot;Exploring the surface of HD 189733 via Doppler Shadow Analysis of Planetary Transits,&quot; Astronomy &amp; Astrophysics, 2026</span>
+
+<span class="sd">    [2] Cristo, E. et al., &quot;SOAPv4: A new step toward modeling stellar signatures in exoplanet research&quot;, Astronomy &amp; Astrophysics, Vol. 702, A84, 17pp., 2025</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="HECATE.__init__">
+<a class="viewcode-back" href="../../generated/HECATE.HECATE.html#HECATE.HECATE.HECATE.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">planet_params</span><span class="p">:</span><span class="nb">dict</span><span class="p">,</span> <span class="n">stellar_params</span><span class="p">:</span><span class="nb">dict</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">CCFs</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">spectra</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">soap_wv</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="o">=</span><span class="p">[</span><span class="mi">380</span><span class="p">,</span><span class="mi">788</span><span class="p">],</span> <span class="n">plot_soap</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+
+        <span class="c1"># Get orbital phases and mu</span>
+        <span class="n">phase_mu</span> <span class="o">=</span> <span class="n">get_phase_mu</span><span class="p">(</span><span class="n">planet_params</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">phases</span> <span class="o">=</span> <span class="n">phase_mu</span><span class="o">.</span><span class="n">phases</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">phases_in_indices</span> <span class="o">=</span> <span class="n">phase_mu</span><span class="o">.</span><span class="n">in_indices</span> <span class="c1"># indices of in-transit phases</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">phases_out_indices</span> <span class="o">=</span> <span class="n">phase_mu</span><span class="o">.</span><span class="n">out_indices</span> <span class="c1"># indices of out-of-transit phases</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">tr_dur</span> <span class="o">=</span> <span class="n">phase_mu</span><span class="o">.</span><span class="n">tr_dur</span> <span class="c1"># transit duration</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tr_ingress_egress</span> <span class="o">=</span> <span class="n">phase_mu</span><span class="o">.</span><span class="n">tr_ingress_egress</span> <span class="c1"># times of transit ingress and egress</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_phases</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">phases</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">phases_in_indices</span><span class="p">]</span> <span class="c1"># in-transit phases</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">mu</span> <span class="o">=</span> <span class="n">phase_mu</span><span class="o">.</span><span class="n">mu_values</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mu_in</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mu</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">phases_in_indices</span><span class="p">]</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">mu_min</span> <span class="o">=</span> <span class="n">get_phase_mu</span><span class="o">.</span><span class="n">mu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr_dur</span><span class="o">/</span><span class="mi">2</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">tr_ingress_egress</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">planet_params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mu_max</span> <span class="o">=</span> <span class="n">get_phase_mu</span><span class="o">.</span><span class="n">mu</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">planet_params</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">planet_params</span> <span class="o">=</span> <span class="n">planet_params</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stellar_params</span> <span class="o">=</span> <span class="n">stellar_params</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="n">time</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">CCFs</span> <span class="o">=</span> <span class="n">CCFs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">spectra</span> <span class="o">=</span> <span class="n">spectra</span>
+
+        <span class="c1"># simulated light curve</span>
+        <span class="n">Flux_SOAP</span> <span class="o">=</span> <span class="n">run_SOAP</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stellar_params</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">planet_params</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="n">plot_soap</span><span class="p">,</span> <span class="n">min_wav</span><span class="o">=</span><span class="n">soap_wv</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">max_wav</span><span class="o">=</span><span class="n">soap_wv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">flux</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Flux_SOAP</span> <span class="o">=</span> <span class="n">Flux_SOAP</span></div>
+
+            
+
+<div class="viewcode-block" id="HECATE.extract_local_CCF">
+<a class="viewcode-back" href="../../generated/HECATE.HECATE.html#HECATE.HECATE.HECATE.extract_local_CCF">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">extract_local_CCF</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_fit</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">plot</span><span class="p">:</span><span class="nb">dict</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Run all steps of the Doppler Shadow extraction (simulated light curve, systemic velocity correction, compute average out-of-transit CCF and subtraction) and returns the local CCFs. </span>
+<span class="sd">        Ideal for quick extraction of local CCFs.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        model_fit : `str`</span>
+<span class="sd">            profile model to fit to CCFs.</span>
+<span class="sd">        plot : `dict` </span>
+<span class="sd">            dictionary including boolean value for each type of plot available (SOAP, fits_initial_CCF, sys_vel, avg_out_of_transit_CCF, local_CCFs and whether to photometrical rescale).</span>
+<span class="sd">        save </span>
+<span class="sd">            path to save plots.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        local_CCFs : `numpy array`</span>
+<span class="sd">            matrix with the local (in-transit) CCF profiles (RV, flux and flux error), with shape (N_CCFs, 3, N_points).</span>
+<span class="sd">        CCFs_flux_corr : `numpy array`</span>
+<span class="sd">            matrix with all CCF profiles, only flux corrected, with shape (N_CCFs, 3, N_points)</span>
+<span class="sd">        CCFs_sub_all : `numpy array` </span>
+<span class="sd">            matrix with all CCF profiles, flux corrected and subtracted from average out-of-transit, with shape (N_CCFs, 3, N_points).</span>
+<span class="sd">        average_out_of_transit_CCF : `numpy array`</span>
+<span class="sd">            matrix with the average out-of-transit CCF profile, with shape (3, N_points).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_type</span> <span class="o">=</span> <span class="s2">&quot;CCF&quot;</span>
+
+        <span class="c1"># systemic velocity correction</span>
+        <span class="n">CCFs_sysvel_corr</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sysvel_correction_CCF</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">CCFs</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model_fit</span><span class="p">,</span> <span class="n">print_output</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">plot_fits</span><span class="o">=</span><span class="n">plot</span><span class="p">[</span><span class="s2">&quot;fits_initial_CCF&quot;</span><span class="p">],</span> <span class="n">plot_sys_vel</span><span class="o">=</span><span class="n">plot</span><span class="p">[</span><span class="s2">&quot;sys_vel_ccf&quot;</span><span class="p">],</span> <span class="n">save</span><span class="o">=</span><span class="n">save</span><span class="p">)</span>
+
+        <span class="c1"># RV grid as the maximum minimum to minimum maximum of sys. velocity corrected CCF with 0.5 km/s step (ESPRESSO pixel size)</span>
+        <span class="n">RV_reference</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">CCFs_sysvel_corr</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])),</span> <span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">CCFs_sysvel_corr</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span> 
+
+        <span class="c1"># average out-of-transit CCF</span>
+        <span class="n">CCF_interp</span><span class="p">,</span> <span class="n">avg_out_of_transit_CCF</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">avg_out_of_transit_profile</span><span class="p">(</span><span class="n">CCFs_sysvel_corr</span><span class="p">,</span> <span class="n">RV_reference</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="n">plot</span><span class="p">[</span><span class="s2">&quot;avg_out_of_transit_CCF&quot;</span><span class="p">],</span> <span class="n">save</span><span class="o">=</span><span class="n">save</span><span class="p">)</span>
+
+        <span class="n">CCFs_flux_corr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">CCF_interp</span><span class="p">)</span> <span class="c1"># only flux corrected</span>
+        <span class="n">CCFs_sub_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">CCF_interp</span><span class="p">)</span> <span class="c1"># flux corrected and subtracted</span>
+        <span class="n">local_CCFs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">phases_in_indices</span><span class="p">),</span> <span class="mi">3</span><span class="p">,</span> <span class="n">CCF_interp</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span> <span class="c1"># same as above but only in transit (local)</span>
+
+        <span class="n">l</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">CCFs_flux_corr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="n">CCF_interp</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">,:]</span>
+            <span class="n">de</span> <span class="o">=</span> <span class="n">CCF_interp</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">,:]</span>
+            
+            <span class="c1"># performing the subtraction</span>
+            <span class="n">sub</span> <span class="o">=</span> <span class="n">avg_out_of_transit_CCF</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">d</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">Flux_SOAP</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+            <span class="n">d_corr</span> <span class="o">=</span> <span class="n">d</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">Flux_SOAP</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">de_corr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">avg_out_of_transit_CCF</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">de</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">Flux_SOAP</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+            <span class="n">CCFs_sub_all</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">RV_reference</span>
+            <span class="n">CCFs_sub_all</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">sub</span>
+            <span class="n">CCFs_sub_all</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">de_corr</span>
+
+            <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">phases_in_indices</span><span class="p">:</span>
+                
+                <span class="n">CCFs_flux_corr</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">RV_reference</span>
+                <span class="n">CCFs_flux_corr</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">d_corr</span>
+                <span class="n">CCFs_flux_corr</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">de</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">Flux_SOAP</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+                <span class="n">local_CCFs</span><span class="p">[</span><span class="n">l</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">RV_reference</span>
+                <span class="n">local_CCFs</span><span class="p">[</span><span class="n">l</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">sub</span>
+                <span class="n">local_CCFs</span><span class="p">[</span><span class="n">l</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">de_corr</span>
+
+                <span class="n">l</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="k">if</span> <span class="n">plot</span><span class="p">[</span><span class="s2">&quot;local_CCFs&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span> <span class="c1">#local CCFs + tomography</span>
+            <span class="n">plot_local_profile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">local_CCFs</span><span class="p">,</span> <span class="n">CCFs_sub_all</span><span class="p">,</span> <span class="n">profile_type</span><span class="o">=</span><span class="s2">&quot;CCF&quot;</span><span class="p">,</span> <span class="n">photometrical_rescale</span><span class="o">=</span><span class="n">plot</span><span class="p">[</span><span class="s2">&quot;photometrical_rescale&quot;</span><span class="p">],</span> <span class="n">save</span><span class="o">=</span><span class="n">save</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">local_CCFs_data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;local_CCFs&quot;</span><span class="p">:</span> <span class="n">local_CCFs</span><span class="p">,</span>
+            <span class="s2">&quot;CCFs_flux_corr&quot;</span><span class="p">:</span> <span class="n">CCFs_flux_corr</span><span class="p">,</span>
+            <span class="s2">&quot;CCFs_sub_all&quot;</span><span class="p">:</span> <span class="n">CCFs_sub_all</span><span class="p">,</span>
+            <span class="s2">&quot;avg_out_of_transit_CCF&quot;</span><span class="p">:</span> <span class="n">avg_out_of_transit_CCF</span><span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">local_CCFs</span><span class="p">,</span> <span class="n">CCFs_flux_corr</span><span class="p">,</span> <span class="n">CCFs_sub_all</span><span class="p">,</span> <span class="n">avg_out_of_transit_CCF</span></div>
+
+    
+
+<div class="viewcode-block" id="HECATE.extract_local_spectral_line">
+<a class="viewcode-back" href="../../generated/HECATE.HECATE.html#HECATE.HECATE.HECATE.extract_local_spectral_line">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">extract_local_spectral_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_fit_ccf</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">plot</span><span class="p">:</span><span class="nb">dict</span><span class="p">,</span> <span class="n">line_name</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">wave_lims</span><span class="p">:</span><span class="nb">list</span><span class="p">,</span> <span class="n">masks_dict</span><span class="p">:</span><span class="nb">dict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;glob_norm&quot;</span><span class="p">:[(</span><span class="mi">6400</span><span class="p">,</span> <span class="mi">6800</span><span class="p">)],</span><span class="s2">&quot;spec_slice&quot;</span><span class="p">:[(</span><span class="mi">6450</span><span class="p">,</span><span class="mi">6650</span><span class="p">)],</span><span class="s2">&quot;line_window&quot;</span><span class="p">:[(</span><span class="mi">6535</span><span class="p">,</span><span class="mi">6590</span><span class="p">)],</span><span class="s2">&quot;continuum&quot;</span><span class="p">:[(</span><span class="mf">6538.8</span><span class="p">,</span><span class="mf">6545.8</span><span class="p">),(</span><span class="mf">6546.9</span><span class="p">,</span><span class="mf">6551.4</span><span class="p">),(</span><span class="mf">6575.6</span><span class="p">,</span><span class="mf">6579.8</span><span class="p">),(</span><span class="mf">6581.4</span><span class="p">,</span><span class="mf">6586.05</span><span class="p">)]},</span> <span class="n">save</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Run all steps of the Doppler Shadow extraction (simulated light curve, systemic velocity correction, compute average out-of-transit CCF and subtraction) and returns the local CCFs. </span>
+<span class="sd">        Ideal for quick extraction of local CCFs.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        model_fit_ccf : `str`</span>
+<span class="sd">            profile model to fit to white light CCFs.</span>
+<span class="sd">        plot : `dict` </span>
+<span class="sd">            dictionary including boolean value for each type of plot available (SOAP, fits_initial_CCF, sys_vel_CCF, sys_vel_line, avg_out_of_transit_spectra, local_spec_line).</span>
+<span class="sd">        line_name : `str`</span>
+<span class="sd">            name of the spectral line.</span>
+<span class="sd">        wave_lims : `list`</span>
+<span class="sd">            wavelength interval to plot in the tomography plot.</span>
+<span class="sd">        masks_dict : `dict`</span>
+<span class="sd">            dictionary containing the wavvelength masks as lists of tuples for (1) global normalization (2) spectrum slice to save memory (3) window containing the line of interest (4) bits of spectrum continuum (5) spectral line to fit for systemic velocity correction.</span>
+<span class="sd">        save </span>
+<span class="sd">            path to save plots.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        local_spectra : `numpy array`</span>
+<span class="sd">            matrix with the local (in-transit) spectral line profiles (wavelength, flux and flux error), with shape (N_spectra, 3, N_points).</span>
+<span class="sd">        spectra_flux_corr : `numpy array`</span>
+<span class="sd">            matrix with all spectral line profiles, only flux corrected, with shape (N_spectra, 3, N_points)</span>
+<span class="sd">        spectra_sub_all : `numpy array` </span>
+<span class="sd">            matrix with all spectral line profiles, flux corrected and subtracted from average out-of-transit, with shape (N_spectra, 3, N_points).</span>
+<span class="sd">        avg_out_of_transit_spectrum : `numpy array`</span>
+<span class="sd">            matrix with the average out-of-transit spectral line profile, with shape (3, N_points).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_type</span> <span class="o">=</span> <span class="s2">&quot;spectral_line&quot;</span>
+
+        <span class="c1"># systemic velocity correction</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">linear_fit_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sysvel_correction_CCF</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">CCFs</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model_fit_ccf</span><span class="p">,</span> <span class="n">print_output</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">plot_fits</span><span class="o">=</span><span class="n">plot</span><span class="p">[</span><span class="s2">&quot;fits_initial_CCF&quot;</span><span class="p">],</span> <span class="n">plot_sys_vel</span><span class="o">=</span><span class="n">plot</span><span class="p">[</span><span class="s2">&quot;sys_vel_CCF&quot;</span><span class="p">],</span> <span class="n">save</span><span class="o">=</span><span class="n">save</span><span class="p">)</span>
+
+        <span class="c1">#RV correction using the slope</span>
+        <span class="n">spectra_sys_vel_corr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">spectra</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">spectra_sys_vel_corr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+
+            <span class="n">wave</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spectra</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">,:]</span>
+
+            <span class="n">vel</span> <span class="o">=</span> <span class="o">-</span><span class="n">linear_fit_params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">phases</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="c1">#subtraction of systemic velocity, obtained via white light CCFs</span>
+
+            <span class="n">spectra_sys_vel_corr</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">,:]</span> <span class="o">=</span>  <span class="n">wave</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">vel</span><span class="o">/</span><span class="mf">299792.458</span><span class="p">)</span> <span class="c1">#wave * np.sqrt((1+vel/299792.458) / (1-vel/299792.458)) #shift wavelength</span>
+            <span class="n">spectra_sys_vel_corr</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spectra</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">,:]</span>
+            <span class="n">spectra_sys_vel_corr</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">,:]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spectra</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">,:]</span>
+
+        <span class="n">normalizer</span> <span class="o">=</span> <span class="n">norm_spec</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">phases</span><span class="p">,</span> <span class="n">spectra_sys_vel_corr</span><span class="p">)</span>
+        <span class="n">spectra_global_norm</span> <span class="o">=</span> <span class="n">normalizer</span><span class="o">.</span><span class="n">global_norm</span><span class="p">(</span><span class="n">mask</span><span class="o">=</span><span class="n">masks_dict</span><span class="p">[</span><span class="s2">&quot;glob_norm&quot;</span><span class="p">],</span> <span class="n">plot</span><span class="o">=</span><span class="n">plot</span><span class="p">[</span><span class="s2">&quot;spec_global_normalization&quot;</span><span class="p">])</span>
+        <span class="n">spectra_region</span> <span class="o">=</span> <span class="n">normalizer</span><span class="o">.</span><span class="n">cut_spectrum</span><span class="p">(</span><span class="n">spectra_global_norm</span><span class="p">,</span> <span class="n">wave_min</span><span class="o">=</span><span class="n">masks_dict</span><span class="p">[</span><span class="s2">&quot;spec_slice&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">wave_max</span><span class="o">=</span><span class="n">masks_dict</span><span class="p">[</span><span class="s2">&quot;spec_slice&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span> 
+        <span class="n">spectra_local_norm</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">normalizer</span><span class="o">.</span><span class="n">local_norm</span><span class="p">(</span><span class="n">spectra_region</span><span class="p">,</span> <span class="n">mask_line</span><span class="o">=</span><span class="n">masks_dict</span><span class="p">[</span><span class="s2">&quot;line_window&quot;</span><span class="p">],</span> <span class="n">mask_continuum</span><span class="o">=</span><span class="n">masks_dict</span><span class="p">[</span><span class="s2">&quot;continuum&quot;</span><span class="p">],</span> <span class="n">plot</span><span class="o">=</span><span class="n">plot</span><span class="p">[</span><span class="s2">&quot;spec_local_normalization&quot;</span><span class="p">],</span> <span class="n">line_name</span><span class="o">=</span><span class="n">line_name</span><span class="p">)</span>
+
+        <span class="c1"># average out-of-transit spectrum</span>
+        <span class="n">wave_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">spectra_local_norm</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,:]),</span> <span class="nb">max</span><span class="p">(</span><span class="n">spectra_local_norm</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,:]),</span> <span class="nb">len</span><span class="p">(</span><span class="n">spectra_local_norm</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,:]))</span> 
+        <span class="n">spectra_interp</span><span class="p">,</span> <span class="n">avg_out_of_transit_spectrum</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">avg_out_of_transit_profile</span><span class="p">(</span><span class="n">spectra_local_norm</span><span class="p">,</span> <span class="n">wave_grid</span><span class="p">,</span> <span class="n">profile_type</span><span class="o">=</span><span class="s2">&quot;line&quot;</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="n">plot</span><span class="p">[</span><span class="s2">&quot;avg_out_of_transit_spectrum&quot;</span><span class="p">],</span> <span class="n">save</span><span class="o">=</span><span class="n">save</span><span class="p">)</span>
+
+        <span class="n">spectra_flux_corr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">spectra_interp</span><span class="p">)</span> <span class="c1"># only flux corrected</span>
+        <span class="n">spectra_sub_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">spectra_interp</span><span class="p">)</span> <span class="c1"># flux corrected and subtracted</span>
+        <span class="n">local_spectra</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">phases_in_indices</span><span class="p">),</span> <span class="mi">3</span><span class="p">,</span> <span class="n">spectra_interp</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span> <span class="c1"># same as above but only in transit (local)</span>
+
+        <span class="n">l</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">spectra_flux_corr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="n">spectra_interp</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">,:]</span>
+            <span class="n">de</span> <span class="o">=</span> <span class="n">spectra_interp</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">,:]</span>
+            
+            <span class="c1"># performing the subtraction</span>
+            <span class="n">sub</span> <span class="o">=</span> <span class="n">avg_out_of_transit_spectrum</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">d</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">Flux_SOAP</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+            <span class="n">d_corr</span> <span class="o">=</span> <span class="n">d</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">Flux_SOAP</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">de_corr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">avg_out_of_transit_spectrum</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">de</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">Flux_SOAP</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+            <span class="n">spectra_sub_all</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">wave_grid</span>
+            <span class="n">spectra_sub_all</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">sub</span>
+            <span class="n">spectra_sub_all</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">de_corr</span>
+
+            <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">phases_in_indices</span><span class="p">:</span>
+                
+                <span class="n">spectra_flux_corr</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">wave_grid</span>
+                <span class="n">spectra_flux_corr</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">d_corr</span>
+                <span class="n">spectra_flux_corr</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">de</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">Flux_SOAP</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> 
+
+                <span class="n">local_spectra</span><span class="p">[</span><span class="n">l</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">wave_grid</span>
+                <span class="n">local_spectra</span><span class="p">[</span><span class="n">l</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">sub</span>
+                <span class="n">local_spectra</span><span class="p">[</span><span class="n">l</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">de_corr</span>
+
+                <span class="n">l</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="k">if</span> <span class="n">plot</span><span class="p">[</span><span class="s2">&quot;local_spec_line&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span> <span class="c1">#local spectral line + tomography</span>
+            <span class="n">plot_local_profile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">local_spectra</span><span class="p">,</span> <span class="n">spectra_sub_all</span><span class="p">,</span> <span class="n">profile_type</span><span class="o">=</span><span class="s2">&quot;line&quot;</span><span class="p">,</span> <span class="n">wave_lims</span><span class="o">=</span><span class="n">wave_lims</span><span class="p">,</span> <span class="n">line_name</span><span class="o">=</span><span class="n">line_name</span><span class="p">,</span> <span class="n">photometrical_rescale</span><span class="o">=</span><span class="n">plot</span><span class="p">[</span><span class="s2">&quot;photometrical_rescale&quot;</span><span class="p">],</span> <span class="n">save</span><span class="o">=</span><span class="n">save</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">local_spectra_data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;local_spectra&quot;</span><span class="p">:</span> <span class="n">local_spectra</span><span class="p">,</span>
+            <span class="s2">&quot;spectra_flux_corr&quot;</span><span class="p">:</span> <span class="n">spectra_flux_corr</span><span class="p">,</span>
+            <span class="s2">&quot;spectra_sub_all&quot;</span><span class="p">:</span> <span class="n">spectra_sub_all</span><span class="p">,</span>
+            <span class="s2">&quot;avg_out_of_transit_spectrum&quot;</span><span class="p">:</span> <span class="n">avg_out_of_transit_spectrum</span><span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">local_spectra</span><span class="p">,</span> <span class="n">spectra_flux_corr</span><span class="p">,</span> <span class="n">spectra_sub_all</span><span class="p">,</span> <span class="n">avg_out_of_transit_spectrum</span></div>
+
+    
+
+<div class="viewcode-block" id="HECATE.sysvel_correction_CCF">
+<a class="viewcode-back" href="../../generated/HECATE.HECATE.html#HECATE.HECATE.HECATE.sysvel_correction_CCF">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">sysvel_correction_CCF</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">CCFs</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">print_output</span><span class="p">:</span><span class="nb">bool</span><span class="p">,</span> <span class="n">plot_fits</span><span class="p">:</span><span class="nb">bool</span><span class="p">,</span> <span class="n">plot_sys_vel</span><span class="p">:</span><span class="nb">bool</span><span class="p">,</span> <span class="n">save</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract the RV component due to the star&#39;s motion around the barycentre, excluding the stellar systemic velocity.</span>
+<span class="sd">        Fits a chosen profile to the CCF, then a linear model to the out-of-transit central RVs and subtracts it to all CCFs RVs.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">            CCFs : `numpy array`</span>
+<span class="sd">                matrix with the CCF profiles (RV, flux and flux error), with shape (N_CCFs, 3, N_points).</span>
+<span class="sd">            model : `str` </span>
+<span class="sd">                type of profile model to fit.</span>
+<span class="sd">            print_output : `bool`</span>
+<span class="sd">                whether to print the fit output.</span>
+<span class="sd">            plot_fits : `bool`</span>
+<span class="sd">                whether to plot the fit for each CCF.</span>
+<span class="sd">            plot_sys_vel: `bool` </span>
+<span class="sd">                whether to plot the central RV (systemic velocity) in function of orbital phase. </span>
+<span class="sd">            save : `str`, optional</span>
+<span class="sd">                path to save the plots.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">            CCFs_corr : `numpy array`</span>
+<span class="sd">                CCFs corrected by the systemic velocity.</span>
+<span class="sd">            x0_corr : `numpy array`</span>
+<span class="sd">                central RVs corrected by the systemic velocity.</span>
+<span class="sd">            poly_coefs : `numpy array`</span>
+<span class="sd">                coefficients of the linear fit to the systemic velocity.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">phases</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">phases</span>
+        <span class="n">tr_dur</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr_dur</span> 
+        <span class="n">tr_ingress_egress</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr_ingress_egress</span> 
+        <span class="n">in_indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">phases_in_indices</span>
+        <span class="n">out_indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">phases_out_indices</span>
+
+        <span class="n">y0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">CCFs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">CCFs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">2</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">CCFs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+
+            <span class="n">fit_prof</span> <span class="o">=</span> <span class="n">fit_profile</span><span class="p">(</span><span class="n">phase</span><span class="o">=</span><span class="n">phases</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">data</span><span class="o">=</span><span class="n">CCFs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">data_type</span><span class="o">=</span><span class="s2">&quot;CCF&quot;</span><span class="p">,</span> <span class="n">observation_type</span><span class="o">=</span><span class="s2">&quot;raw&quot;</span><span class="p">,</span> <span class="n">model_type</span><span class="o">=</span><span class="s2">&quot;modified Gaussian&quot;</span><span class="p">)</span>
+            <span class="n">profile_parameters</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">y_fit</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">fit_prof</span><span class="o">.</span><span class="n">_fit</span><span class="p">(</span><span class="n">print_output</span><span class="o">=</span><span class="n">print_output</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">plot_fits</span><span class="p">:</span>
+                <span class="n">plot_profile_fit</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">y_fit</span><span class="p">,</span> <span class="n">phases</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">data_type</span><span class="o">=</span><span class="s2">&quot;CCF&quot;</span><span class="p">,</span> <span class="n">observation_type</span><span class="o">=</span><span class="s2">&quot;raw&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="n">save</span><span class="p">)</span>
+            
+            <span class="n">y0</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">profile_parameters</span><span class="p">[</span><span class="s2">&quot;continuum&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">y0</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">profile_parameters</span><span class="p">[</span><span class="s2">&quot;continuum&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="n">x0</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">profile_parameters</span><span class="p">[</span><span class="s2">&quot;central_rv&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">x0</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">profile_parameters</span><span class="p">[</span><span class="s2">&quot;central_rv&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="n">poly_coefs</span><span class="p">,</span> <span class="n">poly_cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">phases</span><span class="p">[</span><span class="n">out_indices</span><span class="p">],</span> <span class="n">x0</span><span class="p">[:,</span><span class="mi">0</span><span class="p">][</span><span class="n">out_indices</span><span class="p">],</span> <span class="n">w</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">x0</span><span class="p">[:,</span><span class="mi">1</span><span class="p">][</span><span class="n">out_indices</span><span class="p">],</span><span class="n">deg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">cov</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">x0_corr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span>
+        <span class="n">CCFs_corr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">CCFs</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">CCFs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="n">CCFs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">de</span> <span class="o">=</span> <span class="n">CCFs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+            
+            <span class="n">d_corr</span> <span class="o">=</span> <span class="n">d</span><span class="o">/</span><span class="n">y0</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+
+            <span class="n">CCFs_corr</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">CCFs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">poly_coefs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">phases</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">poly_coefs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">CCFs_corr</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">d_corr</span>
+            <span class="n">CCFs_corr</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">d_corr</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span> <span class="p">(</span><span class="n">y0</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">y0</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">de</span><span class="o">/</span><span class="n">d</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="p">)</span>
+            
+            <span class="n">x0_corr</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">x0</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">poly_coefs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">phases</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">poly_coefs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">x0_corr</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x0</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">poly_cov</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">phases</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">poly_cov</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">plot_sys_vel</span><span class="p">:</span>
+            <span class="n">plot_sysvel_corr_CCF</span><span class="p">(</span><span class="n">phases</span><span class="p">,</span> <span class="n">tr_dur</span><span class="p">,</span> <span class="n">tr_ingress_egress</span><span class="p">,</span> <span class="n">in_indices</span><span class="p">,</span> <span class="n">out_indices</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">poly_coefs</span><span class="p">,</span> <span class="n">x0_corr</span><span class="p">,</span> <span class="n">save</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">CCFs_corr</span><span class="p">,</span> <span class="n">x0_corr</span><span class="p">,</span> <span class="n">poly_coefs</span></div>
+
+
+
+<div class="viewcode-block" id="HECATE.avg_out_of_transit_profile">
+<a class="viewcode-back" href="../../generated/HECATE.HECATE.html#HECATE.HECATE.HECATE.avg_out_of_transit_profile">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">avg_out_of_transit_profile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profiles</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">x_reference</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">profile_type</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="s2">&quot;CCF&quot;</span><span class="p">,</span> <span class="n">plot</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">save</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Computes the average out-of-transit profile (CCF or spectral line) by linearly interpolating the profiles (CCFs or sliced spectra) into a common grid.</span>
+<span class="sd">        In the case of CCFs, they must be corrected by the systemic velocity before averaging. The interpolated uncertainties are propagated taking the covariances into account.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        profiles : `numpy array`</span>
+<span class="sd">            matrix with the out-of-transit profiles (CCFs or spectral lines), with shape (N_profiles, 3, N_points).</span>
+<span class="sd">        x_reference : `numpy array`</span>
+<span class="sd">            grid for interpolation (RV for CCFs, wavelength for spectral lines).</span>
+<span class="sd">        profile_type : `str`</span>
+<span class="sd">            whether the profiles are CCFs or spectral lines, as they require slightly different treatments.</span>
+<span class="sd">        plot : `bool`</span>
+<span class="sd">            whether to plot the average out-of-transit profile.</span>
+<span class="sd">        save : `str`, optional</span>
+<span class="sd">            path to save the plot.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        profile_interp : `numpy array`</span>
+<span class="sd">            matrix with interpolated profiles (CCFs or spectral lines), with shape (N_profiles, 3, N_points).</span>
+<span class="sd">        avg_out_of_transit_profile : `numpy array`</span>
+<span class="sd">            matrix with the average out-of-transit profile (CCF or spectral line), with shape (3, N_points).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">profile_type</span> <span class="o">==</span> <span class="s2">&quot;CCF&quot;</span><span class="p">:</span>
+            <span class="n">M</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">K</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+            <span class="n">cov_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">K</span><span class="p">))</span> 
+            <span class="n">N</span> <span class="o">=</span> <span class="mi">10000</span>      <span class="c1"># covariance matrix obtained by sampling the CCFs 10 000 times</span>
+            
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">M</span><span class="p">):</span> 
+                <span class="n">samples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">K</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>
+
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">K</span><span class="p">):</span>
+                    <span class="n">ymean</span> <span class="o">=</span> <span class="n">profiles</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">j</span><span class="p">]</span>
+                    <span class="n">ysigma</span> <span class="o">=</span> <span class="n">profiles</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">j</span><span class="p">]</span>
+                    <span class="n">samples</span><span class="p">[</span><span class="n">j</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">ymean</span><span class="p">,</span> <span class="n">ysigma</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+
+                <span class="n">cov_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,:,:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">samples</span><span class="p">)</span>
+
+        <span class="n">out_of_transit_profiles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">phases_out_indices</span><span class="p">),</span> <span class="mi">3</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_reference</span><span class="p">)])</span>
+        <span class="n">profile_interp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">profiles</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">3</span><span class="p">,</span> <span class="n">profiles</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
+
+        <span class="n">k</span><span class="p">,</span> <span class="n">M</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">profiles</span><span class="p">[</span><span class="n">l</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">flux</span> <span class="o">=</span> <span class="n">profiles</span><span class="p">[</span><span class="n">l</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="n">flux_e</span> <span class="o">=</span> <span class="n">cov_matrix</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="k">if</span> <span class="n">profile_type</span> <span class="o">==</span> <span class="s2">&quot;CCF&quot;</span> <span class="k">else</span> <span class="n">diags</span><span class="p">(</span><span class="n">profiles</span><span class="p">[</span><span class="n">l</span><span class="p">,</span><span class="mi">2</span><span class="p">,:])</span><span class="o">**</span><span class="mi">2</span> <span class="c1"># full covariance matrix for CCFs, diagonal covariance matrix for spectral lines</span>
+            
+            <span class="c1"># build interpolation matrix for this CCF → target grid</span>
+            <span class="n">W</span> <span class="o">=</span> <span class="n">linear_interpolation_matrix</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x_reference</span><span class="p">)</span> 
+
+            <span class="n">y_i</span> <span class="o">=</span> <span class="n">W</span> <span class="o">@</span> <span class="n">flux</span> <span class="c1"># interpolated flux</span>
+            <span class="n">cov_new</span> <span class="o">=</span> <span class="n">W</span> <span class="o">@</span> <span class="n">flux_e</span> <span class="o">@</span> <span class="n">W</span><span class="o">.</span><span class="n">T</span> <span class="c1"># propagated covariance</span>
+            <span class="n">y_i_e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">cov_new</span><span class="o">.</span><span class="n">diagonal</span><span class="p">())</span> <span class="c1"># propagated uncertainty</span>
+
+            <span class="n">profile_interp</span><span class="p">[</span><span class="n">l</span><span class="p">,</span><span class="mi">0</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">x_reference</span>
+            <span class="n">profile_interp</span><span class="p">[</span><span class="n">l</span><span class="p">,</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">y_i</span>
+            <span class="n">profile_interp</span><span class="p">[</span><span class="n">l</span><span class="p">,</span><span class="mi">2</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">y_i_e</span>
+
+            <span class="k">if</span> <span class="n">l</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">phases_out_indices</span><span class="p">:</span>
+                <span class="n">out_of_transit_profiles</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="mi">0</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">x_reference</span>
+                <span class="n">out_of_transit_profiles</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">y_i</span>
+                <span class="n">out_of_transit_profiles</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="mi">2</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">y_i_e</span>
+
+                <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">M</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">average_out_of_transit_profile</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">out_of_transit_profiles</span><span class="p">[:,</span><span class="mi">1</span><span class="p">,:],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="n">A_e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">out_of_transit_profiles</span><span class="p">[:,</span><span class="mi">2</span><span class="p">,:]</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># propagation of uncertainty into the average profile</span>
+        <span class="n">average_out_of_transit_profile_e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">A_e</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">phases_out_indices</span><span class="p">)</span>
+
+        <span class="n">avg_out_of_transit_profile</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x_reference</span><span class="p">,</span> <span class="n">average_out_of_transit_profile</span><span class="p">,</span> <span class="n">average_out_of_transit_profile_e</span><span class="p">])</span>
+        
+        <span class="k">if</span> <span class="n">plot</span><span class="p">:</span>
+            <span class="n">plot_avg_out_of_transit_profile</span><span class="p">(</span><span class="n">avg_out_of_transit_profile</span><span class="p">,</span> <span class="n">profile_type</span><span class="p">,</span> <span class="n">save</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">profile_interp</span><span class="p">,</span> <span class="n">avg_out_of_transit_profile</span></div>
+
+
+
+<div class="viewcode-block" id="HECATE.get_profile_parameters">
+<a class="viewcode-back" href="../../generated/HECATE.HECATE.html#HECATE.HECATE.HECATE.get_profile_parameters">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_profile_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profiles</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">data_type</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">observation_type</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">print_output</span><span class="p">:</span><span class="nb">bool</span><span class="p">,</span> <span class="n">plot_fit</span><span class="p">:</span><span class="nb">bool</span><span class="p">,</span> <span class="n">wave_ctr_line</span><span class="p">:</span><span class="nb">list</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)],</span> <span class="n">mask_x</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Computes the profile parameters of an array of CCFs or spectral line profiles.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        profiles : `numpy array`</span>
+<span class="sd">            matrix with profiles, with shape (N_observations, 3, N_points).</span>
+<span class="sd">        data_type : `str`</span>
+<span class="sd">            whether it&#39;s a CCF or spectral line profile.</span>
+<span class="sd">        observation_type : `str`</span>
+<span class="sd">            whether it&#39;s a local, average out-of-transit or raw CCF/spectral line. </span>
+<span class="sd">        model : `str`</span>
+<span class="sd">            type of profile model to fit.</span>
+<span class="sd">        print_output : `bool`</span>
+<span class="sd">            whether to print fit output.</span>
+<span class="sd">        plot_fit : `bool` </span>
+<span class="sd">            whether to plot the fit.</span>
+<span class="sd">        wave_ctr_line : `list`, optional</span>
+<span class="sd">            central wavelength of spectral lines.</span>
+<span class="sd">        mask_x : `numpy array`, optional</span>
+<span class="sd">            mask intervals for fitting region.</span>
+<span class="sd">        save : `str`, optional</span>
+<span class="sd">            path to save plot.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        profile_params : `dict`</span>
+<span class="sd">            Dictionary containing:</span>
+<span class="sd">            - &#39;central_rv&#39;: central RV of the input CCFs/spectral lines. Single array for single line, list of arrays for multiple lines.</span>
+<span class="sd">            - &#39;continuum&#39;: continuum level of the input CCFs/spectral lines.</span>
+<span class="sd">            - &#39;intensity&#39;: intensity of the input CCFs/spectral lines. Single array for single line, list of arrays for multiple lines.</span>
+<span class="sd">            - &#39;width&#39;: width measure of the input CCFs/spectral lines. Single array for single line, list of arrays for multiple lines.</span>
+<span class="sd">            - &#39;R2&#39;: coefficient of determination of all fits.</span>
+<span class="sd">            - &#39;flux_fit_params&#39;: list of fit parameters for all profiles.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">observation_type</span> <span class="o">==</span> <span class="s2">&quot;local&quot;</span> <span class="k">else</span> <span class="mi">1</span>
+
+        <span class="n">continuum_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">R2_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+        <span class="n">flux_fit_params</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">num_lines</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">wave_ctr_line</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">num_lines</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">intensity_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+            <span class="n">central_rv_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+            <span class="n">width_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">intensity_array</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_lines</span><span class="p">)]</span>
+            <span class="n">central_rv_array</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_lines</span><span class="p">)]</span>
+            <span class="n">width_array</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_lines</span><span class="p">)]</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+
+            <span class="k">if</span> <span class="n">observation_type</span> <span class="o">==</span> <span class="s2">&quot;local&quot;</span><span class="p">:</span>
+                <span class="n">phase</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_phases</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">profile</span> <span class="o">=</span> <span class="n">profiles</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">observation_type</span> <span class="o">==</span> <span class="s2">&quot;master&quot;</span><span class="p">:</span>
+                <span class="n">phase</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="n">profile</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">fit_prof</span> <span class="o">=</span> <span class="n">fit_profile</span><span class="p">(</span><span class="n">phase</span><span class="p">,</span> <span class="n">profile</span><span class="p">,</span> <span class="n">data_type</span><span class="p">,</span> <span class="n">observation_type</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+                <span class="n">profile_parameters</span><span class="p">,</span> <span class="n">R2</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">y_fit</span><span class="p">,</span> <span class="n">popt</span> <span class="o">=</span> <span class="n">fit_prof</span><span class="o">.</span><span class="n">_fit</span><span class="p">(</span><span class="n">wave_ctr_line</span><span class="o">=</span><span class="n">wave_ctr_line</span><span class="p">,</span> <span class="n">mask_x</span><span class="o">=</span><span class="n">mask_x</span><span class="p">,</span> <span class="n">print_output</span><span class="o">=</span><span class="n">print_output</span><span class="p">)</span>
+
+                <span class="n">continuum</span> <span class="o">=</span> <span class="n">profile_parameters</span><span class="p">[</span><span class="s2">&quot;continuum&quot;</span><span class="p">]</span>
+                <span class="n">central_rv</span> <span class="o">=</span> <span class="n">profile_parameters</span><span class="p">[</span><span class="s2">&quot;central_rv&quot;</span><span class="p">]</span>
+                <span class="n">intensity</span> <span class="o">=</span> <span class="n">profile_parameters</span><span class="p">[</span><span class="s2">&quot;intensity&quot;</span><span class="p">]</span>
+                <span class="n">width</span> <span class="o">=</span> <span class="n">profile_parameters</span><span class="p">[</span><span class="s2">&quot;width&quot;</span><span class="p">]</span>
+
+                <span class="k">if</span> <span class="n">plot_fit</span><span class="p">:</span>
+                    <span class="n">plot_profile_fit</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">y_fit</span><span class="o">=</span><span class="n">y_fit</span><span class="p">,</span> <span class="n">phase</span><span class="o">=</span><span class="n">phase</span><span class="p">,</span> <span class="n">data_type</span><span class="o">=</span><span class="n">data_type</span><span class="p">,</span> <span class="n">observation_type</span><span class="o">=</span><span class="n">observation_type</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="n">save</span><span class="p">)</span>
+
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span> <span class="c1"># if no fit is achieved</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Could not fit phase </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">phase</span><span class="p">)[:</span><span class="mi">6</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                <span class="n">continuum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">])</span>
+                <span class="n">R2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+                <span class="n">popt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">])</span>
+
+                <span class="k">if</span> <span class="n">num_lines</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">central_rv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">])</span>
+                    <span class="n">intensity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">])</span>
+                    <span class="n">width</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">central_rv</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">])</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_lines</span><span class="p">)]</span>
+                    <span class="n">intensity</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">])</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_lines</span><span class="p">)]</span>
+                    <span class="n">width</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">])</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_lines</span><span class="p">)]</span>
+            
+            <span class="c1"># Store continuum (same for all lines)</span>
+            <span class="n">continuum_array</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">continuum_array</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">continuum</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">continuum</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">R2_array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">R2</span>
+            <span class="n">flux_fit_params</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">popt</span><span class="p">)</span>
+
+            <span class="c1"># Store line-specific parameters</span>
+            <span class="k">if</span> <span class="n">num_lines</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">central_rv_array</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">central_rv_array</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">central_rv</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">central_rv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">intensity_array</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">intensity_array</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">intensity</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">intensity</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">width_array</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">width_array</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">width</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">width</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_lines</span><span class="p">):</span>
+                    <span class="n">central_rv_array</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">central_rv_array</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">central_rv</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">central_rv</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="n">intensity_array</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">intensity_array</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">intensity</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">intensity</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="n">width_array</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">width_array</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">width</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">width</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">plot_fit</span> <span class="ow">and</span> <span class="n">observation_type</span> <span class="o">==</span> <span class="s2">&quot;local&quot;</span><span class="p">:</span>
+            <span class="n">plot_R2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">in_phases</span><span class="p">,</span> <span class="n">R2_array</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="n">save</span><span class="p">)</span>
+        
+        <span class="n">profile_params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;central_rv&quot;</span><span class="p">:</span> <span class="n">central_rv_array</span><span class="p">,</span> 
+                          <span class="s2">&quot;continuum&quot;</span><span class="p">:</span> <span class="n">continuum_array</span><span class="p">,</span> 
+                          <span class="s2">&quot;intensity&quot;</span><span class="p">:</span> <span class="n">intensity_array</span><span class="p">,</span> 
+                          <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="n">width_array</span><span class="p">,</span> 
+                          <span class="s2">&quot;R2&quot;</span><span class="p">:</span> <span class="n">R2_array</span><span class="p">,</span> 
+                          <span class="s2">&quot;flux_fit_params&quot;</span><span class="p">:</span> <span class="n">flux_fit_params</span><span class="p">}</span>
+        
+        <span class="k">return</span> <span class="n">profile_params</span></div>
+
+    
+
+<div class="viewcode-block" id="HECATE.local_params_linear_fit">
+<a class="viewcode-back" href="../../generated/HECATE.HECATE.html#HECATE.HECATE.HECATE.local_params_linear_fit">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">local_params_linear_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">local_param</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">indices_final</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">title</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">priors</span><span class="p">:</span><span class="nb">list</span><span class="p">,</span> <span class="n">plot_nested</span><span class="p">:</span><span class="nb">bool</span><span class="p">,</span> <span class="n">axes_to_fit</span><span class="p">:</span><span class="nb">list</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Performs a tentative linear fit by applying nested sampling through `dynesty, comparing between a constant and unconstrained models, and then between a linear model with a positive slope and one with a negative slope.</span>
+<span class="sd">        Useful for a first approximation analysis of the local CCF parameters.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        local_param : `numpy array`</span>
+<span class="sd">            array of a given local CCFs parameter (central RV, width, intensity).</span>
+<span class="sd">        indices_final : `numpy array`</span>
+<span class="sd">            indices of local CCFs to use (to discard bad data).</span>
+<span class="sd">        title : `str` </span>
+<span class="sd">            CCF parameter to use as title in the plot.</span>
+<span class="sd">        priors : `list`</span>
+<span class="sd">            half of range of linear fit parameters (m, b) to use as priors.</span>
+<span class="sd">        plot_nested : `bool`</span>
+<span class="sd">            whether to plot the trace and corner plots from the `dynesty` packages.</span>
+<span class="sd">        axes_to_fit : `list`, optional</span>
+<span class="sd">            List of axes to fit: [&quot;phases&quot;, &quot;mu&quot;]. If None, defaults to both axes (backward compatible).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        phases_data : `dict` or None</span>
+<span class="sd">            contains phases (&#39;x&#39;), the label of phases (&#39;label&#39;), grid of phases for plotting (&#39;x_grid&#39;), fitted CCF parameter (&#39;y_fit&#39;) as an array (value, error), grid of fitted CCF parameter (&#39;y_grid&#39;) as an array (value, error) and &#39;residual&#39; between y and y_fit as an array (value, error). None if &quot;phases&quot; not in axes_to_fit.</span>
+<span class="sd">        mu_data : `dict` or None</span>
+<span class="sd">            contains mu (x), the label of mu (&#39;label&#39;), grid of phases for plotting (&#39;x_grid&#39;), fitted CCF parameter (&#39;y_fit&#39;) as an array (value, error), grid of fitted CCF parameter (&#39;y_grid&#39;) as an array (value, error) and &#39;residual&#39; between y and y_fit as an array (value, error). None if &quot;mu&quot; not in axes_to_fit.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">axes_to_fit</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">axes_to_fit</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;phases&quot;</span><span class="p">,</span> <span class="s2">&quot;mu&quot;</span><span class="p">]</span>
+        
+        <span class="n">phases_data</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">mu_data</span> <span class="o">=</span> <span class="kc">None</span>
+        
+        <span class="k">if</span> <span class="s2">&quot;phases&quot;</span> <span class="ow">in</span> <span class="n">axes_to_fit</span><span class="p">:</span>
+            <span class="n">phases_data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">in_phases</span><span class="p">[</span><span class="n">indices_final</span><span class="p">],</span> <span class="s2">&quot;label&quot;</span><span class="p">:</span><span class="s2">&quot;Orbital phases&quot;</span><span class="p">}</span>
+        <span class="k">if</span> <span class="s2">&quot;mu&quot;</span> <span class="ow">in</span> <span class="n">axes_to_fit</span><span class="p">:</span>
+            <span class="n">mu_data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">mu_in</span><span class="p">[</span><span class="n">indices_final</span><span class="p">],</span> <span class="s2">&quot;label&quot;</span><span class="p">:</span><span class="sa">r</span><span class="s2">&quot;$\mu$&quot;</span><span class="p">}</span>
+        
+        <span class="n">m_span</span><span class="p">,</span> <span class="n">b_span</span> <span class="o">=</span> <span class="n">priors</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">priors</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">50</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+        
+        <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="p">[</span><span class="n">phases_data</span><span class="p">,</span> <span class="n">mu_data</span><span class="p">]:</span>
+            
+            <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">]</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">local_param</span><span class="p">[:,</span><span class="mi">0</span><span class="p">][</span><span class="n">indices_final</span><span class="p">]</span>
+            <span class="n">yerr</span> <span class="o">=</span> <span class="n">local_param</span><span class="p">[:,</span><span class="mi">1</span><span class="p">][</span><span class="n">indices_final</span><span class="p">]</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="o">*</span><span class="mi">40</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">])</span>
+            
+            <span class="n">valid_mask</span> <span class="o">=</span> <span class="o">~</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">yerr</span><span class="p">))</span> <span class="c1"># filter out NaN values</span>
+            <span class="n">x_clean</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">valid_mask</span><span class="p">]</span>
+            <span class="n">y_clean</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">valid_mask</span><span class="p">]</span>
+            <span class="n">yerr_clean</span> <span class="o">=</span> <span class="n">yerr</span><span class="p">[</span><span class="n">valid_mask</span><span class="p">]</span>
+            
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_clean</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Warning: Not enough valid data points for </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> (only </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">x_clean</span><span class="p">)</span><span class="si">}</span><span class="s2"> after filtering)&quot;</span><span class="p">)</span>
+                <span class="k">continue</span>
+        
+            <span class="n">results_nested</span> <span class="o">=</span> <span class="n">run_nestedsampler</span><span class="p">(</span><span class="n">x_clean</span><span class="p">,</span> <span class="n">y_clean</span><span class="p">,</span> <span class="n">yerr_clean</span><span class="p">,</span> <span class="n">m_span</span><span class="p">,</span> <span class="n">b_span</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="n">plot_nested</span><span class="p">)</span><span class="o">.</span><span class="n">results</span>
+            <span class="n">lin_params</span><span class="p">,</span> <span class="n">model</span> <span class="o">=</span> <span class="n">results_nested</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">results_nested</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="n">x_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x_clean</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">x_clean</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">100</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">model</span> <span class="o">==</span> <span class="s2">&quot;zero&quot;</span><span class="p">:</span>
+                <span class="n">y_fit</span> <span class="o">=</span> <span class="n">lin_params</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">x_clean</span><span class="p">)</span>
+                <span class="n">dy_fit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">lin_params</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">x_clean</span><span class="p">)</span>
+                <span class="n">y_grid</span> <span class="o">=</span> <span class="n">lin_params</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">x_grid</span><span class="p">)</span>
+                <span class="n">dy_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">lin_params</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">x_grid</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">y_fit</span> <span class="o">=</span> <span class="n">x_clean</span><span class="o">*</span><span class="n">lin_params</span><span class="p">[</span><span class="s2">&quot;m&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">lin_params</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">dy_fit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">x_clean</span><span class="o">*</span><span class="n">lin_params</span><span class="p">[</span><span class="s2">&quot;m&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">lin_params</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+                <span class="n">y_grid</span> <span class="o">=</span> <span class="n">x_grid</span><span class="o">*</span><span class="n">lin_params</span><span class="p">[</span><span class="s2">&quot;m&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">lin_params</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">dy_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">x_grid</span><span class="o">*</span><span class="n">lin_params</span><span class="p">[</span><span class="s2">&quot;m&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">lin_params</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+            <span class="n">residual</span> <span class="o">=</span> <span class="n">y_clean</span> <span class="o">-</span> <span class="n">y_fit</span>
+            <span class="n">residual_err</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">yerr_clean</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># + dy_fit**2)</span>
+
+            <span class="n">data</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">x_clean</span>
+            <span class="n">data</span><span class="p">[</span><span class="s2">&quot;x_grid&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">x_grid</span>
+            <span class="n">data</span><span class="p">[</span><span class="s2">&quot;y_fit&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">y_fit</span><span class="p">,</span> <span class="n">dy_fit</span><span class="p">])</span>
+            <span class="n">data</span><span class="p">[</span><span class="s2">&quot;y_grid&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">y_grid</span><span class="p">,</span> <span class="n">dy_grid</span><span class="p">])</span>
+            <span class="n">data</span><span class="p">[</span><span class="s2">&quot;residual&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">residual</span><span class="p">,</span> <span class="n">residual_err</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">phases_data</span><span class="p">,</span> <span class="n">mu_data</span></div>
+
+
+
+<div class="viewcode-block" id="HECATE.plot_local_params">
+<a class="viewcode-back" href="../../generated/HECATE.HECATE.html#HECATE.HECATE.HECATE.plot_local_params">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot_local_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices_final</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">local_params</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">master_params</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">suptitle</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">linear_fit</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">plot_nested</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">linear_fit_pairs</span><span class="p">:</span><span class="nb">list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Plot local CCF parameters (central RV, line-width measure and line-center intensity) in function of orbital phases and mu.</span>
+<span class="sd">        Optionally, a linear fit via nested sampling is tested for specified parameter-axis pairs, plotting the fit and the corresponding residuals.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        indices_final : `numpy array`</span>
+<span class="sd">            indices of local CCFs to use (to discard bad data).</span>
+<span class="sd">        local_params : `numpy array`</span>
+<span class="sd">            array of local CCFs parameters (central RV, width, intensity).</span>
+<span class="sd">        master_params : `numpy array` </span>
+<span class="sd">            average out-of-transit CCF parameters.</span>
+<span class="sd">        suptitle : `str`, optional</span>
+<span class="sd">            title to display above the figure.</span>
+<span class="sd">        linear_fit : `bool`</span>
+<span class="sd">            whether to perform a tentative linear fit via nested sampling on all parameters and axes.</span>
+<span class="sd">        plot_nested : `bool`</span>
+<span class="sd">            whether to plot the trace and corner plots from the `dynesty` packages.</span>
+<span class="sd">        linear_fit_pairs : `list`, optional</span>
+<span class="sd">            List of tuples specifying which (axis, parameter_index) pairs should have linear fits.</span>
+<span class="sd">            Example: [(&quot;phases&quot;, 0), (&quot;mu&quot;, 1), (&quot;phases&quot;, 2)].</span>
+<span class="sd">            If None and linear_fit=True, fits all parameters on both axes (backward compatible).</span>
+<span class="sd">            If specified, only those pairs will have linear fits.</span>
+<span class="sd">        save</span>
+<span class="sd">            path to save plots.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">linear_fit_pairs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">linear_fit_pairs_set</span> <span class="o">=</span> <span class="p">{(</span><span class="n">axis</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">axis</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;phases&quot;</span><span class="p">,</span> <span class="s2">&quot;mu&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)}</span> <span class="k">if</span> <span class="n">linear_fit</span> <span class="k">else</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">linear_fit_pairs_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">linear_fit_pairs</span><span class="p">)</span>
+        
+        <span class="n">need_linear_fit</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">linear_fit_pairs_set</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        
+        <span class="k">if</span> <span class="n">need_linear_fit</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">suptitle</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">fig_ph</span><span class="p">,</span> <span class="n">axes_ph</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mf">6.7</span><span class="p">),</span> <span class="n">gridspec_kw</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;height_ratios&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]},</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">fig_mu</span><span class="p">,</span> <span class="n">axes_mu</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mf">6.7</span><span class="p">),</span> <span class="n">gridspec_kw</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;height_ratios&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]},</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">fig_ph</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="n">suptitle</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+                <span class="n">fig_mu</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="n">suptitle</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">fig_ph</span><span class="p">,</span> <span class="n">axes_ph</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mf">6.2</span><span class="p">),</span> <span class="n">gridspec_kw</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;height_ratios&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]})</span>
+                <span class="n">fig_mu</span><span class="p">,</span> <span class="n">axes_mu</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mf">6.2</span><span class="p">),</span> <span class="n">gridspec_kw</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;height_ratios&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]})</span>
+        
+        <span class="k">else</span><span class="p">:</span> 
+            <span class="k">if</span> <span class="n">suptitle</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">fig_ph</span><span class="p">,</span> <span class="n">axes_ph</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mf">4.7</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">fig_mu</span><span class="p">,</span> <span class="n">axes_mu</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mf">4.7</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">fig_ph</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="n">suptitle</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+                <span class="n">fig_mu</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="n">suptitle</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">fig_ph</span><span class="p">,</span> <span class="n">axes_ph</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mf">4.2</span><span class="p">))</span>
+                <span class="n">fig_mu</span><span class="p">,</span> <span class="n">axes_mu</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mf">4.2</span><span class="p">))</span>
+
+        <span class="n">width_unit</span> <span class="o">=</span> <span class="s2">&quot;km/s&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_type</span> <span class="o">==</span> <span class="s2">&quot;CCF&quot;</span> <span class="k">else</span> <span class="sa">r</span><span class="s2">&quot;$\AA$&quot;</span>
+        <span class="n">titles</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Central Radial Velocity [km/s]&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Line-width measure [</span><span class="si">{</span><span class="n">width_unit</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">,</span> <span class="s1">&#39;Line-center intensity [%]&#39;</span><span class="p">]</span>
+        <span class="n">ylabels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;[km/s]&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">width_unit</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">,</span> <span class="s2">&quot;[%]&quot;</span><span class="p">]</span>
+
+        <span class="n">ph_range</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">tr_dur</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr_dur</span><span class="o">/</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">ph_range_inner</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">tr_ingress_egress</span><span class="o">/</span><span class="mi">2</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">tr_dur</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tr_dur</span><span class="o">/</span><span class="mi">2</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">tr_ingress_egress</span><span class="o">/</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">mu_range</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.6</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">mu_min</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mu_max</span><span class="p">]</span>
+        <span class="n">mu_range_inner</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">mu_min</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mu_max</span><span class="p">]</span>
+
+        <span class="n">plot_data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;phases&quot;</span><span class="p">:[</span><span class="n">axes_ph</span><span class="p">,</span> <span class="n">ph_range</span><span class="p">,</span> <span class="n">ph_range_inner</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_phases</span><span class="p">[</span><span class="n">indices_final</span><span class="p">]],</span> <span class="s2">&quot;mu&quot;</span><span class="p">:[</span><span class="n">axes_mu</span><span class="p">,</span> <span class="n">mu_range</span><span class="p">,</span> <span class="n">mu_range_inner</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mu_in</span><span class="p">[</span><span class="n">indices_final</span><span class="p">]]}</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ylabels</span><span class="p">)):</span>
+
+            <span class="n">plot_index</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">)</span> <span class="k">if</span> <span class="n">need_linear_fit</span> <span class="k">else</span> <span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">need_linear_fit</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> 
+                <span class="n">axes_ph</span><span class="p">[</span><span class="n">plot_index</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Orbital phases&quot;</span><span class="p">)</span>
+                <span class="n">axes_mu</span><span class="p">[</span><span class="n">plot_index</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$\mu$&quot;</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">plot_data</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+
+                <span class="n">ax</span> <span class="o">=</span> <span class="n">plot_data</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">x_range</span> <span class="o">=</span> <span class="n">plot_data</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">x_range_inner</span> <span class="o">=</span> <span class="n">plot_data</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">plot_data</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span>
+
+                <span class="n">ax</span><span class="p">[</span><span class="n">plot_index</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">titles</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">17</span><span class="p">)</span>
+
+                <span class="n">l0</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="n">plot_index</span><span class="p">]</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">x_range</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x_range</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+                <span class="n">l1</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="n">plot_index</span><span class="p">]</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">x_range_inner</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x_range_inner</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+                <span class="n">l2</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="n">plot_index</span><span class="p">]</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">master_params</span><span class="p">[</span><span class="n">i</span><span class="p">][:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">ax</span><span class="p">[</span><span class="n">plot_index</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">local_params</span><span class="p">[</span><span class="n">i</span><span class="p">][:,</span><span class="mi">0</span><span class="p">][</span><span class="n">indices_final</span><span class="p">],</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span><span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+                <span class="n">ax</span><span class="p">[</span><span class="n">plot_index</span><span class="p">]</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">local_params</span><span class="p">[</span><span class="n">i</span><span class="p">][:,</span><span class="mi">0</span><span class="p">][</span><span class="n">indices_final</span><span class="p">],</span> <span class="n">yerr</span><span class="o">=</span><span class="n">local_params</span><span class="p">[</span><span class="n">i</span><span class="p">][:,</span><span class="mi">1</span><span class="p">][</span><span class="n">indices_final</span><span class="p">],</span> <span class="n">capsize</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">capthick</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">elinewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+                
+                <span class="n">ax</span><span class="p">[</span><span class="n">plot_index</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Value &quot;</span> <span class="o">+</span> <span class="n">ylabels</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+                <span class="n">ax</span><span class="p">[</span><span class="n">plot_index</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+                <span class="n">ax</span><span class="p">[</span><span class="n">plot_index</span><span class="p">]</span><span class="o">.</span><span class="n">set_axisbelow</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">ax</span><span class="p">[</span><span class="n">plot_index</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">x_range</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="s2">&quot;phases&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="ow">in</span> <span class="n">linear_fit_pairs_set</span> <span class="ow">or</span> <span class="p">(</span><span class="s2">&quot;mu&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="ow">in</span> <span class="n">linear_fit_pairs_set</span><span class="p">:</span>
+                <span class="n">axes_to_fit</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">if</span> <span class="p">(</span><span class="s2">&quot;phases&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="ow">in</span> <span class="n">linear_fit_pairs_set</span><span class="p">:</span>
+                    <span class="n">axes_to_fit</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;phases&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="p">(</span><span class="s2">&quot;mu&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="ow">in</span> <span class="n">linear_fit_pairs_set</span><span class="p">:</span>
+                    <span class="n">axes_to_fit</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;mu&quot;</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> 
+                    <span class="n">priors</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+                <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> 
+                    <span class="n">priors</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">]</span>
+                <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span> 
+                    <span class="n">priors</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">]</span>
+
+                <span class="n">phases_data</span><span class="p">,</span> <span class="n">mu_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">local_params_linear_fit</span><span class="p">(</span><span class="n">local_params</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">indices_final</span><span class="p">,</span> <span class="n">titles</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">priors</span><span class="p">,</span> <span class="n">plot_nested</span><span class="p">,</span> <span class="n">axes_to_fit</span><span class="o">=</span><span class="n">axes_to_fit</span><span class="p">)</span>
+
+                <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">plot_data</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+
+                    <span class="k">if</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">linear_fit_pairs_set</span><span class="p">:</span>
+                        <span class="n">ax_temp</span> <span class="o">=</span> <span class="n">plot_data</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="n">ax_temp</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+                        <span class="n">ax_temp</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+                        <span class="k">continue</span>
+
+                    <span class="n">ax</span> <span class="o">=</span> <span class="n">plot_data</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">x_range</span> <span class="o">=</span> <span class="n">plot_data</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="n">x_range_inner</span> <span class="o">=</span> <span class="n">plot_data</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+                    <span class="n">data</span> <span class="o">=</span> <span class="n">phases_data</span> <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;phases&quot;</span> <span class="k">else</span> <span class="n">mu_data</span>
+                    
+                    <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+                        <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+                        <span class="k">continue</span>
+
+                    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;y_fit&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+                    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;x_grid&quot;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;y_grid&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;y_grid&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;y_grid&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;y_grid&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([])</span>
+
+                    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">x_range</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x_range</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+                    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">x_range_inner</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x_range_inner</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+                    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;residual&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+                    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;residual&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">yerr</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;residual&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">capsize</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">capthick</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">elinewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+                    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">])</span>
+                    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+                    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_axisbelow</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+                    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">x_range</span><span class="p">)</span>
+                    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;residual&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">])),</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;residual&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]))])</span>
+                    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+                    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Residuals &quot;</span> <span class="o">+</span> <span class="n">ylabels</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+        <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Partially in-transit&#39;</span><span class="p">,</span><span class="s1">&#39;Fully in-transit&#39;</span><span class="p">,</span><span class="s1">&#39;Master out of transit&#39;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">fig</span> <span class="ow">in</span> <span class="p">[</span><span class="n">fig_ph</span><span class="p">,</span> <span class="n">fig_mu</span><span class="p">]:</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="n">l0</span><span class="p">,</span><span class="n">l1</span><span class="p">,</span><span class="n">l2</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower center&#39;</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.07</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">save</span><span class="p">:</span>
+            <span class="n">fig_ph</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">save</span><span class="o">+</span><span class="s2">&quot;local_parameters_phases.pdf&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+            <span class="n">fig_mu</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">save</span><span class="o">+</span><span class="s2">&quot;local_parameters_mu.pdf&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+</div>
+
+
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    def avg_out_of_transit_CCF(self, CCFs:np.array, RV_reference:np.array, plot:bool, save=None):</span>
+<span class="sd">        &quot;&quot;&quot;Computes the average out-of-transit CCF by linearly interpolating the (systemic velocity corrected) CCFs into a common grid.</span>
+<span class="sd">        The interpolated CCF uncertainties are propagated tooking the covariances into account.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        CCFs : `numpy array`</span>
+<span class="sd">            matrix with the out-of-transit CCF profiles, with shape (N_CCFs, 3, N_points).</span>
+<span class="sd">        RV_reference : `numpy array`</span>
+<span class="sd">            RV grid for interpolation.</span>
+<span class="sd">        plot : `bool` </span>
+<span class="sd">            whether to plot the average out of transit CCF.</span>
+<span class="sd">        save </span>
+<span class="sd">            path to save plot.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        CCF_interp : `numpy array`</span>
+<span class="sd">            matrix with interpolated CCF profiles.</span>
+<span class="sd">        avg_out_of_transit_CCF : `numpy array`</span>
+<span class="sd">            matrix with the average out-of-transit CCF profile, with shape (3, N_points).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        M = CCFs.shape[0]</span>
+<span class="sd">        K = CCFs.shape[2]</span>
+
+<span class="sd">        cov_matrix = np.zeros((M, K, K))</span>
+<span class="sd">        N = 10000</span>
+
+<span class="sd">        # covariance matrix obtained by sampling the CCFs 10 000 times</span>
+<span class="sd">        for i in range(M):</span>
+<span class="sd">            samples = np.zeros((K, N))</span>
+
+<span class="sd">            for j in range(K):</span>
+<span class="sd">                ymean = CCFs[i,1,j]</span>
+<span class="sd">                ysigma = CCFs[i,2,j]</span>
+<span class="sd">                samples[j,:] = np.random.normal(ymean, ysigma, N)</span>
+
+<span class="sd">            cov_matrix[i,:,:] = np.cov(samples)</span>
+
+<span class="sd">        out_of_transit_CCFs = np.zeros([len(self.phases_out_indices), 3, len(RV_reference)])</span>
+<span class="sd">        CCF_interp = np.zeros([CCFs.shape[0], 3, CCFs.shape[2]])</span>
+
+<span class="sd">        k, M = 0, 0</span>
+<span class="sd">        for l in range(CCF_interp.shape[0]):</span>
+<span class="sd">            ccf_rv = CCFs[l,0]</span>
+<span class="sd">            ccf_f = CCFs[l,1]</span>
+<span class="sd">            ccf_f_e = cov_matrix[l]  # full covariance matrix</span>
+<span class="sd">            </span>
+<span class="sd">            # build interpolation matrix for this CCF → target grid</span>
+<span class="sd">            W = linear_interpolation_matrix(ccf_rv, RV_reference) </span>
+
+<span class="sd">            y_i = W @ ccf_f # interpolated flux</span>
+<span class="sd">            cov_new = W @ ccf_f_e @ W.T # propagated covariance</span>
+<span class="sd">            y_i_e = np.sqrt(cov_new.diagonal()) # propagated uncertainty</span>
+
+<span class="sd">            CCF_interp[l,0,:] = RV_reference</span>
+<span class="sd">            CCF_interp[l,1,:] = y_i</span>
+<span class="sd">            CCF_interp[l,2,:] = y_i_e</span>
+
+<span class="sd">            if l in self.phases_out_indices:</span>
+
+<span class="sd">                out_of_transit_CCFs[k,0,:] = RV_reference</span>
+<span class="sd">                out_of_transit_CCFs[k,1,:] = y_i</span>
+<span class="sd">                out_of_transit_CCFs[k,2,:] = y_i_e</span>
+
+<span class="sd">                k += 1</span>
+<span class="sd">            else:</span>
+<span class="sd">                M += 1</span>
+
+<span class="sd">        average_out_of_transit_CCF = np.mean(out_of_transit_CCFs[:,1,:], axis=0)</span>
+
+<span class="sd">        A_e = np.sum(out_of_transit_CCFs[:,2,:]**2, axis=0) # propagation of uncertainty into the average CCF</span>
+<span class="sd">        average_out_of_transit_CCF_e = np.sqrt(A_e) / len(self.phases_out_indices)</span>
+
+<span class="sd">        avg_out_of_transit_CCF = np.array([RV_reference, average_out_of_transit_CCF, average_out_of_transit_CCF_e])</span>
+<span class="sd">        </span>
+<span class="sd">        if plot:</span>
+<span class="sd">            plot_avg_out_of_transit_profile(avg_out_of_transit_CCF, save)</span>
+
+<span class="sd">        return CCF_interp, avg_out_of_transit_CCF</span>
+
+<span class="sd">        </span>
+<span class="sd">    def avg_out_of_transit_spectra(self, spectra:np.array, wave_grid:np.ndarray, plot:bool, save=None):</span>
+<span class="sd">        &quot;&quot;&quot;Computes the average out-of-transit spectra by linearly interpolating the sliced spectra into a common grid.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        spectra : `numpy array`</span>
+<span class="sd">            matrix with the out-of-transit spectra, with shape (N_spectra, 3, N_points).</span>
+<span class="sd">        wave_grid : `numpy array`</span>
+<span class="sd">            wavelength grid for interpolation.</span>
+<span class="sd">        plot : `bool` </span>
+<span class="sd">            whether to plot the average out of transit spectrum.</span>
+<span class="sd">        save </span>
+<span class="sd">            path to save plot.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        spectra_interp : `numpy array`</span>
+<span class="sd">            matrix with interpolated spectra.</span>
+<span class="sd">        avg_out_of_transit_spectrum : `numpy array`</span>
+<span class="sd">            matrix with the average out-of-transit spectrum, with shape (3, N_points).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        out_of_transit_spectra = np.zeros([len(self.phases_out_indices), 3, len(wave_grid)])</span>
+<span class="sd">        spectra_interp = np.zeros([spectra.shape[0], 3, spectra.shape[2]])</span>
+
+<span class="sd">        k, M = 0, 0</span>
+<span class="sd">        for l in range(spectra.shape[0]):</span>
+
+<span class="sd">            wave = spectra[l,0,:]</span>
+<span class="sd">            flux = spectra[l,1,:]</span>
+<span class="sd">            flux_err = diags(spectra[l,2,:])**2</span>
+
+<span class="sd">            W = linear_interpolation_matrix(wave, wave_grid) </span>
+
+<span class="sd">            y_i = W @ flux # interpolated flux</span>
+<span class="sd">            cov_new = W @ flux_err @ W.T # propagated covariance</span>
+<span class="sd">            y_i_e = np.sqrt(cov_new.diagonal()) # propagated uncertainty</span>
+
+<span class="sd">            spectra_interp[l,0,:] = wave_grid</span>
+<span class="sd">            spectra_interp[l,1,:] = y_i</span>
+<span class="sd">            spectra_interp[l,2,:] = y_i_e</span>
+
+<span class="sd">            if l in self.phases_out_indices:</span>
+<span class="sd">                out_of_transit_spectra[k,0,:] = wave_grid</span>
+<span class="sd">                out_of_transit_spectra[k,1,:] = y_i</span>
+<span class="sd">                out_of_transit_spectra[k,2,:] = y_i_e</span>
+<span class="sd">                k += 1</span>
+<span class="sd">            else:</span>
+<span class="sd">                M += 1</span>
+
+<span class="sd">        average_out_of_transit_flux = np.mean(out_of_transit_spectra[:,1,:], axis=0)</span>
+
+<span class="sd">        A_e = np.sum(out_of_transit_spectra[:,2,:]**2, axis=0) # propagation of uncertainty into the average CCF</span>
+<span class="sd">        average_out_of_transit_flux_e = np.sqrt(A_e) / len(self.phases_out_indices)</span>
+
+<span class="sd">        avg_out_of_transit_spectrum = np.array([wave_grid, average_out_of_transit_flux, average_out_of_transit_flux_e])</span>
+
+<span class="sd">        if plot:</span>
+<span class="sd">            plot_avg_out_of_transit_profile(avg_out_of_transit_spectrum, profile_type=&quot;spectrum&quot;, save=save)</span>
+
+<span class="sd">        return spectra_interp, avg_out_of_transit_spectrum</span>
+<span class="sd">&#39;&#39;&#39;</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Telmo Monteiro.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

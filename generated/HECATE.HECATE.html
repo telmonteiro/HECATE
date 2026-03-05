@@ -1,0 +1,443 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HECATE.HECATE &mdash; HECATE 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=ccdb6887"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="HECATE.build_CCF" href="HECATE.build_CCF.html" />
+    <link rel="prev" title="API Reference" href="../api.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            HECATE
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../documentation.html">User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/index.html">Tutorials</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#core-class">Core Class</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">HECATE.HECATE</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#HECATE.HECATE.HECATE"><code class="docutils literal notranslate"><span class="pre">HECATE</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#modules">Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="HECATE.build_CCF.html">HECATE.build_CCF</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="HECATE.build_CCF.html#HECATE.build_CCF.build_CCF"><code class="docutils literal notranslate"><span class="pre">build_CCF</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="HECATE.get_data.html">HECATE.get_data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="HECATE.get_data.html#HECATE.get_data.get_CCFs"><code class="docutils literal notranslate"><span class="pre">get_CCFs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="HECATE.get_data.html#HECATE.get_data.get_spectra"><code class="docutils literal notranslate"><span class="pre">get_spectra()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="HECATE.run_SOAP.html">HECATE.run_SOAP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="HECATE.run_SOAP.html#HECATE.run_SOAP.run_SOAP"><code class="docutils literal notranslate"><span class="pre">run_SOAP</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="HECATE.utils.html">HECATE.utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="HECATE.utils.html#HECATE.utils.get_phase_mu"><code class="docutils literal notranslate"><span class="pre">get_phase_mu</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="HECATE.utils.html#HECATE.utils.linear_interpolation_matrix"><code class="docutils literal notranslate"><span class="pre">linear_interpolation_matrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="HECATE.utils.html#HECATE.utils.profile_models"><code class="docutils literal notranslate"><span class="pre">profile_models</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="HECATE.utils.html#HECATE.utils.fit_profile"><code class="docutils literal notranslate"><span class="pre">fit_profile</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="HECATE.plots.html">HECATE.plots</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="HECATE.plots.html#HECATE.plots.plot_air_snr"><code class="docutils literal notranslate"><span class="pre">plot_air_snr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="HECATE.plots.html#HECATE.plots.plot_R2"><code class="docutils literal notranslate"><span class="pre">plot_R2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="HECATE.plots.html#HECATE.plots.plot_sysvel_corr_CCF"><code class="docutils literal notranslate"><span class="pre">plot_sysvel_corr_CCF()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="HECATE.plots.html#HECATE.plots.plot_avg_out_of_transit_profile"><code class="docutils literal notranslate"><span class="pre">plot_avg_out_of_transit_profile()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="HECATE.plots.html#HECATE.plots.plot_profile_fit"><code class="docutils literal notranslate"><span class="pre">plot_profile_fit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="HECATE.plots.html#HECATE.plots.plot_local_profile"><code class="docutils literal notranslate"><span class="pre">plot_local_profile()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="HECATE.nested_sampling.html">HECATE.nested_sampling</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="HECATE.nested_sampling.html#HECATE.nested_sampling.run_nestedsampler"><code class="docutils literal notranslate"><span class="pre">run_nestedsampler</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="HECATE.spectral_normalization.html">HECATE.spectral_normalization</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="HECATE.spectral_normalization.html#HECATE.spectral_normalization.norm_spec"><code class="docutils literal notranslate"><span class="pre">norm_spec</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="HECATE.multi_night_analysis.html">HECATE.multi_night_analysis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="HECATE.multi_night_analysis.html#HECATE.multi_night_analysis.multi_night_analysis"><code class="docutils literal notranslate"><span class="pre">multi_night_analysis</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HECATE</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../api.html">API Reference</a></li>
+      <li class="breadcrumb-item active">HECATE.HECATE</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/generated/HECATE.HECATE.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-HECATE.HECATE">
+<span id="hecate-hecate"></span><h1>HECATE.HECATE<a class="headerlink" href="#module-HECATE.HECATE" title="Link to this heading"></a></h1>
+<p class="rubric">Classes</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#HECATE.HECATE.HECATE" title="HECATE.HECATE.HECATE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HECATE</span></code></a></p></td>
+<td><p>Main class for HECATE operations, allowing for the easy application of the Doppler Shadow technique to high-resolution data.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="HECATE.HECATE.HECATE">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">HECATE</span></span><a class="reference internal" href="../_modules/HECATE/HECATE.html#HECATE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HECATE.HECATE.HECATE" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Main class for HECATE operations, allowing for the easy application of the Doppler Shadow technique to high-resolution data.</p>
+<p>This class encapsulates the extraction of local spectra/CCFs, as well as the analysis of their shapes (width, intensity, RV) and behavior (linearity, for now).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>planet_params</strong> (<cite>dict</cite>) – dictionary containing the following planetary parameters: orbital period, system scale, planet-to-star radius ratio, mid-transit time, eccentricity, argument of periastron, planetary inclination and spin-orbit angle.</p></li>
+<li><p><strong>stellar_params</strong> (<cite>dict</cite>) – dictionary containing the following stellar parameters: effective temperature and error, superficial gravity and error, metallicity and error, rotation period, radius and stellar inclination.</p></li>
+<li><p><strong>time</strong> (<cite>numpy array</cite>) – time of observations in BJD.</p></li>
+<li><p><strong>CCFs</strong> (<cite>numpy array</cite>) – matrix with the CCF profiles (RV, flux and flux error), with shape (N_CCFs, 3, N_points).</p></li>
+<li><p><strong>spectra</strong> (<cite>numpy array</cite>) – matrix with spectral line profiles (wavelength, flux and flux error), with shape (N_spectra, 3, N_points).</p></li>
+<li><p><strong>soap_wv</strong> (<cite>numpy array</cite>, optional) – wavelength interval [min, max] in nm for SOAP simulation. Default is [380, 788].</p></li>
+<li><p><strong>plot_soap</strong> (<cite>bool</cite>, optional) – whether to plot the simulated light curve from SOAP. Default is False.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="HECATE.HECATE.HECATE.extract_local_CCF">
+<span class="sig-name descname"><span class="pre">extract_local_CCF</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_fit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/HECATE/HECATE.html#HECATE.extract_local_CCF"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HECATE.HECATE.HECATE.extract_local_CCF" title="Link to this definition"></a></dt>
+<dd><p>run all steps of the Doppler Shadow extraction and returns the local CCFs. Ideal for quick extraction.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HECATE.HECATE.HECATE.extract_local_spectral_line">
+<span class="sig-name descname"><span class="pre">extract_local_spectral_line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_fit_ccf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wave_lims</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">masks_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/HECATE/HECATE.html#HECATE.extract_local_spectral_line"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HECATE.HECATE.HECATE.extract_local_spectral_line" title="Link to this definition"></a></dt>
+<dd><p>run all steps of the Doppler Shadow extraction for spectral lines and returns the local spectra.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HECATE.HECATE.HECATE.avg_out_of_transit_profile">
+<span class="sig-name descname"><span class="pre">avg_out_of_transit_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">profiles</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_reference</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/HECATE/HECATE.html#HECATE.avg_out_of_transit_profile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HECATE.HECATE.HECATE.avg_out_of_transit_profile" title="Link to this definition"></a></dt>
+<dd><p>computes the average out-of-transit profile (CCF or spectral line).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HECATE.HECATE.HECATE.get_profile_parameters">
+<span class="sig-name descname"><span class="pre">get_profile_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">profiles</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observation_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">print_output</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_fit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wave_ctr_line</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/HECATE/HECATE.html#HECATE.get_profile_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HECATE.HECATE.HECATE.get_profile_parameters" title="Link to this definition"></a></dt>
+<dd><p>computes profile parameters (central RV, width, intensity) for CCFs or spectral lines.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HECATE.HECATE.HECATE.sysvel_correction_CCF">
+<span class="sig-name descname"><span class="pre">sysvel_correction_CCF</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">CCFs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">print_output</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_fits</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_sys_vel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/HECATE/HECATE.html#HECATE.sysvel_correction_CCF"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HECATE.HECATE.HECATE.sysvel_correction_CCF" title="Link to this definition"></a></dt>
+<dd><p>removes the stellar systemic velocity from the initial CCFs RVs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HECATE.HECATE.HECATE._local_params_linear_fit">
+<span class="sig-name descname"><span class="pre">_local_params_linear_fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">local_param</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices_final</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">priors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_nested</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axes_to_fit</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#HECATE.HECATE.HECATE._local_params_linear_fit" title="Link to this definition"></a></dt>
+<dd><p>tests the linearity of local CCF parameters via nested sampling from Dynesty.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HECATE.HECATE.HECATE.plot_local_params">
+<span class="sig-name descname"><span class="pre">plot_local_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indices_final</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">master_params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suptitle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linear_fit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_nested</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linear_fit_pairs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/HECATE/HECATE.html#HECATE.plot_local_params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HECATE.HECATE.HECATE.plot_local_params" title="Link to this definition"></a></dt>
+<dd><p>plots the local CCF parameters in function of orbital phases and mu.</p>
+</dd></dl>
+
+<p class="rubric">Notes</p>
+<p>This tool was based on the work of Gonçalves, E. et al. (2026) and contains a wrapper of SOAPv4 (Cristo, E. et al., 2025).</p>
+<p class="rubric">References</p>
+<p>[1] Gonçalves, E. et al., “Exploring the surface of HD 189733 via Doppler Shadow Analysis of Planetary Transits,” Astronomy &amp; Astrophysics, 2026</p>
+<p>[2] Cristo, E. et al., “SOAPv4: A new step toward modeling stellar signatures in exoplanet research”, Astronomy &amp; Astrophysics, Vol. 702, A84, 17pp., 2025</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="HECATE.HECATE.HECATE.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">planet_params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stellar_params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CCFs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spectra</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">soap_wv</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[380,</span> <span class="pre">788]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_soap</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/HECATE/HECATE.html#HECATE.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HECATE.HECATE.HECATE.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">extract_local_CCF</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_fit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/HECATE/HECATE.html#HECATE.extract_local_CCF"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Link to this definition"></a></dt>
+<dd><p>Run all steps of the Doppler Shadow extraction (simulated light curve, systemic velocity correction, compute average out-of-transit CCF and subtraction) and returns the local CCFs.
+Ideal for quick extraction of local CCFs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model_fit</strong> (<cite>str</cite>) – profile model to fit to CCFs.</p></li>
+<li><p><strong>plot</strong> (<cite>dict</cite>) – dictionary including boolean value for each type of plot available (SOAP, fits_initial_CCF, sys_vel, avg_out_of_transit_CCF, local_CCFs and whether to photometrical rescale).</p></li>
+<li><p><strong>save</strong> – path to save plots.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>local_CCFs</strong> (<cite>numpy array</cite>) – matrix with the local (in-transit) CCF profiles (RV, flux and flux error), with shape (N_CCFs, 3, N_points).</p></li>
+<li><p><strong>CCFs_flux_corr</strong> (<cite>numpy array</cite>) – matrix with all CCF profiles, only flux corrected, with shape (N_CCFs, 3, N_points)</p></li>
+<li><p><strong>CCFs_sub_all</strong> (<cite>numpy array</cite>) – matrix with all CCF profiles, flux corrected and subtracted from average out-of-transit, with shape (N_CCFs, 3, N_points).</p></li>
+<li><p><strong>average_out_of_transit_CCF</strong> (<cite>numpy array</cite>) – matrix with the average out-of-transit CCF profile, with shape (3, N_points).</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">extract_local_spectral_line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_fit_ccf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wave_lims</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">masks_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{'continuum':</span> <span class="pre">[(6538.8,</span> <span class="pre">6545.8),</span> <span class="pre">(6546.9,</span> <span class="pre">6551.4),</span> <span class="pre">(6575.6,</span> <span class="pre">6579.8),</span> <span class="pre">(6581.4,</span> <span class="pre">6586.05)],</span> <span class="pre">'glob_norm':</span> <span class="pre">[(6400,</span> <span class="pre">6800)],</span> <span class="pre">'line_window':</span> <span class="pre">[(6535,</span> <span class="pre">6590)],</span> <span class="pre">'spec_slice':</span> <span class="pre">[(6450,</span> <span class="pre">6650)]}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/HECATE/HECATE.html#HECATE.extract_local_spectral_line"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id1" title="Link to this definition"></a></dt>
+<dd><p>Run all steps of the Doppler Shadow extraction (simulated light curve, systemic velocity correction, compute average out-of-transit CCF and subtraction) and returns the local CCFs.
+Ideal for quick extraction of local CCFs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model_fit_ccf</strong> (<cite>str</cite>) – profile model to fit to white light CCFs.</p></li>
+<li><p><strong>plot</strong> (<cite>dict</cite>) – dictionary including boolean value for each type of plot available (SOAP, fits_initial_CCF, sys_vel_CCF, sys_vel_line, avg_out_of_transit_spectra, local_spec_line).</p></li>
+<li><p><strong>line_name</strong> (<cite>str</cite>) – name of the spectral line.</p></li>
+<li><p><strong>wave_lims</strong> (<cite>list</cite>) – wavelength interval to plot in the tomography plot.</p></li>
+<li><p><strong>masks_dict</strong> (<cite>dict</cite>) – dictionary containing the wavvelength masks as lists of tuples for (1) global normalization (2) spectrum slice to save memory (3) window containing the line of interest (4) bits of spectrum continuum (5) spectral line to fit for systemic velocity correction.</p></li>
+<li><p><strong>save</strong> – path to save plots.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>local_spectra</strong> (<cite>numpy array</cite>) – matrix with the local (in-transit) spectral line profiles (wavelength, flux and flux error), with shape (N_spectra, 3, N_points).</p></li>
+<li><p><strong>spectra_flux_corr</strong> (<cite>numpy array</cite>) – matrix with all spectral line profiles, only flux corrected, with shape (N_spectra, 3, N_points)</p></li>
+<li><p><strong>spectra_sub_all</strong> (<cite>numpy array</cite>) – matrix with all spectral line profiles, flux corrected and subtracted from average out-of-transit, with shape (N_spectra, 3, N_points).</p></li>
+<li><p><strong>avg_out_of_transit_spectrum</strong> (<cite>numpy array</cite>) – matrix with the average out-of-transit spectral line profile, with shape (3, N_points).</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id2">
+<span class="sig-name descname"><span class="pre">sysvel_correction_CCF</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">CCFs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">print_output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_fits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_sys_vel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/HECATE/HECATE.html#HECATE.sysvel_correction_CCF"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id2" title="Link to this definition"></a></dt>
+<dd><p>Extract the RV component due to the star’s motion around the barycentre, excluding the stellar systemic velocity.
+Fits a chosen profile to the CCF, then a linear model to the out-of-transit central RVs and subtracts it to all CCFs RVs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>CCFs</strong> (<cite>numpy array</cite>) – matrix with the CCF profiles (RV, flux and flux error), with shape (N_CCFs, 3, N_points).</p></li>
+<li><p><strong>model</strong> (<cite>str</cite>) – type of profile model to fit.</p></li>
+<li><p><strong>print_output</strong> (<cite>bool</cite>) – whether to print the fit output.</p></li>
+<li><p><strong>plot_fits</strong> (<cite>bool</cite>) – whether to plot the fit for each CCF.</p></li>
+<li><p><strong>plot_sys_vel</strong> (<cite>bool</cite>) – whether to plot the central RV (systemic velocity) in function of orbital phase.</p></li>
+<li><p><strong>save</strong> (<cite>str</cite>, optional) – path to save the plots.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>CCFs_corr</strong> (<cite>numpy array</cite>) – CCFs corrected by the systemic velocity.</p></li>
+<li><p><strong>x0_corr</strong> (<cite>numpy array</cite>) – central RVs corrected by the systemic velocity.</p></li>
+<li><p><strong>poly_coefs</strong> (<cite>numpy array</cite>) – coefficients of the linear fit to the systemic velocity.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id3">
+<span class="sig-name descname"><span class="pre">avg_out_of_transit_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">profiles</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_reference</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'CCF'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/HECATE/HECATE.html#HECATE.avg_out_of_transit_profile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id3" title="Link to this definition"></a></dt>
+<dd><p>Computes the average out-of-transit profile (CCF or spectral line) by linearly interpolating the profiles (CCFs or sliced spectra) into a common grid.
+In the case of CCFs, they must be corrected by the systemic velocity before averaging. The interpolated uncertainties are propagated taking the covariances into account.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>profiles</strong> (<cite>numpy array</cite>) – matrix with the out-of-transit profiles (CCFs or spectral lines), with shape (N_profiles, 3, N_points).</p></li>
+<li><p><strong>x_reference</strong> (<cite>numpy array</cite>) – grid for interpolation (RV for CCFs, wavelength for spectral lines).</p></li>
+<li><p><strong>profile_type</strong> (<cite>str</cite>) – whether the profiles are CCFs or spectral lines, as they require slightly different treatments.</p></li>
+<li><p><strong>plot</strong> (<cite>bool</cite>) – whether to plot the average out-of-transit profile.</p></li>
+<li><p><strong>save</strong> (<cite>str</cite>, optional) – path to save the plot.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>profile_interp</strong> (<cite>numpy array</cite>) – matrix with interpolated profiles (CCFs or spectral lines), with shape (N_profiles, 3, N_points).</p></li>
+<li><p><strong>avg_out_of_transit_profile</strong> (<cite>numpy array</cite>) – matrix with the average out-of-transit profile (CCF or spectral line), with shape (3, N_points).</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id4">
+<span class="sig-name descname"><span class="pre">get_profile_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">profiles</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observation_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">print_output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_fit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wave_ctr_line</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[(0,</span> <span class="pre">0)]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/HECATE/HECATE.html#HECATE.get_profile_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id4" title="Link to this definition"></a></dt>
+<dd><p>Computes the profile parameters of an array of CCFs or spectral line profiles.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>profiles</strong> (<cite>numpy array</cite>) – matrix with profiles, with shape (N_observations, 3, N_points).</p></li>
+<li><p><strong>data_type</strong> (<cite>str</cite>) – whether it’s a CCF or spectral line profile.</p></li>
+<li><p><strong>observation_type</strong> (<cite>str</cite>) – whether it’s a local, average out-of-transit or raw CCF/spectral line.</p></li>
+<li><p><strong>model</strong> (<cite>str</cite>) – type of profile model to fit.</p></li>
+<li><p><strong>print_output</strong> (<cite>bool</cite>) – whether to print fit output.</p></li>
+<li><p><strong>plot_fit</strong> (<cite>bool</cite>) – whether to plot the fit.</p></li>
+<li><p><strong>wave_ctr_line</strong> (<cite>list</cite>, optional) – central wavelength of spectral lines.</p></li>
+<li><p><strong>mask_x</strong> (<cite>numpy array</cite>, optional) – mask intervals for fitting region.</p></li>
+<li><p><strong>save</strong> (<cite>str</cite>, optional) – path to save plot.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>profile_params</strong> – Dictionary containing:
+- ‘central_rv’: central RV of the input CCFs/spectral lines. Single array for single line, list of arrays for multiple lines.
+- ‘continuum’: continuum level of the input CCFs/spectral lines.
+- ‘intensity’: intensity of the input CCFs/spectral lines. Single array for single line, list of arrays for multiple lines.
+- ‘width’: width measure of the input CCFs/spectral lines. Single array for single line, list of arrays for multiple lines.
+- ‘R2’: coefficient of determination of all fits.
+- ‘flux_fit_params’: list of fit parameters for all profiles.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>dict</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HECATE.HECATE.HECATE.local_params_linear_fit">
+<span class="sig-name descname"><span class="pre">local_params_linear_fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">local_param</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices_final</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">priors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_nested</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axes_to_fit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/HECATE/HECATE.html#HECATE.local_params_linear_fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HECATE.HECATE.HECATE.local_params_linear_fit" title="Link to this definition"></a></dt>
+<dd><p>Performs a tentative linear fit by applying nested sampling through <a href="#id5"><span class="problematic" id="id6">`</span></a>dynesty, comparing between a constant and unconstrained models, and then between a linear model with a positive slope and one with a negative slope.
+Useful for a first approximation analysis of the local CCF parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>local_param</strong> (<cite>numpy array</cite>) – array of a given local CCFs parameter (central RV, width, intensity).</p></li>
+<li><p><strong>indices_final</strong> (<cite>numpy array</cite>) – indices of local CCFs to use (to discard bad data).</p></li>
+<li><p><strong>title</strong> (<cite>str</cite>) – CCF parameter to use as title in the plot.</p></li>
+<li><p><strong>priors</strong> (<cite>list</cite>) – half of range of linear fit parameters (m, b) to use as priors.</p></li>
+<li><p><strong>plot_nested</strong> (<cite>bool</cite>) – whether to plot the trace and corner plots from the <cite>dynesty</cite> packages.</p></li>
+<li><p><strong>axes_to_fit</strong> (<cite>list</cite>, optional) – List of axes to fit: [“phases”, “mu”]. If None, defaults to both axes (backward compatible).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>phases_data</strong> (<cite>dict</cite> or None) – contains phases (‘x’), the label of phases (‘label’), grid of phases for plotting (‘x_grid’), fitted CCF parameter (‘y_fit’) as an array (value, error), grid of fitted CCF parameter (‘y_grid’) as an array (value, error) and ‘residual’ between y and y_fit as an array (value, error). None if “phases” not in axes_to_fit.</p></li>
+<li><p><strong>mu_data</strong> (<cite>dict</cite> or None) – contains mu (x), the label of mu (‘label’), grid of phases for plotting (‘x_grid’), fitted CCF parameter (‘y_fit’) as an array (value, error), grid of fitted CCF parameter (‘y_grid’) as an array (value, error) and ‘residual’ between y and y_fit as an array (value, error). None if “mu” not in axes_to_fit.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id7">
+<span class="sig-name descname"><span class="pre">plot_local_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indices_final</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">master_params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suptitle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linear_fit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_nested</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linear_fit_pairs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/HECATE/HECATE.html#HECATE.plot_local_params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id7" title="Link to this definition"></a></dt>
+<dd><p>Plot local CCF parameters (central RV, line-width measure and line-center intensity) in function of orbital phases and mu.
+Optionally, a linear fit via nested sampling is tested for specified parameter-axis pairs, plotting the fit and the corresponding residuals.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>indices_final</strong> (<cite>numpy array</cite>) – indices of local CCFs to use (to discard bad data).</p></li>
+<li><p><strong>local_params</strong> (<cite>numpy array</cite>) – array of local CCFs parameters (central RV, width, intensity).</p></li>
+<li><p><strong>master_params</strong> (<cite>numpy array</cite>) – average out-of-transit CCF parameters.</p></li>
+<li><p><strong>suptitle</strong> (<cite>str</cite>, optional) – title to display above the figure.</p></li>
+<li><p><strong>linear_fit</strong> (<cite>bool</cite>) – whether to perform a tentative linear fit via nested sampling on all parameters and axes.</p></li>
+<li><p><strong>plot_nested</strong> (<cite>bool</cite>) – whether to plot the trace and corner plots from the <cite>dynesty</cite> packages.</p></li>
+<li><p><strong>linear_fit_pairs</strong> (<cite>list</cite>, optional) – List of tuples specifying which (axis, parameter_index) pairs should have linear fits.
+Example: [(“phases”, 0), (“mu”, 1), (“phases”, 2)].
+If None and linear_fit=True, fits all parameters on both axes (backward compatible).
+If specified, only those pairs will have linear fits.</p></li>
+<li><p><strong>save</strong> – path to save plots.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../api.html" class="btn btn-neutral float-left" title="API Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="HECATE.build_CCF.html" class="btn btn-neutral float-right" title="HECATE.build_CCF" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Telmo Monteiro.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
