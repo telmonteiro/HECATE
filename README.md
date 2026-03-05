@@ -1,4 +1,4 @@
-# HECATE-DS
+# HECATE - Doppler Shadow on demand
 
 Hecate is a goddess in ancient Greek religion and mythology, most often shown holding a pair of torches, a key, or snakes, or accompanied by dogs, and in later periods depicted as three-formed or triple-bodied. Hecate is often associated with illuminating what is hidden and find your way in cross-roads.
 
