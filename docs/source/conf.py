@@ -17,7 +17,7 @@ sys.path.insert(0, os.path.abspath("../.."))
 project = "HECATE"
 copyright = "2026, Telmo Monteiro"
 author = "Telmo Monteiro"
-release = "0.0.1"
+release = "0.0.2"
 
 # -- General configuration ---------------------------------------------------
 
