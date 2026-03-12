@@ -33,8 +33,17 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install sphinx sphinx-rtd-theme sphinx-copybutton numpy matplotlib dynesty SOAP nbsphinx pandoc
+          pip install sphinx sphinx-rtd-theme nbsphinx sphinx-copybutton pandoc
+          pip install jupyter nbconvert ipykernel
+          pip install numpy matplotlib dynesty SOAP
           pip install .
+
+      - name: Execute notebooks
+        run: |
+          jupyter nbconvert \
+            --to notebook \
+            --execute docs/source/examples/HD189733_example.ipynb \
+            --output docs/source/examples/HD189733_example.ipynb
 
       - name: Build documentation
         working-directory: docs
