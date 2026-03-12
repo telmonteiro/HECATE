@@ -48,12 +48,12 @@ jobs:
           SITEPKG=$(python -c "import site; print(site.getsitepackages()[0])")
           cp -r SOAP-Spot-Oscillation-And-Planet-code/SOAP/solarCCFs $SITEPKG/SOAP/
 
-      - name: Execute notebooks
+      - name: Execute notebook
         run: |
           jupyter nbconvert \
             --to notebook \
             --execute docs/source/examples/HD189733_example.ipynb \
-            --output docs/source/examples/HD189733_example.ipynb
+            --inplace
 
       - name: Build documentation
         working-directory: docs
