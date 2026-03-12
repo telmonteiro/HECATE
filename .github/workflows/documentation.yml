@@ -36,8 +36,29 @@ jobs:
           pip install sphinx sphinx-rtd-theme nbsphinx sphinx-copybutton pandoc
           pip install jupyter nbconvert ipykernel
           pip install numpy scipy astropy matplotlib dynesty ldtk
-          pip install git+https://github.com/EduardoCristo/SOAP-Spot-Oscillation-And-Planet-code.git
           pip install .
+
+      - name: Install SOAP
+        run: |
+          git clone https://github.com/EduardoCristo/SOAP-Spot-Oscillation-And-Planet-code.git
+          pip install ./SOAP-Spot-Oscillation-And-Planet-code
+
+      - name: Copy SOAP data files
+        run: |
+          python - << 'PY'
+      import os, shutil, site
+
+      sitepkg = site.getsitepackages()[0]
+      soap_pkg = os.path.join(sitepkg, "SOAP")
+
+      src = "SOAP-Spot-Oscillation-And-Planet-code/SOAP/solarCCFs"
+      dst = os.path.join(soap_pkg, "solarCCFs")
+
+      if not os.path.exists(dst):
+          shutil.copytree(src, dst)
+
+      print("SOAP data installed:", dst)
+      PY
 
       - name: Execute notebooks
         run: |
