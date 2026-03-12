@@ -3,7 +3,7 @@
 import matplotlib.pyplot as plt
 from matplotlib.colors import Normalize
 import numpy as np
-from .utils import get_phase_mu
+from HECATE.utils import get_phase_mu
 
 def plot_air_snr(planet_params:dict, time:np.array, airmass:np.array, snr:np.array, save=None):
     """Plot airmass and SNR at spectral order 111 (midpoint in the selected Fe I spectral lines) of spectra used.

@@ -35,7 +35,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install sphinx sphinx-rtd-theme nbsphinx sphinx-copybutton pandoc
           pip install jupyter nbconvert ipykernel
-          pip install numpy matplotlib dynesty SOAP
+          pip install numpy scipy astropy matplotlib dynesty ldtk
+          pip install pip install git+https://github.com/EduardoCristo/SOAP-Spot-Oscillation-And-Planet-code.git
           pip install .
 
       - name: Execute notebooks

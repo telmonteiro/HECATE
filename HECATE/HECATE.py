@@ -7,12 +7,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.sparse import diags
 
-from .run_SOAP import run_SOAP
-from .nested_sampling import run_nestedsampler
-from .spectral_normalization import norm_spec
+from HECATE.run_SOAP import run_SOAP
+from HECATE.nested_sampling import run_nestedsampler
+from HECATE.spectral_normalization import norm_spec
 
-from .utils import *
-from .plots import *
+from HECATE.utils import *
+from HECATE.plots import *
 
 
 class HECATE:
