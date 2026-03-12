@@ -28,7 +28,11 @@ extensions = [
     "sphinx.ext.viewcode",
     "sphinx.ext.autosectionlabel",
     "sphinx_copybutton",
+    "nbsphinx",
 ]
+
+nbsphinx_allow_errors = True
+nbsphinx_codecell_lexer = "ipython3"
 
 # --- autodoc behavior ---
 add_module_names = False
