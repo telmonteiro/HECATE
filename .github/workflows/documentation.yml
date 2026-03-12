@@ -45,20 +45,8 @@ jobs:
 
       - name: Copy SOAP data files
         run: |
-          python - << 'PY'
-      import os, shutil, site
-
-      sitepkg = site.getsitepackages()[0]
-      soap_pkg = os.path.join(sitepkg, "SOAP")
-
-      src = "SOAP-Spot-Oscillation-And-Planet-code/SOAP/solarCCFs"
-      dst = os.path.join(soap_pkg, "solarCCFs")
-
-      if not os.path.exists(dst):
-          shutil.copytree(src, dst)
-
-      print("SOAP data installed:", dst)
-      PY
+          SITEPKG=$(python -c "import site; print(site.getsitepackages()[0])")
+          cp -r SOAP-Spot-Oscillation-And-Planet-code/SOAP/solarCCFs $SITEPKG/SOAP/
 
       - name: Execute notebooks
         run: |
