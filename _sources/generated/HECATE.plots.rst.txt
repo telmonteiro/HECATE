@@ -1,0 +1,17 @@
+﻿HECATE.plots
+============
+
+.. automodule:: HECATE.plots
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      plot_R2
+      plot_air_snr
+      plot_avg_out_of_transit_profile
+      plot_local_profile
+      plot_profile_fit
+      plot_sysvel_corr_CCF
+   

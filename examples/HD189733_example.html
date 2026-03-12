@@ -1,0 +1,568 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>White light CCF &mdash; HECATE 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=ccdb6887"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="API Reference" href="../api.html" />
+    <link rel="prev" title="Examples" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            HECATE
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../documentation.html">User Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/index.html">Tutorials</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Examples</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">White light CCF</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#core-class">Core Class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../generated/HECATE.HECATE.html">HECATE.HECATE</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../generated/HECATE.HECATE.html#HECATE.HECATE.HECATE"><code class="docutils literal notranslate"><span class="pre">HECATE</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#modules">Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../generated/HECATE.build_CCF.html">HECATE.build_CCF</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../generated/HECATE.build_CCF.html#HECATE.build_CCF.build_CCF"><code class="docutils literal notranslate"><span class="pre">build_CCF</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/HECATE.get_data.html">HECATE.get_data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../generated/HECATE.get_data.html#HECATE.get_data.get_CCFs"><code class="docutils literal notranslate"><span class="pre">get_CCFs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/HECATE.get_data.html#HECATE.get_data.get_spectra"><code class="docutils literal notranslate"><span class="pre">get_spectra()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/HECATE.run_SOAP.html">HECATE.run_SOAP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../generated/HECATE.run_SOAP.html#HECATE.run_SOAP.run_SOAP"><code class="docutils literal notranslate"><span class="pre">run_SOAP</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/HECATE.utils.html">HECATE.utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../generated/HECATE.utils.html#HECATE.utils.get_phase_mu"><code class="docutils literal notranslate"><span class="pre">get_phase_mu</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/HECATE.utils.html#HECATE.utils.linear_interpolation_matrix"><code class="docutils literal notranslate"><span class="pre">linear_interpolation_matrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/HECATE.utils.html#HECATE.utils.profile_models"><code class="docutils literal notranslate"><span class="pre">profile_models</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/HECATE.utils.html#HECATE.utils.fit_profile"><code class="docutils literal notranslate"><span class="pre">fit_profile</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/HECATE.plots.html">HECATE.plots</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../generated/HECATE.plots.html#HECATE.plots.plot_air_snr"><code class="docutils literal notranslate"><span class="pre">plot_air_snr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/HECATE.plots.html#HECATE.plots.plot_R2"><code class="docutils literal notranslate"><span class="pre">plot_R2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/HECATE.plots.html#HECATE.plots.plot_sysvel_corr_CCF"><code class="docutils literal notranslate"><span class="pre">plot_sysvel_corr_CCF()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/HECATE.plots.html#HECATE.plots.plot_avg_out_of_transit_profile"><code class="docutils literal notranslate"><span class="pre">plot_avg_out_of_transit_profile()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/HECATE.plots.html#HECATE.plots.plot_profile_fit"><code class="docutils literal notranslate"><span class="pre">plot_profile_fit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/HECATE.plots.html#HECATE.plots.plot_local_profile"><code class="docutils literal notranslate"><span class="pre">plot_local_profile()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/HECATE.nested_sampling.html">HECATE.nested_sampling</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../generated/HECATE.nested_sampling.html#HECATE.nested_sampling.run_nestedsampler"><code class="docutils literal notranslate"><span class="pre">run_nestedsampler</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/HECATE.spectral_normalization.html">HECATE.spectral_normalization</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../generated/HECATE.spectral_normalization.html#HECATE.spectral_normalization.norm_spec"><code class="docutils literal notranslate"><span class="pre">norm_spec</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/HECATE.multi_night_analysis.html">HECATE.multi_night_analysis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../generated/HECATE.multi_night_analysis.html#HECATE.multi_night_analysis.multi_night_analysis"><code class="docutils literal notranslate"><span class="pre">multi_night_analysis</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HECATE</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../documentation.html">User Guide</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Examples</a></li>
+      <li class="breadcrumb-item active">White light CCF</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/examples/HD189733_example.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">HECATE.HECATE</span><span class="w"> </span><span class="kn">import</span> <span class="n">HECATE</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">HECATE.get_data</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">HECATE.plots</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stellar_params</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;Teff&quot;</span><span class="p">:</span><span class="mi">4969</span><span class="p">,</span> <span class="s2">&quot;Teff_err&quot;</span><span class="p">:</span><span class="mi">43</span><span class="p">,</span>   <span class="c1">#effective temperature [K]</span>
+                <span class="s2">&quot;logg&quot;</span><span class="p">:</span><span class="mf">4.60</span><span class="p">,</span> <span class="s2">&quot;logg_err&quot;</span><span class="p">:</span><span class="mf">0.01</span><span class="p">,</span> <span class="c1">#superficial gravity [dex]</span>
+                <span class="s2">&quot;FeH&quot;</span><span class="p">:</span><span class="o">-</span><span class="mf">0.07</span><span class="p">,</span> <span class="s2">&quot;FeH_err&quot;</span><span class="p">:</span><span class="mf">0.02</span><span class="p">,</span>  <span class="c1">#metallicity [dex]</span>
+                <span class="s2">&quot;P_rot&quot;</span><span class="p">:</span><span class="mf">2.21857312</span><span class="p">,</span>           <span class="c1">#rotation period [d]</span>
+                <span class="s2">&quot;R_star&quot;</span><span class="p">:</span><span class="mf">0.766</span><span class="p">,</span>               <span class="c1">#radius [solar radii]</span>
+                <span class="s2">&quot;inc_star&quot;</span><span class="p">:</span><span class="mf">71.87</span>              <span class="c1">#stellar inclination [º]</span>
+                <span class="p">}</span>
+
+<span class="n">planet_params</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;P_orb&quot;</span><span class="p">:</span><span class="mf">2.21857312</span><span class="p">,</span>           <span class="c1">#orbital period [d]</span>
+                <span class="s2">&quot;a_R&quot;</span><span class="p">:</span><span class="mf">8.76863</span><span class="p">,</span>                <span class="c1">#system scale [stellar radii]</span>
+                <span class="s2">&quot;Rp_Rs&quot;</span><span class="p">:</span><span class="mf">0.1602</span><span class="p">,</span>               <span class="c1">#planet-to-star radius ratio</span>
+                <span class="s2">&quot;t0&quot;</span><span class="p">:</span><span class="mf">53988.30339</span><span class="p">,</span>             <span class="c1">#mid-transit time [d]</span>
+                <span class="s2">&quot;e&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>                        <span class="c1">#orbital eccentricity</span>
+                <span class="s2">&quot;w&quot;</span><span class="p">:</span><span class="mi">90</span><span class="p">,</span>                       <span class="c1">#argument of periastron [º]</span>
+                <span class="s2">&quot;inc_planet&quot;</span><span class="p">:</span><span class="mf">85.465</span><span class="p">,</span>          <span class="c1">#planet inclination [º]</span>
+                <span class="s2">&quot;lbda&quot;</span><span class="p">:</span><span class="o">-</span><span class="mf">1.00</span><span class="p">,</span>                 <span class="c1">#spin-orbit angle [º]</span>
+                <span class="s2">&quot;dfp&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.002424</span>              <span class="c1">#mid-transit phase shift</span>
+                <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<section id="White-light-CCF">
+<h1>White light CCF<a class="headerlink" href="#White-light-CCF" title="Link to this heading"></a></h1>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">CCFs</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">airmass</span><span class="p">,</span> <span class="n">berv</span><span class="p">,</span> <span class="n">bervmax</span><span class="p">,</span> <span class="n">snr</span><span class="p">,</span> <span class="n">list_ccfs</span> <span class="o">=</span> <span class="n">get_CCFs</span><span class="p">(</span><span class="n">planet_params</span><span class="p">,</span>
+                                                              <span class="n">day</span><span class="o">=</span><span class="s1">&#39;2021-08-11&#39;</span><span class="p">,</span>
+                                                              <span class="n">directory_path</span><span class="o">=</span><span class="s2">&quot;HD189733_ESPRESSO_white_light_ccfs&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_HD189733_example_3_0.png" src="../_images/examples_HD189733_example_3_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_air_snr</span><span class="p">(</span><span class="n">planet_params</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">airmass</span><span class="p">,</span> <span class="n">snr</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_HD189733_example_4_0.png" src="../_images/examples_HD189733_example_4_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hecate</span> <span class="o">=</span> <span class="n">HECATE</span><span class="p">(</span><span class="n">planet_params</span><span class="p">,</span> <span class="n">stellar_params</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">CCFs</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "b4b32eb821844a87876b0bc23b478d32", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Need to download 11 files, approximately 3.67 MB
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "e4d0d3450d2046508360e34f6285c91b", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;SOAP&quot;</span><span class="p">:</span><span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;fits_initial_CCF&quot;</span><span class="p">:</span><span class="kc">False</span><span class="p">,</span>
+        <span class="s2">&quot;sys_vel_ccf&quot;</span><span class="p">:</span><span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;avg_out_of_transit_CCF&quot;</span><span class="p">:</span><span class="kc">False</span><span class="p">,</span>
+        <span class="s2">&quot;local_CCFs&quot;</span><span class="p">:</span><span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;photometrical_rescale&quot;</span><span class="p">:</span><span class="kc">False</span><span class="p">}</span>
+
+<span class="n">ccf_type</span> <span class="o">=</span> <span class="s2">&quot;white light&quot;</span>
+<span class="n">model_fit</span> <span class="o">=</span> <span class="s2">&quot;modified Gaussian&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">local_CCFs</span><span class="p">,</span> <span class="n">CCFs_flux_corr</span><span class="p">,</span> <span class="n">CCFs_sub_all</span><span class="p">,</span> <span class="n">avg_out_of_transit_CCF</span> <span class="o">=</span> <span class="n">hecate</span><span class="o">.</span><span class="n">extract_local_CCF</span><span class="p">(</span><span class="n">model_fit</span><span class="p">,</span> <span class="n">plot</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_HD189733_example_7_0.png" src="../_images/examples_HD189733_example_7_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">master_results</span> <span class="o">=</span> <span class="n">hecate</span><span class="o">.</span><span class="n">get_profile_parameters</span><span class="p">(</span><span class="n">profiles</span><span class="o">=</span><span class="n">avg_out_of_transit_CCF</span><span class="p">,</span>
+                                               <span class="n">data_type</span><span class="o">=</span><span class="s2">&quot;CCF&quot;</span><span class="p">,</span>
+                                               <span class="n">observation_type</span><span class="o">=</span><span class="s2">&quot;master&quot;</span><span class="p">,</span>
+                                               <span class="n">model</span><span class="o">=</span><span class="s2">&quot;modified Gaussian&quot;</span><span class="p">,</span>
+                                               <span class="n">print_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                               <span class="n">plot_fit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+##################################################
+Fitting modified Gaussian model to master CCF profile
+--------------------------------------------------
+Fit parameters:
+y0 = 0.999704 ± 0.000005
+x0 = -0.000353 ± 0.000049
+sigma = 3.404545 ± 0.000090
+a = 0.629535 ± 0.000011
+c = 1.823704 ± 0.000085
+R^2:  0.9983
+--------------------------------------------------
+Profile parameters:
+Central RV [km/s]: -0.000353 ± 0.000049
+Continuum: 0.999704 ± 0.000005
+Line-center intensity [%]: 37.027842 ± 0.001099
+Line-width measure [km/s]: 3.404545 ± 0.000090
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_HD189733_example_8_1.png" src="../_images/examples_HD189733_example_8_1.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">local_results</span> <span class="o">=</span> <span class="n">hecate</span><span class="o">.</span><span class="n">get_profile_parameters</span><span class="p">(</span><span class="n">profiles</span><span class="o">=</span><span class="n">local_CCFs</span><span class="p">,</span>
+                                              <span class="n">data_type</span><span class="o">=</span><span class="s2">&quot;CCF&quot;</span><span class="p">,</span>
+                                              <span class="n">observation_type</span><span class="o">=</span><span class="s2">&quot;local&quot;</span><span class="p">,</span>
+                                              <span class="n">model</span><span class="o">=</span><span class="s2">&quot;modified Gaussian&quot;</span><span class="p">,</span>
+                                              <span class="n">print_output</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                                              <span class="n">plot_fit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">indices_final</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">local_results</span><span class="p">[</span><span class="s1">&#39;R2&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">0.95</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">local_params</span> <span class="o">=</span> <span class="p">[</span><span class="n">local_results</span><span class="p">[</span><span class="s1">&#39;central_rv&#39;</span><span class="p">],</span> <span class="n">local_results</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">],</span> <span class="n">local_results</span><span class="p">[</span><span class="s1">&#39;intensity&#39;</span><span class="p">]]</span>
+<span class="n">master_params</span> <span class="o">=</span> <span class="p">[</span><span class="n">master_results</span><span class="p">[</span><span class="s1">&#39;central_rv&#39;</span><span class="p">],</span> <span class="n">master_results</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">],</span> <span class="n">master_results</span><span class="p">[</span><span class="s1">&#39;intensity&#39;</span><span class="p">]]</span>
+
+<span class="n">hecate</span><span class="o">.</span><span class="n">plot_local_params</span><span class="p">(</span><span class="n">indices_final</span><span class="p">,</span> <span class="n">local_params</span><span class="p">,</span> <span class="n">master_params</span><span class="p">,</span> <span class="n">suptitle</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;Local white light CCF parameters&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_HD189733_example_10_0.png" src="../_images/examples_HD189733_example_10_0.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_HD189733_example_10_1.png" src="../_images/examples_HD189733_example_10_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hecate</span><span class="o">.</span><span class="n">plot_local_params</span><span class="p">(</span><span class="n">indices_final</span><span class="p">,</span> <span class="n">local_params</span><span class="p">,</span> <span class="n">master_params</span><span class="p">,</span>
+                         <span class="n">suptitle</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;Local white light CCF parameters&quot;</span><span class="p">,</span>
+                         <span class="n">linear_fit_pairs</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;phases&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;mu&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;mu&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+==================================================
+Central Radial Velocity [km/s]
+----------------------------------------
+Orbital phases
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+19344it [00:28, 672.21it/s, batch: 7 | bound: 4 | nc: 1 | ncall: 399927 | eff(%):  4.707 | loglstar: 43.483 &lt; 48.709 &lt; 48.265 | logz: 32.162 +/-  0.110 | stop:  0.897]
+14590it [00:18, 780.34it/s, batch: 7 | bound: 4 | nc: 1 | ncall: 278723 | eff(%):  5.045 | loglstar: -20.076 &lt; -14.326 &lt; -15.176 | logz: -21.339 +/-  0.066 | stop:  0.910]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+------------------------------
+Linear vs Constant
+logZ(linear)   = 32.152 ± 0.099
+logZ(constant) = -21.329 ± 0.061
+log Bayes factor = 53.481
+Unconstrained model favored.
+------------------------------
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+18227it [00:26, 679.82it/s, batch: 6 | bound: 3 | nc: 1 | ncall: 374386 | eff(%):  4.730 | loglstar: 43.619 &lt; 48.696 &lt; 47.817 | logz: 32.778 +/-  0.109 | stop:  0.954]
+17223it [00:22, 749.03it/s, batch: 6 | bound: 6 | nc: 1 | ncall: 349479 | eff(%):  4.778 | loglstar: -20.341 &lt; -12.875 &lt; -14.605 | logz: -24.389 +/-  0.091 | stop:  0.802]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Positive vs Negative slope
+===========================
+logZ(m&gt;0)  = 32.766 ± 0.101
+logZ(m&lt;0)  = -24.399 ± 0.081
+log Bayes factor = -57.165
+Positive slope favored.
+==========================
+Linear fit parameters:
+m = 165.337813 +/- 1.344358
+b = -0.037528 +/- 0.004504
+ln_f = -3.534726 +/- 0.228630
+------------------------------
+==================================================
+Line-width measure [km/s]
+----------------------------------------
+$\mu$
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+19504it [00:28, 673.11it/s, batch: 6 | bound: 3 | nc: 1 | ncall: 402918 | eff(%):  4.712 | loglstar: 32.369 &lt; 37.416 &lt; 36.364 | logz: 18.735 +/-  0.119 | stop:  0.956]
+17450it [00:24, 722.57it/s, batch: 8 | bound: 4 | nc: 1 | ncall: 341361 | eff(%):  4.959 | loglstar: 27.512 &lt; 32.493 &lt; 32.218 | logz: 21.539 +/-  0.081 | stop:  0.869]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+------------------------------
+Linear vs Constant
+logZ(linear)   = 18.714 ± 0.111
+logZ(constant) = 21.545 ± 0.076
+log Bayes factor = -2.831
+Zero-slope model favored
+========================
+Linear fit parameters:
+b = 3.057632 +/- 0.016757
+ln_f = -3.941028 +/- 0.228244
+------------------------------
+==================================================
+Line-center intensity [%]
+----------------------------------------
+$\mu$
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+17321it [00:25, 692.49it/s, batch: 7 | bound: 4 | nc: 1 | ncall: 353758 | eff(%):  4.749 | loglstar: -11.793 &lt; -6.131 &lt; -6.729 | logz: -18.134 +/-  0.091 | stop:  0.878]
+15692it [00:20, 748.70it/s, batch: 8 | bound: 3 | nc: 1 | ncall: 302696 | eff(%):  5.010 | loglstar: -23.241 &lt; -18.170 &lt; -18.615 | logz: -25.701 +/-  0.066 | stop:  0.865]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+------------------------------
+Linear vs Constant
+logZ(linear)   = -18.132 ± 0.083
+logZ(constant) = -25.721 ± 0.063
+log Bayes factor = 7.589
+Unconstrained model favored.
+------------------------------
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+17885it [00:23, 762.09it/s, batch: 7 | bound: 5 | nc: 1 | ncall: 365662 | eff(%):  4.748 | loglstar: -24.544 &lt; -18.206 &lt; -19.093 | logz: -30.224 +/-  0.091 | stop:  0.811]
+16913it [00:24, 702.56it/s, batch: 7 | bound: 4 | nc: 1 | ncall: 342953 | eff(%):  4.778 | loglstar: -11.759 &lt; -6.124 &lt; -6.752 | logz: -17.517 +/-  0.089 | stop:  0.876]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Positive vs Negative slope
+===========================
+logZ(m&gt;0)  = -30.242 ± 0.083
+logZ(m&lt;0)  = -17.529 ± 0.082
+log Bayes factor = 12.713
+Negative slope favored.
+==========================
+Linear fit parameters:
+m = -13.397920 +/- 2.013195
+b = 38.596425 +/- 1.216332
+ln_f = -3.435952 +/- 0.226141
+------------------------------
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_HD189733_example_11_11.png" src="../_images/examples_HD189733_example_11_11.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_HD189733_example_11_12.png" src="../_images/examples_HD189733_example_11_12.png" />
+</div>
+</div>
+<script type="application/vnd.jupyter.widget-state+json">
+{"state": {"112e2f90f1174b35a9fe9dc80b683cd9": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "15bd3749bf3f4083940ed475ca07785c": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "HTMLModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HTMLView", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_3ea2ffde7530492facb05ecc7dbd0bf4", "placeholder": "\u200b", "style": "IPY_MODEL_227d80eaec7148a6a111a5e131360069", "tabbable": null, "tooltip": null, "value": "LDTk\u2007downloading\u2007uncached\u2007files:\u2007100%"}}, "193d9168fbc94f2fa4cffaab23d0a31b": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "FloatProgressModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "FloatProgressModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "ProgressView", "bar_style": "success", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_6b17d5e0c1074659bd8a9966f357dcaa", "max": 9.0, "min": 0.0, "orientation": "horizontal", "style": "IPY_MODEL_23f0b0cd51cd4fb9970522f89fda179c", "tabbable": null, "tooltip": null, "value": 9.0}}, "21cb883b22db4ee483de7f0eca7509d3": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "HTMLStyleModel", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "background": null, "description_width": "", "font_size": null, "text_color": null}}, "227d80eaec7148a6a111a5e131360069": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "HTMLStyleModel", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "background": null, "description_width": "", "font_size": null, "text_color": null}}, "23f0b0cd51cd4fb9970522f89fda179c": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "ProgressStyleModel", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "ProgressStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "bar_color": null, "description_width": ""}}, "38051b165c984dcda7b908d87db4529c": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "HTMLStyleModel", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "background": null, "description_width": "", "font_size": null, "text_color": null}}, "3ea2ffde7530492facb05ecc7dbd0bf4": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "42c248919b594c03b633ecd31f5a3042": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "ProgressStyleModel", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "ProgressStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "bar_color": null, "description_width": ""}}, "4ae378896ebf43f79492fd5e4946247c": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "53df8bde4a3b4fbbba9bfba2f262332f": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "HTMLModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HTMLView", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_8b4594eec0e541f6997d461c0396fac8", "placeholder": "\u200b", "style": "IPY_MODEL_61173551265f4a4ea02e87627ace8def", "tabbable": null, "tooltip": null, "value": "\u200711/11\u2007[00:14&lt;00:00,\u2007\u20071.28s/it]"}}, "61173551265f4a4ea02e87627ace8def": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "HTMLStyleModel", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "background": null, "description_width": "", "font_size": null, "text_color": null}}, "69745edfd7454fc3b09fbb6b8dbf38f8": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "6b17d5e0c1074659bd8a9966f357dcaa": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "8b4594eec0e541f6997d461c0396fac8": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "9695191e658c4048b3e8b0c5d6df1d99": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "9925055740124c74858f00fb48d1b5b4": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "HTMLModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HTMLView", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_4ae378896ebf43f79492fd5e4946247c", "placeholder": "\u200b", "style": "IPY_MODEL_21cb883b22db4ee483de7f0eca7509d3", "tabbable": null, "tooltip": null, "value": "\u20079/9\u2007[00:10&lt;00:00,\u2007\u20071.18s/it]"}}, "b4b32eb821844a87876b0bc23b478d32": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "HBoxModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_ea2a9a0196f1424eb5365d1ff7ce49cb", "IPY_MODEL_193d9168fbc94f2fa4cffaab23d0a31b", "IPY_MODEL_9925055740124c74858f00fb48d1b5b4"], "layout": "IPY_MODEL_112e2f90f1174b35a9fe9dc80b683cd9", "tabbable": null, "tooltip": null}}, "cc3277b9202f4a83beac8fe7aa5ab815": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "ce9932ce7e284677881a2699f9f882bd": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "FloatProgressModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "FloatProgressModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "ProgressView", "bar_style": "success", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_9695191e658c4048b3e8b0c5d6df1d99", "max": 11.0, "min": 0.0, "orientation": "horizontal", "style": "IPY_MODEL_42c248919b594c03b633ecd31f5a3042", "tabbable": null, "tooltip": null, "value": 11.0}}, "e4d0d3450d2046508360e34f6285c91b": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "HBoxModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_15bd3749bf3f4083940ed475ca07785c", "IPY_MODEL_ce9932ce7e284677881a2699f9f882bd", "IPY_MODEL_53df8bde4a3b4fbbba9bfba2f262332f"], "layout": "IPY_MODEL_69745edfd7454fc3b09fbb6b8dbf38f8", "tabbable": null, "tooltip": null}}, "ea2a9a0196f1424eb5365d1ff7ce49cb": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "HTMLModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HTMLView", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_cc3277b9202f4a83beac8fe7aa5ab815", "placeholder": "\u200b", "style": "IPY_MODEL_38051b165c984dcda7b908d87db4529c", "tabbable": null, "tooltip": null, "value": "Updating\u2007server\u2007file\u2007list:\u2007100%"}}}, "version_major": 2, "version_minor": 0}
+</script></section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../api.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Telmo Monteiro.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

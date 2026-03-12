@@ -1,0 +1,455 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HECATE.nested_sampling &mdash; HECATE 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            HECATE
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../documentation.html">User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart.html">Quickstart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/index.html">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/HD189733_example.html">White light CCF</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#core-class">Core Class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.HECATE.html">HECATE.HECATE</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.HECATE.html#HECATE.HECATE.HECATE"><code class="docutils literal notranslate"><span class="pre">HECATE</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#modules">Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.build_CCF.html">HECATE.build_CCF</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.build_CCF.html#HECATE.build_CCF.build_CCF"><code class="docutils literal notranslate"><span class="pre">build_CCF</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.get_data.html">HECATE.get_data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.get_data.html#HECATE.get_data.get_CCFs"><code class="docutils literal notranslate"><span class="pre">get_CCFs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.get_data.html#HECATE.get_data.get_spectra"><code class="docutils literal notranslate"><span class="pre">get_spectra()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.run_SOAP.html">HECATE.run_SOAP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.run_SOAP.html#HECATE.run_SOAP.run_SOAP"><code class="docutils literal notranslate"><span class="pre">run_SOAP</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.utils.html">HECATE.utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.utils.html#HECATE.utils.get_phase_mu"><code class="docutils literal notranslate"><span class="pre">get_phase_mu</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.utils.html#HECATE.utils.linear_interpolation_matrix"><code class="docutils literal notranslate"><span class="pre">linear_interpolation_matrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.utils.html#HECATE.utils.profile_models"><code class="docutils literal notranslate"><span class="pre">profile_models</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.utils.html#HECATE.utils.fit_profile"><code class="docutils literal notranslate"><span class="pre">fit_profile</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.plots.html">HECATE.plots</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.plots.html#HECATE.plots.plot_air_snr"><code class="docutils literal notranslate"><span class="pre">plot_air_snr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.plots.html#HECATE.plots.plot_R2"><code class="docutils literal notranslate"><span class="pre">plot_R2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.plots.html#HECATE.plots.plot_sysvel_corr_CCF"><code class="docutils literal notranslate"><span class="pre">plot_sysvel_corr_CCF()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.plots.html#HECATE.plots.plot_avg_out_of_transit_profile"><code class="docutils literal notranslate"><span class="pre">plot_avg_out_of_transit_profile()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.plots.html#HECATE.plots.plot_profile_fit"><code class="docutils literal notranslate"><span class="pre">plot_profile_fit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.plots.html#HECATE.plots.plot_local_profile"><code class="docutils literal notranslate"><span class="pre">plot_local_profile()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.nested_sampling.html">HECATE.nested_sampling</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.nested_sampling.html#HECATE.nested_sampling.run_nestedsampler"><code class="docutils literal notranslate"><span class="pre">run_nestedsampler</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.spectral_normalization.html">HECATE.spectral_normalization</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.spectral_normalization.html#HECATE.spectral_normalization.norm_spec"><code class="docutils literal notranslate"><span class="pre">norm_spec</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.multi_night_analysis.html">HECATE.multi_night_analysis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.multi_night_analysis.html#HECATE.multi_night_analysis.multi_night_analysis"><code class="docutils literal notranslate"><span class="pre">multi_night_analysis</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">HECATE</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">HECATE.nested_sampling</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for HECATE.nested_sampling</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Runs nested sampler on a linear regression.</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">dynesty</span><span class="w"> </span><span class="kn">import</span> <span class="n">DynamicNestedSampler</span><span class="p">,</span> <span class="n">plotting</span> <span class="k">as</span> <span class="n">dyplot</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dynesty.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">resample_equal</span>
+
+<div class="viewcode-block" id="run_nestedsampler">
+<a class="viewcode-back" href="../../generated/HECATE.nested_sampling.html#HECATE.nested_sampling.run_nestedsampler">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">run_nestedsampler</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Class to compare between linear models with constant slope (m=0) or unconstrained slope (m!=0) regarding CCF parameters in function of orbital phases or mu.</span>
+<span class="sd">    Includes jittering via ln f parameter, that has a predefined prior of [-7,1] in log-scale.</span>
+<span class="sd">    Returns a tuple with the results.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x : `numpy array`</span>
+<span class="sd">        orbital phases or mu arrays.</span>
+<span class="sd">    y : `numpy array`</span>
+<span class="sd">        CCF parameter (central RV, line-width measure or line-center intensity).</span>
+<span class="sd">    yerr : `numpy array`</span>
+<span class="sd">        uncertainty of CCF parameter.</span>
+<span class="sd">    m_span : `int`</span>
+<span class="sd">        half of the range of prior on the slope.</span>
+<span class="sd">    b_span : `int`</span>
+<span class="sd">        half of the range of prior on the intercept.</span>
+<span class="sd">    verbose : `bool`</span>
+<span class="sd">        print output.</span>
+<span class="sd">    plot : `bool`</span>
+<span class="sd">        whether to plot the trace and corner plots from the `dynesty` packages.</span>
+<span class="sd">    save</span>
+<span class="sd">        path to save plots.</span>
+
+<span class="sd">    Methods</span>
+<span class="sd">    -------</span>
+<span class="sd">    compare_models(x, y, yerr, m_span, b_span, verbose)</span>
+<span class="sd">        compares between an unconstrained and a constant model. If the unconstrained model is preferred, it compares a model with a positive slope with one with a negative slope.</span>
+<span class="sd">    run_dynesty(loglike, ptform, ndim)</span>
+<span class="sd">        performs the dynamic nested sampling.</span>
+<span class="sd">    loglike_linear(theta, x, y, yerr)</span>
+<span class="sd">        computes likelihood for linear model (m,b, ln f).</span>
+<span class="sd">    loglike_constant</span>
+<span class="sd">        computes likelihood for constant model (b, ln f)</span>
+<span class="sd">    ptform_linear(utheta, m_span, b_span)</span>
+<span class="sd">        establishes the priors intervals.</span>
+<span class="sd">    ptform_constant(utheta, b_span)</span>
+<span class="sd">        establishes the priors intervals.</span>
+<span class="sd">    ptform_positive_slope(utheta, m_span, b_span)</span>
+<span class="sd">        establishes the priors intervals.</span>
+<span class="sd">    ptform_negative_slope(utheta, m_span, b_span)</span>
+<span class="sd">        establishes the priors intervals.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="run_nestedsampler.__init__">
+<a class="viewcode-back" href="../../generated/HECATE.nested_sampling.html#HECATE.nested_sampling.run_nestedsampler.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">yerr</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">m_span</span><span class="p">:</span><span class="nb">int</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">b_span</span><span class="p">:</span><span class="nb">int</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">plot</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">yerr</span> <span class="o">=</span> <span class="n">yerr</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">m_span</span> <span class="o">=</span> <span class="n">m_span</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b_span</span> <span class="o">=</span> <span class="n">b_span</span>
+
+        <span class="n">resA</span><span class="p">,</span> <span class="n">resB</span><span class="p">,</span> <span class="n">resPos</span><span class="p">,</span> <span class="n">resNeg</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">logK_linear_vs_const</span><span class="p">,</span> <span class="n">logK_sign</span><span class="p">,</span> <span class="n">logZ</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compare_models</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">yerr</span><span class="p">,</span> <span class="n">m_span</span><span class="p">,</span> <span class="n">b_span</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">model</span> <span class="o">==</span> <span class="s2">&quot;zero&quot;</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">resB</span>
+        <span class="k">elif</span> <span class="n">model</span> <span class="o">==</span> <span class="s2">&quot;positive&quot;</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">resPos</span>
+        <span class="k">elif</span> <span class="n">model</span> <span class="o">==</span> <span class="s2">&quot;negative&quot;</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">resNeg</span>
+
+        <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">logwt</span> <span class="o">-</span> <span class="n">result</span><span class="o">.</span><span class="n">logz</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="c1"># posterior samples</span>
+        <span class="n">samples</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">samples</span>
+        <span class="n">posterior_samples</span> <span class="o">=</span> <span class="n">resample_equal</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">weights</span><span class="p">)</span>
+        
+        <span class="n">linear_fit_params</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="n">model</span> <span class="o">!=</span> <span class="s2">&quot;zero&quot;</span><span class="p">:</span>
+            <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;m&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;ln_f&quot;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;ln_f&quot;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span> 
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Linear fit parameters:&quot;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">labels</span><span class="p">):</span>
+            <span class="n">q50</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">posterior_samples</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="mi">50</span><span class="p">)</span>
+            <span class="n">q16</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">posterior_samples</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="mi">16</span><span class="p">)</span>
+            <span class="n">q84</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">posterior_samples</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="mi">84</span><span class="p">)</span>
+            <span class="n">linear_fit_params</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">q50</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">q84</span><span class="o">-</span><span class="n">q50</span><span class="p">,</span><span class="n">q50</span><span class="o">-</span><span class="n">q16</span><span class="p">])]</span>
+            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">q50</span><span class="si">:</span><span class="s2">.06f</span><span class="si">}</span><span class="s2"> +/- </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">q84</span><span class="o">-</span><span class="n">q50</span><span class="p">,</span><span class="n">q50</span><span class="o">-</span><span class="n">q16</span><span class="p">])</span><span class="si">:</span><span class="s2">.06f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="o">*</span><span class="mi">30</span><span class="p">)</span>
+                
+        <span class="k">if</span> <span class="n">plot</span><span class="p">:</span>
+            <span class="n">fig</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">dyplot</span><span class="o">.</span><span class="n">traceplot</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">)))</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">save</span><span class="p">:</span> 
+                <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">save</span><span class="o">+</span><span class="s2">&quot;traceplot.pdf&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+            
+            <span class="n">fig</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">dyplot</span><span class="o">.</span><span class="n">cornerplot</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">show_titles</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">),</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">)),</span> <span class="n">quantiles</span><span class="o">=</span><span class="p">(</span><span class="mf">0.16</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.84</span><span class="p">),</span> <span class="n">title_quantiles</span><span class="o">=</span><span class="p">[</span><span class="mf">0.16</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.84</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">save</span><span class="p">:</span> 
+                <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">save</span><span class="o">+</span><span class="s2">&quot;cornerplot.pdf&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">results</span> <span class="o">=</span> <span class="p">(</span><span class="n">linear_fit_params</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">logK_linear_vs_const</span><span class="p">,</span> <span class="n">logK_sign</span><span class="p">,</span> <span class="n">logZ</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="run_nestedsampler.compare_models">
+<a class="viewcode-back" href="../../generated/HECATE.nested_sampling.html#HECATE.nested_sampling.run_nestedsampler.compare_models">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compare_models</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">yerr</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">m_span</span><span class="p">:</span><span class="nb">int</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">b_span</span><span class="p">:</span><span class="nb">int</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;First compares between an unconstrained and a constant model. If the unconstrained model is preferred, it compares a model with a positive slope with one with a negative slope.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        x : `numpy array`</span>
+<span class="sd">            orbital phases or mu arrays.</span>
+<span class="sd">        y : `numpy array`</span>
+<span class="sd">            CCF parameter (central RV, line-width measure or line-center intensity).</span>
+<span class="sd">        yerr : `numpy array`</span>
+<span class="sd">            uncertainty of CCF parameter.</span>
+<span class="sd">        m_span : `int`</span>
+<span class="sd">            half of the range of prior on the slope.</span>
+<span class="sd">        b_span : `int`</span>
+<span class="sd">            half of the range of prior on the intercept.</span>
+<span class="sd">        verbose : `bool`</span>
+<span class="sd">            print output.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        resA</span>
+<span class="sd">            dynesty results for initial linear model (m!=0).</span>
+<span class="sd">        resB</span>
+<span class="sd">            dynesty results for constant model (m=0).</span>
+<span class="sd">        resPos</span>
+<span class="sd">            dynesty results for linear model with positive slope (m&gt;0).</span>
+<span class="sd">        resNeg </span>
+<span class="sd">            dynesty results for linear model with negative slope (m&lt;0).</span>
+<span class="sd">        model : `str`</span>
+<span class="sd">            type of model obtained.</span>
+<span class="sd">        logK_linear_vs_const : `float`</span>
+<span class="sd">            evidence difference between constant and unconstrained models.</span>
+<span class="sd">        logK_sign : `float`</span>
+<span class="sd">            evidence difference between positive and negative models.</span>
+<span class="sd">        logZ : `float`</span>
+<span class="sd">            evidence of final model.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># 1) Linear model m,b</span>
+        <span class="n">like_A</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">th</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">loglike_linear</span><span class="p">(</span><span class="n">th</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">yerr</span><span class="p">)</span>
+        <span class="n">pt_A</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">u</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptform_linear</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">m_span</span><span class="p">,</span> <span class="n">b_span</span><span class="p">)</span>
+        <span class="n">resA</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_dynesty</span><span class="p">(</span><span class="n">like_A</span><span class="p">,</span> <span class="n">pt_A</span><span class="p">,</span> <span class="n">ndim</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+        <span class="c1"># 2) Constant model (m=0)</span>
+        <span class="n">like_B</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">th</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">loglike_constant</span><span class="p">(</span><span class="n">th</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">yerr</span><span class="p">)</span>
+        <span class="n">pt_B</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">u</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptform_constant</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">b_span</span><span class="p">)</span>
+        <span class="n">resB</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_dynesty</span><span class="p">(</span><span class="n">like_B</span><span class="p">,</span> <span class="n">pt_B</span><span class="p">,</span> <span class="n">ndim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="n">logZ_A</span><span class="p">,</span> <span class="n">logZerr_A</span> <span class="o">=</span> <span class="n">resA</span><span class="o">.</span><span class="n">logz</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">resA</span><span class="o">.</span><span class="n">logzerr</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">logZ_B</span><span class="p">,</span> <span class="n">logZerr_B</span> <span class="o">=</span> <span class="n">resB</span><span class="o">.</span><span class="n">logz</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">resB</span><span class="o">.</span><span class="n">logzerr</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">logK_linear_vs_const</span> <span class="o">=</span> <span class="n">logZ_A</span> <span class="o">-</span> <span class="n">logZ_B</span>
+
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="o">*</span><span class="mi">30</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Linear vs Constant&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;logZ(linear)   = </span><span class="si">{</span><span class="n">logZ_A</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> ± </span><span class="si">{</span><span class="n">logZerr_A</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;logZ(constant) = </span><span class="si">{</span><span class="n">logZ_B</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> ± </span><span class="si">{</span><span class="n">logZerr_B</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;log Bayes factor = </span><span class="si">{</span><span class="n">logK_linear_vs_const</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">logK_linear_vs_const</span> <span class="o">&gt;</span> <span class="mf">2.3</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Unconstrained model favored.&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="o">*</span><span class="mi">30</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Zero-slope model favored&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;========================&quot;</span><span class="p">)</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="s2">&quot;zero&quot;</span>
+            <span class="k">return</span> <span class="n">resA</span><span class="p">,</span> <span class="n">resB</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">logK_linear_vs_const</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">logZ_B</span>
+        
+        <span class="c1">#if linear is favored: compare sign of slope</span>
+        <span class="c1">#positive slope</span>
+        <span class="n">pt_pos</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">u</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptform_positive_slope</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">m_span</span><span class="p">,</span> <span class="n">b_span</span><span class="p">)</span>
+        <span class="n">resPos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_dynesty</span><span class="p">(</span><span class="k">lambda</span> <span class="n">th</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">loglike_linear</span><span class="p">(</span><span class="n">th</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">yerr</span><span class="p">),</span> <span class="n">pt_pos</span><span class="p">,</span> <span class="n">ndim</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+        <span class="c1">#negative slope</span>
+        <span class="n">pt_neg</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">u</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptform_negative_slope</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">m_span</span><span class="p">,</span> <span class="n">b_span</span><span class="p">)</span>
+        <span class="n">resNeg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_dynesty</span><span class="p">(</span><span class="k">lambda</span> <span class="n">th</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">loglike_linear</span><span class="p">(</span><span class="n">th</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">yerr</span><span class="p">),</span> <span class="n">pt_neg</span><span class="p">,</span> <span class="n">ndim</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+        <span class="n">logZ_pos</span><span class="p">,</span> <span class="n">logZerr_pos</span> <span class="o">=</span> <span class="n">resPos</span><span class="o">.</span><span class="n">logz</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">resPos</span><span class="o">.</span><span class="n">logzerr</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">logZ_neg</span><span class="p">,</span> <span class="n">logZerr_neg</span> <span class="o">=</span> <span class="n">resNeg</span><span class="o">.</span><span class="n">logz</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">resNeg</span><span class="o">.</span><span class="n">logzerr</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">logK_sign</span> <span class="o">=</span> <span class="n">logZ_neg</span> <span class="o">-</span> <span class="n">logZ_pos</span>
+
+        <span class="k">if</span> <span class="n">logK_sign</span> <span class="o">&gt;</span> <span class="mf">2.3</span><span class="p">:</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="s2">&quot;negative&quot;</span>
+            <span class="n">logZ</span> <span class="o">=</span> <span class="n">logZ_neg</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="s2">&quot;positive&quot;</span>
+            <span class="n">logZ</span> <span class="o">=</span> <span class="n">logZ_pos</span>
+
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Positive vs Negative slope&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;===========================&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;logZ(m&gt;0)  = </span><span class="si">{</span><span class="n">logZ_pos</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> ± </span><span class="si">{</span><span class="n">logZerr_pos</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;logZ(m&lt;0)  = </span><span class="si">{</span><span class="n">logZ_neg</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> ± </span><span class="si">{</span><span class="n">logZerr_neg</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;log Bayes factor = </span><span class="si">{</span><span class="n">logK_sign</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">logK_sign</span> <span class="o">&gt;</span> <span class="mf">2.3</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Negative slope favored.&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Positive slope favored.&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;==========================&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">resA</span><span class="p">,</span> <span class="n">resB</span><span class="p">,</span> <span class="n">resPos</span><span class="p">,</span> <span class="n">resNeg</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">logK_linear_vs_const</span><span class="p">,</span> <span class="n">logK_sign</span><span class="p">,</span> <span class="n">logZ</span></div>
+
+
+
+    <span class="c1"># Dynesty runner</span>
+<div class="viewcode-block" id="run_nestedsampler.run_dynesty">
+<a class="viewcode-back" href="../../generated/HECATE.nested_sampling.html#HECATE.nested_sampling.run_nestedsampler.run_dynesty">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run_dynesty</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">loglike</span><span class="p">,</span> <span class="n">ptform</span><span class="p">,</span> <span class="n">ndim</span><span class="p">):</span>
+        <span class="n">dsampler</span> <span class="o">=</span> <span class="n">DynamicNestedSampler</span><span class="p">(</span><span class="n">loglike</span><span class="p">,</span> <span class="n">ptform</span><span class="p">,</span> <span class="n">ndim</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="s1">&#39;multi&#39;</span><span class="p">,</span> <span class="n">sample</span><span class="o">=</span><span class="s1">&#39;rwalk&#39;</span><span class="p">)</span>
+        <span class="n">dsampler</span><span class="o">.</span><span class="n">run_nested</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">dsampler</span><span class="o">.</span><span class="n">results</span></div>
+
+
+    <span class="c1"># log-likelihood</span>
+<div class="viewcode-block" id="run_nestedsampler.loglike_linear">
+<a class="viewcode-back" href="../../generated/HECATE.nested_sampling.html#HECATE.nested_sampling.run_nestedsampler.loglike_linear">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">loglike_linear</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">yerr</span><span class="p">):</span>
+        <span class="n">m</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">lnf</span> <span class="o">=</span> <span class="n">theta</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">m</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">b</span>
+        <span class="n">inv_sigma2</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="n">yerr</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">model</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">lnf</span><span class="p">))</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">y</span><span class="o">-</span><span class="n">model</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">inv_sigma2</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">inv_sigma2</span><span class="p">)))</span></div>
+
+
+    <span class="c1"># log-likelihood for intercept-only (b) where m ≡ 0</span>
+<div class="viewcode-block" id="run_nestedsampler.loglike_constant">
+<a class="viewcode-back" href="../../generated/HECATE.nested_sampling.html#HECATE.nested_sampling.run_nestedsampler.loglike_constant">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">loglike_constant</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">yerr</span><span class="p">):</span>
+        <span class="n">b</span><span class="p">,</span> <span class="n">lnf</span> <span class="o">=</span> <span class="n">theta</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">b</span>
+        <span class="n">inv_sigma2</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="n">yerr</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">model</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">lnf</span><span class="p">))</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">y</span><span class="o">-</span><span class="n">model</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">inv_sigma2</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">inv_sigma2</span><span class="p">)))</span></div>
+
+
+    <span class="c1"># prior transform</span>
+<div class="viewcode-block" id="run_nestedsampler.ptform_linear">
+<a class="viewcode-back" href="../../generated/HECATE.nested_sampling.html#HECATE.nested_sampling.run_nestedsampler.ptform_linear">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">ptform_linear</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">utheta</span><span class="p">,</span> <span class="n">m_span</span><span class="p">,</span> <span class="n">b_span</span><span class="p">):</span>
+        <span class="n">um</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">ulf</span> <span class="o">=</span> <span class="n">utheta</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="o">-</span><span class="n">m_span</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">m_span</span> <span class="o">*</span> <span class="n">um</span>  
+        <span class="n">b</span> <span class="o">=</span> <span class="o">-</span><span class="n">b_span</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">b_span</span> <span class="o">*</span> <span class="n">ub</span> 
+        <span class="n">lnf</span> <span class="o">=</span> <span class="o">-</span><span class="mi">7</span> <span class="o">+</span> <span class="mi">8</span><span class="o">*</span><span class="n">ulf</span> 
+        <span class="k">return</span> <span class="n">m</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">lnf</span></div>
+
+
+<div class="viewcode-block" id="run_nestedsampler.ptform_constant">
+<a class="viewcode-back" href="../../generated/HECATE.nested_sampling.html#HECATE.nested_sampling.run_nestedsampler.ptform_constant">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">ptform_constant</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">utheta</span><span class="p">,</span> <span class="n">b_span</span><span class="p">):</span>
+        <span class="n">ub</span><span class="p">,</span> <span class="n">ulf</span> <span class="o">=</span> <span class="n">utheta</span> 
+        <span class="n">b</span> <span class="o">=</span> <span class="o">-</span><span class="n">b_span</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">b_span</span> <span class="o">*</span> <span class="n">ub</span> 
+        <span class="n">lnf</span> <span class="o">=</span> <span class="o">-</span><span class="mi">7</span> <span class="o">+</span> <span class="mi">8</span><span class="o">*</span><span class="n">ulf</span>
+        <span class="k">return</span> <span class="n">b</span><span class="p">,</span> <span class="n">lnf</span></div>
+
+
+<div class="viewcode-block" id="run_nestedsampler.ptform_positive_slope">
+<a class="viewcode-back" href="../../generated/HECATE.nested_sampling.html#HECATE.nested_sampling.run_nestedsampler.ptform_positive_slope">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">ptform_positive_slope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">utheta</span><span class="p">,</span> <span class="n">m_span</span><span class="p">,</span> <span class="n">b_span</span><span class="p">):</span>
+        <span class="c1"># positive slope: m in [0, m_max]</span>
+        <span class="n">um</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">ulf</span> <span class="o">=</span> <span class="n">utheta</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">+</span> <span class="n">m_span</span> <span class="o">*</span> <span class="n">um</span> 
+        <span class="n">b</span> <span class="o">=</span> <span class="o">-</span><span class="n">b_span</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">b_span</span> <span class="o">*</span> <span class="n">ub</span>
+        <span class="n">lnf</span> <span class="o">=</span> <span class="o">-</span><span class="mi">7</span> <span class="o">+</span> <span class="mi">8</span><span class="o">*</span><span class="n">ulf</span> 
+        <span class="k">return</span> <span class="n">m</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">lnf</span></div>
+
+
+<div class="viewcode-block" id="run_nestedsampler.ptform_negative_slope">
+<a class="viewcode-back" href="../../generated/HECATE.nested_sampling.html#HECATE.nested_sampling.run_nestedsampler.ptform_negative_slope">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">ptform_negative_slope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">utheta</span><span class="p">,</span> <span class="n">m_span</span><span class="p">,</span> <span class="n">b_span</span><span class="p">):</span>
+        <span class="c1"># positive slope: m in [0, m_max]</span>
+        <span class="n">um</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">ulf</span> <span class="o">=</span> <span class="n">utheta</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="o">-</span><span class="n">m_span</span> <span class="o">+</span> <span class="n">m_span</span> <span class="o">*</span> <span class="n">um</span>  <span class="c1"># m in [-100, 0]</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="o">-</span><span class="n">b_span</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">b_span</span> <span class="o">*</span> <span class="n">ub</span> <span class="c1"># b in [-100, +100]</span>
+        <span class="n">lnf</span> <span class="o">=</span> <span class="o">-</span><span class="mi">7</span> <span class="o">+</span> <span class="mi">8</span><span class="o">*</span><span class="n">ulf</span> <span class="c1"># lnf in [-7, +1]</span>
+        <span class="k">return</span> <span class="n">m</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">lnf</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Telmo Monteiro.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

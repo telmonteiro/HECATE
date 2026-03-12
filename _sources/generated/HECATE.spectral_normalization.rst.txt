@@ -1,0 +1,12 @@
+﻿HECATE.spectral\_normalization
+==============================
+
+.. automodule:: HECATE.spectral_normalization
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      norm_spec
+   

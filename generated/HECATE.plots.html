@@ -1,0 +1,311 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HECATE.plots &mdash; HECATE 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=ccdb6887"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="HECATE.nested_sampling" href="HECATE.nested_sampling.html" />
+    <link rel="prev" title="HECATE.utils" href="HECATE.utils.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            HECATE
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../documentation.html">User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/index.html">Tutorials</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/index.html">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples/HD189733_example.html">White light CCF</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../api.html#core-class">Core Class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="HECATE.HECATE.html">HECATE.HECATE</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="HECATE.HECATE.html#HECATE.HECATE.HECATE"><code class="docutils literal notranslate"><span class="pre">HECATE</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#modules">Modules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="HECATE.build_CCF.html">HECATE.build_CCF</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="HECATE.build_CCF.html#HECATE.build_CCF.build_CCF"><code class="docutils literal notranslate"><span class="pre">build_CCF</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="HECATE.get_data.html">HECATE.get_data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="HECATE.get_data.html#HECATE.get_data.get_CCFs"><code class="docutils literal notranslate"><span class="pre">get_CCFs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="HECATE.get_data.html#HECATE.get_data.get_spectra"><code class="docutils literal notranslate"><span class="pre">get_spectra()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="HECATE.run_SOAP.html">HECATE.run_SOAP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="HECATE.run_SOAP.html#HECATE.run_SOAP.run_SOAP"><code class="docutils literal notranslate"><span class="pre">run_SOAP</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="HECATE.utils.html">HECATE.utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="HECATE.utils.html#HECATE.utils.get_phase_mu"><code class="docutils literal notranslate"><span class="pre">get_phase_mu</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="HECATE.utils.html#HECATE.utils.linear_interpolation_matrix"><code class="docutils literal notranslate"><span class="pre">linear_interpolation_matrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="HECATE.utils.html#HECATE.utils.profile_models"><code class="docutils literal notranslate"><span class="pre">profile_models</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="HECATE.utils.html#HECATE.utils.fit_profile"><code class="docutils literal notranslate"><span class="pre">fit_profile</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">HECATE.plots</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#HECATE.plots.plot_air_snr"><code class="docutils literal notranslate"><span class="pre">plot_air_snr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#HECATE.plots.plot_R2"><code class="docutils literal notranslate"><span class="pre">plot_R2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#HECATE.plots.plot_sysvel_corr_CCF"><code class="docutils literal notranslate"><span class="pre">plot_sysvel_corr_CCF()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#HECATE.plots.plot_avg_out_of_transit_profile"><code class="docutils literal notranslate"><span class="pre">plot_avg_out_of_transit_profile()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#HECATE.plots.plot_profile_fit"><code class="docutils literal notranslate"><span class="pre">plot_profile_fit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#HECATE.plots.plot_local_profile"><code class="docutils literal notranslate"><span class="pre">plot_local_profile()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="HECATE.nested_sampling.html">HECATE.nested_sampling</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="HECATE.nested_sampling.html#HECATE.nested_sampling.run_nestedsampler"><code class="docutils literal notranslate"><span class="pre">run_nestedsampler</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="HECATE.spectral_normalization.html">HECATE.spectral_normalization</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="HECATE.spectral_normalization.html#HECATE.spectral_normalization.norm_spec"><code class="docutils literal notranslate"><span class="pre">norm_spec</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="HECATE.multi_night_analysis.html">HECATE.multi_night_analysis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="HECATE.multi_night_analysis.html#HECATE.multi_night_analysis.multi_night_analysis"><code class="docutils literal notranslate"><span class="pre">multi_night_analysis</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HECATE</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../api.html">API Reference</a></li>
+      <li class="breadcrumb-item active">HECATE.plots</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/generated/HECATE.plots.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-HECATE.plots">
+<span id="hecate-plots"></span><h1>HECATE.plots<a class="headerlink" href="#module-HECATE.plots" title="Link to this heading"></a></h1>
+<p class="rubric">Functions</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#HECATE.plots.plot_R2" title="HECATE.plots.plot_R2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_R2</span></code></a>(phases, R2_array[, threshold, save])</p></td>
+<td><p>Plot coefficient of determination R² of fit(s).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#HECATE.plots.plot_air_snr" title="HECATE.plots.plot_air_snr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_air_snr</span></code></a>(planet_params, time, airmass, snr)</p></td>
+<td><p>Plot airmass and SNR at spectral order 111 (midpoint in the selected Fe I spectral lines) of spectra used.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#HECATE.plots.plot_avg_out_of_transit_profile" title="HECATE.plots.plot_avg_out_of_transit_profile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_avg_out_of_transit_profile</span></code></a>(...[, ...])</p></td>
+<td><p>Plot average out-of-transit profile, either CCF or spectral line.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#HECATE.plots.plot_local_profile" title="HECATE.plots.plot_local_profile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_local_profile</span></code></a>(hecate, local_profiles, ...)</p></td>
+<td><p>Plot local profiles for a given profile type (CCF or spectral line) and tomography in function of orbital phases.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#HECATE.plots.plot_profile_fit" title="HECATE.plots.plot_profile_fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_profile_fit</span></code></a>(data, y_fit, phase, ...)</p></td>
+<td><p>Plot fit of spectral line or CCF profile.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#HECATE.plots.plot_sysvel_corr_CCF" title="HECATE.plots.plot_sysvel_corr_CCF"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_sysvel_corr_CCF</span></code></a>(phases, tr_dur, ...[, save])</p></td>
+<td><p>Plot stellar systemic velocity showing the R-M effect and it's correction.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py function">
+<dt class="sig sig-object py" id="HECATE.plots.plot_air_snr">
+<span class="sig-name descname"><span class="pre">plot_air_snr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">planet_params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">airmass</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/HECATE/plots.html#plot_air_snr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HECATE.plots.plot_air_snr" title="Link to this definition"></a></dt>
+<dd><p>Plot airmass and SNR at spectral order 111 (midpoint in the selected Fe I spectral lines) of spectra used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>planet_params</strong> (<cite>dict</cite>) – dictionary containing the following planetary parameters: orbital period, system scale, planet-to-star radius ratio, mid-transit time, eccentricity, argument of periastron, planetary inclination and spin-orbit angle.</p></li>
+<li><p><strong>time</strong> (<cite>numpy array</cite>) – time of observations in BJD.</p></li>
+<li><p><strong>airmass</strong> (<cite>numpy array</cite>) – airmass at the time of observation.</p></li>
+<li><p><strong>snr</strong> (<cite>numpy array</cite>) – signal-to-noise ratio (SNR) at spectral order 111.</p></li>
+<li><p><strong>save</strong> – path to save plot.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HECATE.plots.plot_R2">
+<span class="sig-name descname"><span class="pre">plot_R2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phases</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">R2_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/HECATE/plots.html#plot_R2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HECATE.plots.plot_R2" title="Link to this definition"></a></dt>
+<dd><p>Plot coefficient of determination R² of fit(s).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>phases</strong> (<cite>numpy array</cite>) – orbital phases.</p></li>
+<li><p><strong>R2_array</strong> (<cite>numpy array</cite>) – coefficient of determination scores.</p></li>
+<li><p><strong>threshold</strong> (<cite>float</cite>) – threshold to consider a fit good.</p></li>
+<li><p><strong>save</strong> – path to save plot.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HECATE.plots.plot_sysvel_corr_CCF">
+<span class="sig-name descname"><span class="pre">plot_sysvel_corr_CCF</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phases</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tr_dur</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tr_ingress_egress</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_indices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_indices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poly_coefs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0_corr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/HECATE/plots.html#plot_sysvel_corr_CCF"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HECATE.plots.plot_sysvel_corr_CCF" title="Link to this definition"></a></dt>
+<dd><p>Plot stellar systemic velocity showing the R-M effect and it’s correction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>phases</strong> (<cite>numpy array`</cite>) – orbital phases.</p></li>
+<li><p><strong>tr_dur</strong> (<cite>float</cite>) – transit duration.</p></li>
+<li><p><strong>tr_ingress_egress</strong> (<cite>float</cite>) – duration between ingress and egress of transit.</p></li>
+<li><p><strong>in_indices</strong> (<cite>numpy array</cite>) – array indices where planet is in transit.</p></li>
+<li><p><strong>out_indices</strong> (<cite>numpy array</cite>) – array indices where planet is not in transit.</p></li>
+<li><p><strong>x0</strong> (<cite>numpy array</cite>) – non-corrected central RVs.</p></li>
+<li><p><strong>poly_coefs</strong> (<cite>numpy array</cite>) – linear polynomial fit coefficients.</p></li>
+<li><p><strong>x0_corr</strong> (<cite>numpy array</cite>) – corrected central RVs.</p></li>
+<li><p><strong>save</strong> – path to save plot.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HECATE.plots.plot_avg_out_of_transit_profile">
+<span class="sig-name descname"><span class="pre">plot_avg_out_of_transit_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">avg_out_of_transit_prof</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'CCF'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/HECATE/plots.html#plot_avg_out_of_transit_profile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HECATE.plots.plot_avg_out_of_transit_profile" title="Link to this definition"></a></dt>
+<dd><p>Plot average out-of-transit profile, either CCF or spectral line.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>avg_out_of_transit_prof</strong> (<cite>numpy array</cite>) – average out-of-transit profile (RV/wavelength, flux and flux error).</p></li>
+<li><p><strong>profile_type</strong> (<cite>str</cite>) – whether it’s a CCF or spectral line profile.</p></li>
+<li><p><strong>save</strong> (<cite>str</cite>) – path to save plot.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HECATE.plots.plot_profile_fit">
+<span class="sig-name descname"><span class="pre">plot_profile_fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_fit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phase</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observation_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/HECATE/plots.html#plot_profile_fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HECATE.plots.plot_profile_fit" title="Link to this definition"></a></dt>
+<dd><p>Plot fit of spectral line or CCF profile. Four subplots: (1) observed and fitted profile; (2) residuals; (3) distribution of residuals; (4) distribution of data uncertainties.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<cite>numpy array</cite>) – CCF profile (RV, flux and flux error) or spectral line profile (wavelength, flux and flux error).</p></li>
+<li><p><strong>y_fit</strong> (<cite>numpy array</cite>) – fitted profile flux.</p></li>
+<li><p><strong>phase</strong> (<cite>float</cite>) – orbital phase of observation.</p></li>
+<li><p><strong>data_type</strong> (<cite>str</cite>) – whether it’s a CCF or spectral line.</p></li>
+<li><p><strong>observation_type</strong> (<cite>str</cite>) – whether it’s a local, average out-of-transit or raw CCF.</p></li>
+<li><p><strong>model</strong> (<cite>str</cite>) – type of profile model to fit.</p></li>
+<li><p><strong>save</strong> – path to save plot.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HECATE.plots.plot_local_profile">
+<span class="sig-name descname"><span class="pre">plot_local_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hecate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_profiles</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profiles_sub_all</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'CCF'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wave_lims</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylim_plot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[-0.01,</span> <span class="pre">0.04]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">photometrical_rescale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/HECATE/plots.html#plot_local_profile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HECATE.plots.plot_local_profile" title="Link to this definition"></a></dt>
+<dd><p>Plot local profiles for a given profile type (CCF or spectral line) and tomography in function of orbital phases.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hecate</strong> – HECATE class object.</p></li>
+<li><p><strong>local_profiles</strong> (<cite>numpy array</cite>) – local profiles (RV/wavelength, flux and flux error), with shape (N_profiles, 3, N_points).</p></li>
+<li><p><strong>profiles_sub_all</strong> (<cite>numpy array</cite>) – all subtracted profiles (RV/wavelength, flux and flux error), with shape (N_profiles, 3, N_points).</p></li>
+<li><p><strong>profile_type</strong> (<cite>str</cite>) – whether it’s a CCF or spectral line profile.</p></li>
+<li><p><strong>wave_lims</strong> (<cite>list</cite>) – wavelength interval to plot (only for spectral line profiles).</p></li>
+<li><p><strong>ylim_plot</strong> (<cite>list</cite>) – y-axis limits for the plot (only for spectral line profiles).</p></li>
+<li><p><strong>line_name</strong> (<cite>str</cite>) – name of the spectral line (only for spectral line profiles).</p></li>
+<li><p><strong>photometrical_rescale</strong> (<cite>bool</cite>) – whether to rescale the local profiles by the photometric transit light curve.</p></li>
+<li><p><strong>save</strong> (<cite>str</cite>) – path to save the plot.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="HECATE.utils.html" class="btn btn-neutral float-left" title="HECATE.utils" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="HECATE.nested_sampling.html" class="btn btn-neutral float-right" title="HECATE.nested_sampling" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Telmo Monteiro.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

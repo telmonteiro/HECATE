@@ -1,0 +1,286 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HECATE.run_SOAP &mdash; HECATE 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            HECATE
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../documentation.html">User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart.html">Quickstart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/index.html">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/HD189733_example.html">White light CCF</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#core-class">Core Class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.HECATE.html">HECATE.HECATE</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.HECATE.html#HECATE.HECATE.HECATE"><code class="docutils literal notranslate"><span class="pre">HECATE</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#modules">Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.build_CCF.html">HECATE.build_CCF</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.build_CCF.html#HECATE.build_CCF.build_CCF"><code class="docutils literal notranslate"><span class="pre">build_CCF</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.get_data.html">HECATE.get_data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.get_data.html#HECATE.get_data.get_CCFs"><code class="docutils literal notranslate"><span class="pre">get_CCFs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.get_data.html#HECATE.get_data.get_spectra"><code class="docutils literal notranslate"><span class="pre">get_spectra()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.run_SOAP.html">HECATE.run_SOAP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.run_SOAP.html#HECATE.run_SOAP.run_SOAP"><code class="docutils literal notranslate"><span class="pre">run_SOAP</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.utils.html">HECATE.utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.utils.html#HECATE.utils.get_phase_mu"><code class="docutils literal notranslate"><span class="pre">get_phase_mu</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.utils.html#HECATE.utils.linear_interpolation_matrix"><code class="docutils literal notranslate"><span class="pre">linear_interpolation_matrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.utils.html#HECATE.utils.profile_models"><code class="docutils literal notranslate"><span class="pre">profile_models</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.utils.html#HECATE.utils.fit_profile"><code class="docutils literal notranslate"><span class="pre">fit_profile</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.plots.html">HECATE.plots</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.plots.html#HECATE.plots.plot_air_snr"><code class="docutils literal notranslate"><span class="pre">plot_air_snr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.plots.html#HECATE.plots.plot_R2"><code class="docutils literal notranslate"><span class="pre">plot_R2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.plots.html#HECATE.plots.plot_sysvel_corr_CCF"><code class="docutils literal notranslate"><span class="pre">plot_sysvel_corr_CCF()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.plots.html#HECATE.plots.plot_avg_out_of_transit_profile"><code class="docutils literal notranslate"><span class="pre">plot_avg_out_of_transit_profile()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.plots.html#HECATE.plots.plot_profile_fit"><code class="docutils literal notranslate"><span class="pre">plot_profile_fit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.plots.html#HECATE.plots.plot_local_profile"><code class="docutils literal notranslate"><span class="pre">plot_local_profile()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.nested_sampling.html">HECATE.nested_sampling</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.nested_sampling.html#HECATE.nested_sampling.run_nestedsampler"><code class="docutils literal notranslate"><span class="pre">run_nestedsampler</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.spectral_normalization.html">HECATE.spectral_normalization</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.spectral_normalization.html#HECATE.spectral_normalization.norm_spec"><code class="docutils literal notranslate"><span class="pre">norm_spec</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.multi_night_analysis.html">HECATE.multi_night_analysis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.multi_night_analysis.html#HECATE.multi_night_analysis.multi_night_analysis"><code class="docutils literal notranslate"><span class="pre">multi_night_analysis</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">HECATE</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">HECATE.run_SOAP</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for HECATE.run_SOAP</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Wrapper class to use SOAPv4.</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">SOAP</span> <span class="c1"># type: ignore</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ldtk</span><span class="w"> </span><span class="kn">import</span> <span class="n">LDPSetCreator</span><span class="p">,</span> <span class="n">BoxcarFilter</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">HECATE.utils</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+
+<div class="viewcode-block" id="run_SOAP">
+<a class="viewcode-back" href="../../generated/HECATE.run_SOAP.html#HECATE.run_SOAP.run_SOAP">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">run_SOAP</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Wrapper around SOAPv4.</span>
+<span class="sd">    Simulate transit light curve using SOAPv4 (Cristo, E., et al. 2025) to calibrate the local spectra flux.</span>
+<span class="sd">    Uses Limb darkening toolkit (ldtk) to compute the limb-darkening coefficients.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">        time : `numpy array` </span>
+<span class="sd">            time of observations in BJD.</span>
+<span class="sd">        stellar_params : `dict` </span>
+<span class="sd">            dictionary containing the following stellar parameters: effective temperature and error, superficial gravity and error, metallicity and error, rotation period, radius and stellar inclination.</span>
+<span class="sd">        planet_params : `dict`</span>
+<span class="sd">            dictionary containing the following planetary parameters: orbital period, system scale, planet-to-star radius ratio, mid-transit time, eccentricity, argument of periastron, planetary inclination and spin-orbit angle.</span>
+<span class="sd">        min_wave : `int` </span>
+<span class="sd">            minimum wavelength [nm] of spectrograph.</span>
+<span class="sd">        max_wave : `int` </span>
+<span class="sd">            maximum wavelength [nm] of spectrograph.</span>
+<span class="sd">        plot : `bool` </span>
+<span class="sd">            whether to plot the simulated transit light curve.</span>
+<span class="sd">        save</span>
+<span class="sd">            path to save the plot.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">        flux : `numpy array` </span>
+<span class="sd">            simulated flux from SOAP.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="run_SOAP.__init__">
+<a class="viewcode-back" href="../../generated/HECATE.run_SOAP.html#HECATE.run_SOAP.run_SOAP.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">stellar_params</span><span class="p">:</span><span class="nb">dict</span><span class="p">,</span> <span class="n">planet_params</span><span class="p">:</span><span class="nb">dict</span><span class="p">,</span> <span class="n">min_wav</span><span class="p">:</span><span class="nb">int</span><span class="o">=</span><span class="mi">380</span><span class="p">,</span> <span class="n">max_wav</span><span class="p">:</span><span class="nb">int</span><span class="o">=</span><span class="mi">788</span><span class="p">,</span> <span class="n">plot</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        
+        <span class="n">Teff</span><span class="p">,</span> <span class="n">Teff_err</span> <span class="o">=</span> <span class="n">stellar_params</span><span class="p">[</span><span class="s2">&quot;Teff&quot;</span><span class="p">],</span> <span class="n">stellar_params</span><span class="p">[</span><span class="s2">&quot;Teff_err&quot;</span><span class="p">]</span>
+        <span class="n">logg</span><span class="p">,</span> <span class="n">logg_err</span> <span class="o">=</span> <span class="n">stellar_params</span><span class="p">[</span><span class="s2">&quot;logg&quot;</span><span class="p">],</span> <span class="n">stellar_params</span><span class="p">[</span><span class="s2">&quot;logg_err&quot;</span><span class="p">]</span>
+        <span class="n">FeH</span><span class="p">,</span> <span class="n">FeH_err</span>   <span class="o">=</span> <span class="n">stellar_params</span><span class="p">[</span><span class="s2">&quot;FeH&quot;</span><span class="p">],</span> <span class="n">stellar_params</span><span class="p">[</span><span class="s2">&quot;FeH_err&quot;</span><span class="p">]</span>
+        <span class="n">P_rot</span>          <span class="o">=</span> <span class="n">stellar_params</span><span class="p">[</span><span class="s2">&quot;P_rot&quot;</span><span class="p">]</span>
+        <span class="n">R_star</span>         <span class="o">=</span> <span class="n">stellar_params</span><span class="p">[</span><span class="s2">&quot;R_star&quot;</span><span class="p">]</span>
+        <span class="n">inc_star</span>       <span class="o">=</span> <span class="n">stellar_params</span><span class="p">[</span><span class="s2">&quot;inc_star&quot;</span><span class="p">]</span>
+
+        <span class="n">a_R</span>        <span class="o">=</span> <span class="n">planet_params</span><span class="p">[</span><span class="s2">&quot;a_R&quot;</span><span class="p">]</span>
+        <span class="n">Rp_Rs</span>      <span class="o">=</span> <span class="n">planet_params</span><span class="p">[</span><span class="s2">&quot;Rp_Rs&quot;</span><span class="p">]</span>
+        <span class="n">e</span>          <span class="o">=</span> <span class="n">planet_params</span><span class="p">[</span><span class="s2">&quot;e&quot;</span><span class="p">]</span>
+        <span class="n">P_orb</span>      <span class="o">=</span> <span class="n">planet_params</span><span class="p">[</span><span class="s2">&quot;P_orb&quot;</span><span class="p">]</span>
+        <span class="n">w</span>          <span class="o">=</span> <span class="n">planet_params</span><span class="p">[</span><span class="s2">&quot;w&quot;</span><span class="p">]</span>
+        <span class="n">inc_planet</span> <span class="o">=</span> <span class="n">planet_params</span><span class="p">[</span><span class="s2">&quot;inc_planet&quot;</span><span class="p">]</span>
+        <span class="n">lbda</span>       <span class="o">=</span> <span class="n">planet_params</span><span class="p">[</span><span class="s2">&quot;lbda&quot;</span><span class="p">]</span>
+
+        <span class="n">phase_mu</span> <span class="o">=</span> <span class="n">get_phase_mu</span><span class="p">(</span><span class="n">planet_params</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
+        <span class="n">phases</span><span class="p">,</span> <span class="n">tr_dur</span><span class="p">,</span> <span class="n">tr_ingress_egress</span> <span class="o">=</span> <span class="n">phase_mu</span><span class="o">.</span><span class="n">phases</span><span class="p">,</span> <span class="n">phase_mu</span><span class="o">.</span><span class="n">tr_dur</span><span class="p">,</span> <span class="n">phase_mu</span><span class="o">.</span><span class="n">tr_ingress_egress</span>
+
+        <span class="n">filters</span> <span class="o">=</span> <span class="p">[</span><span class="n">BoxcarFilter</span><span class="p">(</span><span class="s1">&#39;filter&#39;</span><span class="p">,</span> <span class="n">min_wav</span><span class="p">,</span> <span class="n">max_wav</span><span class="p">)]</span> 
+        <span class="n">sc</span> <span class="o">=</span> <span class="n">LDPSetCreator</span><span class="p">(</span><span class="n">teff</span><span class="o">=</span><span class="p">(</span><span class="n">Teff</span><span class="p">,</span> <span class="n">Teff_err</span><span class="p">),</span> <span class="n">logg</span> <span class="o">=</span> <span class="p">(</span><span class="n">logg</span><span class="p">,</span> <span class="n">logg_err</span><span class="p">),</span> <span class="n">z</span> <span class="o">=</span> <span class="p">(</span><span class="n">FeH</span><span class="p">,</span> <span class="n">FeH_err</span><span class="p">),</span> <span class="n">filters</span><span class="o">=</span><span class="n">filters</span><span class="p">)</span>
+        <span class="n">ps</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">create_profiles</span><span class="p">(</span><span class="n">nsamples</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span> <span class="c1">#create the limb darkening profiles</span>
+        <span class="n">ldcn</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="n">coeffs_qd</span><span class="p">(</span><span class="n">do_mc</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_mc_samples</span><span class="o">=</span><span class="mi">20000</span><span class="p">,</span> <span class="n">mc_thin</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">mc_burn</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span> <span class="c1">#coefficients and quadratic profile errors</span>
+
+        <span class="n">sim</span> <span class="o">=</span> <span class="n">SOAP</span><span class="o">.</span><span class="n">Simulation</span><span class="p">(</span><span class="n">active_regions</span><span class="o">=</span><span class="p">[])</span> <span class="c1">#light curve</span>
+        <span class="n">sim</span><span class="o">.</span><span class="n">star</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">prot</span><span class="o">=</span><span class="n">P_rot</span><span class="p">,</span> <span class="n">incl</span><span class="o">=</span><span class="n">inc_star</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="n">R_star</span><span class="p">,</span> <span class="n">teff</span><span class="o">=</span><span class="n">Teff</span><span class="p">,</span> <span class="n">u1</span><span class="o">=</span><span class="n">ldcn</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">u2</span><span class="o">=</span><span class="n">ldcn</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">sim</span><span class="o">.</span><span class="n">planet</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">P</span><span class="o">=</span><span class="n">P_orb</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="n">e</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">ip</span><span class="o">=</span><span class="n">inc_planet</span><span class="p">,</span> <span class="n">lbda</span><span class="o">=</span><span class="n">lbda</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">a_R</span><span class="p">,</span> <span class="n">Rp</span><span class="o">=</span><span class="n">Rp_Rs</span><span class="p">)</span>
+
+        <span class="n">output</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">calculate_signal</span><span class="p">(</span><span class="n">psi</span><span class="o">=</span><span class="n">phases</span><span class="o">/</span><span class="n">P_rot</span><span class="o">*</span><span class="n">P_orb</span><span class="p">,</span> <span class="n">skip_rv</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">Flux_SOAP</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">flux</span>
+
+        <span class="k">if</span> <span class="n">plot</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="c1">#self._plot(phases, tr_dur, tr_ingress_egress, Flux_SOAP, save)</span>
+            <span class="n">sim</span><span class="o">.</span><span class="n">visualize</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="p">,</span> <span class="n">plot_type</span><span class="o">=</span><span class="s2">&quot;flux&quot;</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="n">save</span><span class="p">:</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">save</span><span class="o">+</span><span class="s2">&quot;SOAP_light_curve.pdf&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">&quot;tight&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">flux</span> <span class="o">=</span> <span class="n">Flux_SOAP</span></div>
+
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">phases</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">tr_dur</span><span class="p">:</span><span class="nb">float</span><span class="p">,</span> <span class="n">tr_ingress_egress</span><span class="p">:</span><span class="nb">float</span><span class="p">,</span> <span class="n">Flux_SOAP</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Simple plot of simulated transit light curve.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        phases : `numpy array`</span>
+<span class="sd">            orbital phases.</span>
+<span class="sd">        tr_dur : `float`</span>
+<span class="sd">            transit duration.</span>
+<span class="sd">        tr_ingress_egress : `float`</span>
+<span class="sd">            duration between ingress and egress of transit.</span>
+<span class="sd">        Flux_SOAP : `numpy array`</span>
+<span class="sd">            simulated stellar flux from SOAP.</span>
+<span class="sd">        save</span>
+<span class="sd">            whether to save the plot and where.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="o">-</span><span class="n">tr_dur</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">tr_dur</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;middle of transit&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="o">-</span><span class="n">tr_ingress_egress</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span> <span class="n">tr_ingress_egress</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;ingress+egress&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">phases</span><span class="p">,</span> <span class="n">Flux_SOAP</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;SOAP transit light curve&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Normalized Flux&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Orbital Phases&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">save</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">save</span><span class="o">+</span><span class="s2">&quot;SOAP_light_curve.pdf&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">&quot;tight&quot;</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Telmo Monteiro.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

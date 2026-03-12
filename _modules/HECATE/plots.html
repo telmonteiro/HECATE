@@ -1,0 +1,748 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HECATE.plots &mdash; HECATE 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            HECATE
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../documentation.html">User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart.html">Quickstart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/index.html">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/HD189733_example.html">White light CCF</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#core-class">Core Class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.HECATE.html">HECATE.HECATE</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.HECATE.html#HECATE.HECATE.HECATE"><code class="docutils literal notranslate"><span class="pre">HECATE</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#modules">Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.build_CCF.html">HECATE.build_CCF</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.build_CCF.html#HECATE.build_CCF.build_CCF"><code class="docutils literal notranslate"><span class="pre">build_CCF</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.get_data.html">HECATE.get_data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.get_data.html#HECATE.get_data.get_CCFs"><code class="docutils literal notranslate"><span class="pre">get_CCFs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.get_data.html#HECATE.get_data.get_spectra"><code class="docutils literal notranslate"><span class="pre">get_spectra()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.run_SOAP.html">HECATE.run_SOAP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.run_SOAP.html#HECATE.run_SOAP.run_SOAP"><code class="docutils literal notranslate"><span class="pre">run_SOAP</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.utils.html">HECATE.utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.utils.html#HECATE.utils.get_phase_mu"><code class="docutils literal notranslate"><span class="pre">get_phase_mu</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.utils.html#HECATE.utils.linear_interpolation_matrix"><code class="docutils literal notranslate"><span class="pre">linear_interpolation_matrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.utils.html#HECATE.utils.profile_models"><code class="docutils literal notranslate"><span class="pre">profile_models</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.utils.html#HECATE.utils.fit_profile"><code class="docutils literal notranslate"><span class="pre">fit_profile</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.plots.html">HECATE.plots</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.plots.html#HECATE.plots.plot_air_snr"><code class="docutils literal notranslate"><span class="pre">plot_air_snr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.plots.html#HECATE.plots.plot_R2"><code class="docutils literal notranslate"><span class="pre">plot_R2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.plots.html#HECATE.plots.plot_sysvel_corr_CCF"><code class="docutils literal notranslate"><span class="pre">plot_sysvel_corr_CCF()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.plots.html#HECATE.plots.plot_avg_out_of_transit_profile"><code class="docutils literal notranslate"><span class="pre">plot_avg_out_of_transit_profile()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.plots.html#HECATE.plots.plot_profile_fit"><code class="docutils literal notranslate"><span class="pre">plot_profile_fit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.plots.html#HECATE.plots.plot_local_profile"><code class="docutils literal notranslate"><span class="pre">plot_local_profile()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.nested_sampling.html">HECATE.nested_sampling</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.nested_sampling.html#HECATE.nested_sampling.run_nestedsampler"><code class="docutils literal notranslate"><span class="pre">run_nestedsampler</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.spectral_normalization.html">HECATE.spectral_normalization</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.spectral_normalization.html#HECATE.spectral_normalization.norm_spec"><code class="docutils literal notranslate"><span class="pre">norm_spec</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/HECATE.multi_night_analysis.html">HECATE.multi_night_analysis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/HECATE.multi_night_analysis.html#HECATE.multi_night_analysis.multi_night_analysis"><code class="docutils literal notranslate"><span class="pre">multi_night_analysis</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">HECATE</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">HECATE.plots</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for HECATE.plots</h1><div class="highlight"><pre>
+<span></span><span class="c1"># File with plotting functions.</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.colors</span><span class="w"> </span><span class="kn">import</span> <span class="n">Normalize</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">HECATE.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_phase_mu</span>
+
+<div class="viewcode-block" id="plot_air_snr">
+<a class="viewcode-back" href="../../generated/HECATE.plots.html#HECATE.plots.plot_air_snr">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_air_snr</span><span class="p">(</span><span class="n">planet_params</span><span class="p">:</span><span class="nb">dict</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">airmass</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">snr</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot airmass and SNR at spectral order 111 (midpoint in the selected Fe I spectral lines) of spectra used.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    planet_params : `dict`</span>
+<span class="sd">        dictionary containing the following planetary parameters: orbital period, system scale, planet-to-star radius ratio, mid-transit time, eccentricity, argument of periastron, planetary inclination and spin-orbit angle.</span>
+<span class="sd">    time : `numpy array`</span>
+<span class="sd">        time of observations in BJD.</span>
+<span class="sd">    airmass : `numpy array`</span>
+<span class="sd">        airmass at the time of observation.</span>
+<span class="sd">    snr : `numpy array`</span>
+<span class="sd">        signal-to-noise ratio (SNR) at spectral order 111.</span>
+<span class="sd">    save</span>
+<span class="sd">        path to save plot. </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">phase_mu</span> <span class="o">=</span> <span class="n">get_phase_mu</span><span class="p">(</span><span class="n">planet_params</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
+    <span class="n">phases</span><span class="p">,</span> <span class="n">tr_dur</span><span class="p">,</span> <span class="n">tr_ingress_egress</span> <span class="o">=</span> <span class="n">phase_mu</span><span class="o">.</span><span class="n">phases</span><span class="p">,</span> <span class="n">phase_mu</span><span class="o">.</span><span class="n">tr_dur</span><span class="p">,</span> <span class="n">phase_mu</span><span class="o">.</span><span class="n">tr_ingress_egress</span>
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax0</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mf">4.5</span><span class="p">))</span>
+
+    <span class="n">l0</span> <span class="o">=</span> <span class="n">ax0</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="o">-</span><span class="n">tr_dur</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span> <span class="n">tr_dur</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+    <span class="n">l1</span> <span class="o">=</span> <span class="n">ax0</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">tr_ingress_egress</span><span class="o">/</span><span class="mf">2.</span><span class="o">-</span><span class="n">tr_dur</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="n">tr_ingress_egress</span><span class="o">/</span><span class="mf">2.</span><span class="o">+</span><span class="n">tr_dur</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+    <span class="n">l2</span> <span class="o">=</span> <span class="n">ax0</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">phases</span><span class="p">,</span> <span class="n">airmass</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+
+    <span class="n">ax0</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Orbital Phase&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">ax0</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Airmass&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">ax0</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+
+    <span class="n">ax1</span> <span class="o">=</span> <span class="n">ax0</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
+    <span class="n">l3</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">phases</span><span class="p">,</span> <span class="n">snr</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;SNR order 111&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+
+    <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Partially in-transit&#39;</span><span class="p">,</span><span class="s1">&#39;Fully in-transit&#39;</span><span class="p">,</span> <span class="s1">&#39;Airmass&#39;</span><span class="p">,</span> <span class="s1">&#39;SNR&#39;</span><span class="p">]</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="n">l0</span><span class="p">,</span> <span class="n">l1</span><span class="p">,</span> <span class="n">l2</span><span class="p">,</span> <span class="n">l3</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower center&#39;</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.07</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">save</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">save</span><span class="o">+</span><span class="s2">&quot;airmass_snr.pdf&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">&quot;tight&quot;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="plot_R2">
+<a class="viewcode-back" href="../../generated/HECATE.plots.html#HECATE.plots.plot_R2">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_R2</span><span class="p">(</span><span class="n">phases</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">R2_array</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span><span class="nb">float</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">save</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot coefficient of determination R² of fit(s).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    phases : `numpy array`</span>
+<span class="sd">        orbital phases.</span>
+<span class="sd">    R2_array : `numpy array`</span>
+<span class="sd">        coefficient of determination scores.</span>
+<span class="sd">    threshold : `float`</span>
+<span class="sd">        threshold to consider a fit good.</span>
+<span class="sd">    save</span>
+<span class="sd">        path to save plot. </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">phases</span><span class="p">,</span> <span class="n">R2_array</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">threshold</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;R² of fits to profiles&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Orbital Phase&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;R²&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_axisbelow</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">save</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span> 
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">save</span><span class="o">+</span><span class="s2">&quot;R2_fits.pdf&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">&quot;tight&quot;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="plot_sysvel_corr_CCF">
+<a class="viewcode-back" href="../../generated/HECATE.plots.html#HECATE.plots.plot_sysvel_corr_CCF">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_sysvel_corr_CCF</span><span class="p">(</span><span class="n">phases</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">tr_dur</span><span class="p">:</span><span class="nb">float</span><span class="p">,</span> <span class="n">tr_ingress_egress</span><span class="p">:</span><span class="nb">float</span><span class="p">,</span> <span class="n">in_indices</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">out_indices</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">x0</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">poly_coefs</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">x0_corr</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot stellar systemic velocity showing the R-M effect and it&#39;s correction.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    phases : `numpy array``</span>
+<span class="sd">        orbital phases.</span>
+<span class="sd">    tr_dur : `float`</span>
+<span class="sd">        transit duration.</span>
+<span class="sd">    tr_ingress_egress : `float`</span>
+<span class="sd">        duration between ingress and egress of transit.</span>
+<span class="sd">    in_indices : `numpy array`</span>
+<span class="sd">        array indices where planet is in transit.</span>
+<span class="sd">    out_indices : `numpy array`</span>
+<span class="sd">        array indices where planet is not in transit.</span>
+<span class="sd">    x0 : `numpy array`</span>
+<span class="sd">        non-corrected central RVs.</span>
+<span class="sd">    poly_coefs : `numpy array`</span>
+<span class="sd">        linear polynomial fit coefficients.</span>
+<span class="sd">    x0_corr : `numpy array`</span>
+<span class="sd">        corrected central RVs.</span>
+<span class="sd">    save</span>
+<span class="sd">        path to save plot. </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+
+    <span class="n">l0</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="o">-</span><span class="n">tr_dur</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span> <span class="n">tr_dur</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+    <span class="n">l1</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">tr_ingress_egress</span><span class="o">/</span><span class="mf">2.</span><span class="o">-</span><span class="n">tr_dur</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="n">tr_ingress_egress</span><span class="o">/</span><span class="mf">2.</span><span class="o">+</span><span class="n">tr_dur</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">phases</span><span class="p">[</span><span class="n">in_indices</span><span class="p">],</span> <span class="n">x0</span><span class="p">[:,</span><span class="mi">0</span><span class="p">][</span><span class="n">in_indices</span><span class="p">],</span> <span class="n">x0</span><span class="p">[:,</span><span class="mi">1</span><span class="p">][</span><span class="n">in_indices</span><span class="p">],</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;r.&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">elinewidth</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">phases</span><span class="p">[</span><span class="n">out_indices</span><span class="p">],</span> <span class="n">x0</span><span class="p">[:,</span><span class="mi">0</span><span class="p">][</span><span class="n">out_indices</span><span class="p">],</span> <span class="n">x0</span><span class="p">[:,</span><span class="mi">1</span><span class="p">][</span><span class="n">out_indices</span><span class="p">],</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;k.&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">elinewidth</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">l2</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">phases</span><span class="p">[</span><span class="n">out_indices</span><span class="p">],</span> <span class="n">poly_coefs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">phases</span><span class="p">[</span><span class="n">out_indices</span><span class="p">]</span><span class="o">+</span><span class="n">poly_coefs</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Radial Velocities [km/s]&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Orbital Phases&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_axisbelow</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="o">-</span><span class="n">tr_dur</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">tr_dur</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;orange&quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">tr_ingress_egress</span><span class="o">/</span><span class="mf">2.</span><span class="o">-</span><span class="n">tr_dur</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="n">tr_ingress_egress</span><span class="o">/</span><span class="mf">2.</span><span class="o">+</span><span class="n">tr_dur</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">phases</span><span class="p">[</span><span class="n">in_indices</span><span class="p">],</span> <span class="n">x0_corr</span><span class="p">[:,</span><span class="mi">0</span><span class="p">][</span><span class="n">in_indices</span><span class="p">],</span> <span class="n">x0_corr</span><span class="p">[:,</span><span class="mi">1</span><span class="p">][</span><span class="n">in_indices</span><span class="p">],</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;r.&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">elinewidth</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">phases</span><span class="p">[</span><span class="n">out_indices</span><span class="p">],</span> <span class="n">x0_corr</span><span class="p">[:,</span><span class="mi">0</span><span class="p">][</span><span class="n">out_indices</span><span class="p">],</span> <span class="n">x0_corr</span><span class="p">[:,</span><span class="mi">1</span><span class="p">][</span><span class="n">out_indices</span><span class="p">],</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;k.&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">elinewidth</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span> <span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
+    
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Radial Velocities [km/s]&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Orbital Phases&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_axisbelow</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Partially in transit&#39;</span><span class="p">,</span><span class="s1">&#39;Fully in transit&#39;</span><span class="p">,</span><span class="s1">&#39;out of transit linear fit&#39;</span><span class="p">]</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="n">l0</span><span class="p">,</span><span class="n">l1</span><span class="p">,</span><span class="n">l2</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower center&#39;</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.12</span><span class="p">))</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Central values of CCFs&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">19</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">save</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">save</span><span class="o">+</span><span class="s2">&quot;sys_vel_correction_CCF.pdf&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">&quot;tight&quot;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="plot_avg_out_of_transit_profile">
+<a class="viewcode-back" href="../../generated/HECATE.plots.html#HECATE.plots.plot_avg_out_of_transit_profile">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_avg_out_of_transit_profile</span><span class="p">(</span><span class="n">avg_out_of_transit_prof</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">profile_type</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="s2">&quot;CCF&quot;</span><span class="p">,</span> <span class="n">save</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot average out-of-transit profile, either CCF or spectral line.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    avg_out_of_transit_prof : `numpy array`</span>
+<span class="sd">        average out-of-transit profile (RV/wavelength, flux and flux error).</span>
+<span class="sd">    profile_type : `str`</span>
+<span class="sd">        whether it&#39;s a CCF or spectral line profile.</span>
+<span class="sd">    save : `str`</span>
+<span class="sd">        path to save plot.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Averaged out of transit </span><span class="si">{</span><span class="n">profile_type</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_axisbelow</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Wavelength [$\AA$]&#39;</span> <span class="k">if</span> <span class="n">profile_type</span> <span class="o">!=</span> <span class="s2">&quot;CCF&quot;</span> <span class="k">else</span> <span class="s1">&#39;Radial Velocities [km/s]&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Normalized Flux&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">profile_type</span> <span class="o">==</span> <span class="s2">&quot;CCF&quot;</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">avg_out_of_transit_prof</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">avg_out_of_transit_prof</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">avg_out_of_transit_prof</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">avg_out_of_transit_prof</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">yerr</span><span class="o">=</span><span class="n">avg_out_of_transit_prof</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">capsize</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">capthick</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">elinewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">avg_out_of_transit_prof</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">avg_out_of_transit_prof</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span> 
+
+    <span class="k">if</span> <span class="n">save</span><span class="p">:</span> 
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">save</span><span class="o">+</span><span class="sa">f</span><span class="s2">&quot;avg_out_of_transit_</span><span class="si">{</span><span class="n">profile_type</span><span class="si">}</span><span class="s2">.pdf&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">&quot;tight&quot;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="plot_profile_fit">
+<a class="viewcode-back" href="../../generated/HECATE.plots.html#HECATE.plots.plot_profile_fit">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_profile_fit</span><span class="p">(</span><span class="n">data</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">y_fit</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">phase</span><span class="p">:</span><span class="nb">float</span><span class="p">,</span> <span class="n">data_type</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">observation_type</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">save</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot fit of spectral line or CCF profile. Four subplots: (1) observed and fitted profile; (2) residuals; (3) distribution of residuals; (4) distribution of data uncertainties.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : `numpy array`</span>
+<span class="sd">        CCF profile (RV, flux and flux error) or spectral line profile (wavelength, flux and flux error).</span>
+<span class="sd">    y_fit : `numpy array`</span>
+<span class="sd">        fitted profile flux.</span>
+<span class="sd">    phase : `float`</span>
+<span class="sd">        orbital phase of observation.</span>
+<span class="sd">    data_type : `str`</span>
+<span class="sd">        whether it&#39;s a CCF or spectral line.</span>
+<span class="sd">    observation_type : `str`</span>
+<span class="sd">        whether it&#39;s a local, average out-of-transit or raw CCF.</span>
+<span class="sd">    model : `str`</span>
+<span class="sd">        type of profile model to fit.</span>
+<span class="sd">    save</span>
+<span class="sd">        path to save plot. </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">y_err</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">7</span><span class="p">),</span> <span class="n">gridspec_kw</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;height_ratios&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.7</span><span class="p">,</span> <span class="mi">1</span><span class="p">]})</span>
+    
+    <span class="k">if</span> <span class="n">observation_type</span> <span class="o">==</span> <span class="s2">&quot;local&quot;</span><span class="p">:</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Local </span><span class="si">{</span><span class="n">data_type</span><span class="si">}</span><span class="s1">, Model: </span><span class="si">{</span><span class="n">model</span><span class="si">}</span><span class="s1">, Phase: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">phase</span><span class="p">)[:</span><span class="mi">6</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="k">elif</span> <span class="n">observation_type</span> <span class="o">==</span> <span class="s2">&quot;master&quot;</span><span class="p">:</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Master out-of-transit </span><span class="si">{</span><span class="n">data_type</span><span class="si">}</span><span class="s1">, Model: </span><span class="si">{</span><span class="n">model</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="k">elif</span> <span class="n">observation_type</span> <span class="o">==</span> <span class="s2">&quot;raw&quot;</span><span class="p">:</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Model: </span><span class="si">{</span><span class="n">model</span><span class="si">}</span><span class="s1">, Phase: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">phase</span><span class="p">)[:</span><span class="mi">6</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span>
+
+    <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+
+    <span class="n">x_label</span> <span class="o">=</span> <span class="s1">&#39;Radial Velocities [km/s]&#39;</span> <span class="k">if</span> <span class="n">data_type</span> <span class="o">==</span> <span class="s2">&quot;CCF&quot;</span> <span class="k">else</span> <span class="sa">r</span><span class="s1">&#39;Wavelength [$\AA$]&#39;</span>
+
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">yerr</span><span class="o">=</span><span class="n">y_err</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">capsize</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">elinewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_fit</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;fit&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">x_label</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Flux&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_axisbelow</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">-</span><span class="n">y_fit</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">x_label</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Residuals&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">();</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_axisbelow</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="n">y_fit</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Residuals&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">();</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_axisbelow</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">y_err</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Uncertainties&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">();</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_axisbelow</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;major&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">save</span><span class="p">:</span>
+        <span class="n">file_name</span> <span class="o">=</span> <span class="n">save</span><span class="o">+</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">data_type</span><span class="si">}</span><span class="s2">_fit_master.pdf&quot;</span> <span class="k">if</span> <span class="n">observation_type</span> <span class="o">==</span> <span class="s2">&quot;master&quot;</span> <span class="k">else</span> <span class="n">save</span><span class="o">+</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">data_type</span><span class="si">}</span><span class="s2">_fit_</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">phase</span><span class="p">)[:</span><span class="mi">6</span><span class="p">]</span><span class="si">}</span><span class="s2">.pdf&quot;</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">&quot;tight&quot;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="plot_local_profile">
+<a class="viewcode-back" href="../../generated/HECATE.plots.html#HECATE.plots.plot_local_profile">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_local_profile</span><span class="p">(</span><span class="n">hecate</span><span class="p">,</span> <span class="n">local_profiles</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">profiles_sub_all</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">profile_type</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="s2">&quot;CCF&quot;</span><span class="p">,</span> <span class="n">wave_lims</span><span class="p">:</span><span class="nb">list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ylim_plot</span><span class="p">:</span><span class="nb">list</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">0.01</span><span class="p">,</span><span class="mf">0.04</span><span class="p">],</span> <span class="n">line_name</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">photometrical_rescale</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">save</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot local profiles for a given profile type (CCF or spectral line) and tomography in function of orbital phases.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    hecate</span>
+<span class="sd">        HECATE class object.</span>
+<span class="sd">    local_profiles : `numpy array`</span>
+<span class="sd">        local profiles (RV/wavelength, flux and flux error), with shape (N_profiles, 3, N_points).</span>
+<span class="sd">    profiles_sub_all : `numpy array`</span>
+<span class="sd">        all subtracted profiles (RV/wavelength, flux and flux error), with shape (N_profiles, 3, N_points).</span>
+<span class="sd">    profile_type : `str`</span>
+<span class="sd">        whether it&#39;s a CCF or spectral line profile.</span>
+<span class="sd">    wave_lims : `list`</span>
+<span class="sd">        wavelength interval to plot (only for spectral line profiles).</span>
+<span class="sd">    ylim_plot : `list`</span>
+<span class="sd">        y-axis limits for the plot (only for spectral line profiles).</span>
+<span class="sd">    line_name : `str`</span>
+<span class="sd">        name of the spectral line (only for spectral line profiles).</span>
+<span class="sd">    photometrical_rescale : `bool`</span>
+<span class="sd">        whether to rescale the local profiles by the photometric transit light curve.</span>
+<span class="sd">    save : `str`</span>
+<span class="sd">        path to save the plot.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">phases</span> <span class="o">=</span> <span class="n">hecate</span><span class="o">.</span><span class="n">phases</span>
+    <span class="n">in_indices</span> <span class="o">=</span> <span class="n">hecate</span><span class="o">.</span><span class="n">phases_in_indices</span>
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mf">9.5</span><span class="p">),</span> <span class="n">gridspec_kw</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;height_ratios&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]})</span>
+    <span class="n">norm</span> <span class="o">=</span> <span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="n">phases</span><span class="p">[</span><span class="n">in_indices</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">vmax</span><span class="o">=</span><span class="n">phases</span><span class="p">[</span><span class="n">in_indices</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+    <span class="n">cmap</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;coolwarm_r&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">photometrical_rescale</span><span class="p">:</span>
+        <span class="n">local_profiles_rescaled</span> <span class="o">=</span> <span class="n">local_profiles</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">flux_corrections</span> <span class="o">=</span> <span class="n">hecate</span><span class="o">.</span><span class="n">Flux_SOAP</span><span class="p">[</span><span class="n">in_indices</span><span class="p">]</span>
+        <span class="n">local_profiles_rescaled</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">local_profiles_rescaled</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">flux_corrections</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+        <span class="n">local_profiles</span> <span class="o">=</span> <span class="n">local_profiles_rescaled</span>
+
+    <span class="n">x_0</span> <span class="o">=</span> <span class="n">local_profiles</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># wavelength or RV grid of first observation</span>
+
+    <span class="k">if</span> <span class="n">profile_type</span> <span class="o">!=</span> <span class="s2">&quot;CCF&quot;</span> <span class="ow">and</span> <span class="n">wave_lims</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_0</span> <span class="o">&gt;=</span> <span class="n">wave_lims</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x_0</span> <span class="o">&lt;=</span> <span class="n">wave_lims</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">local_profiles</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">in_indices</span><span class="p">):</span>
+        <span class="n">x</span>     <span class="o">=</span> <span class="n">local_profiles</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">sub</span>   <span class="o">=</span> <span class="n">local_profiles</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">sub_e</span> <span class="o">=</span> <span class="n">local_profiles</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+
+        <span class="n">color</span> <span class="o">=</span> <span class="n">cmap</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">phases</span><span class="p">[</span><span class="n">idx</span><span class="p">]))</span>
+
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">sub_e</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="n">profile_type</span> <span class="o">!=</span> <span class="s2">&quot;CCF&quot;</span><span class="p">:</span>
+            <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="n">sub</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="n">sub</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+            <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="n">sub</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="n">yerr</span><span class="o">=</span><span class="n">sub_e</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">capsize</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">elinewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="n">sm</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">ScalarMappable</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">norm</span><span class="p">)</span>
+    <span class="n">sm</span><span class="o">.</span><span class="n">set_array</span><span class="p">([])</span>  
+    <span class="n">cbar1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">sm</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">cbar1</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">&#39;Orbital Phase&#39;</span><span class="p">)</span>
+
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Residual flux [total stellar flux]&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_axisbelow</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="n">x_0</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span><span class="n">x_0</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()])</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([])</span>
+
+    <span class="k">if</span> <span class="n">profile_type</span> <span class="o">!=</span> <span class="s2">&quot;CCF&quot;</span> <span class="ow">and</span> <span class="n">ylim_plot</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ylim_plot</span><span class="p">)</span>
+
+    <span class="n">im</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">profiles_sub_all</span><span class="p">[:,</span><span class="mi">1</span><span class="p">][:,</span><span class="n">mask</span><span class="p">],</span>
+                        <span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="n">x_0</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">x_0</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">phases</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">phases</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span> 
+                        <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="o">-</span><span class="n">hecate</span><span class="o">.</span><span class="n">tr_dur</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">hecate</span><span class="o">.</span><span class="n">tr_dur</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">hecate</span><span class="o">.</span><span class="n">tr_ingress_egress</span><span class="o">/</span><span class="mi">2</span> <span class="o">-</span> <span class="n">hecate</span><span class="o">.</span><span class="n">tr_dur</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="o">-</span><span class="n">hecate</span><span class="o">.</span><span class="n">tr_ingress_egress</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="n">hecate</span><span class="o">.</span><span class="n">tr_dur</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Orbital Phase&#39;</span><span class="p">)</span>
+    
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Radial Velocities [km/s]&#39;</span> <span class="k">if</span> <span class="n">profile_type</span> <span class="o">==</span> <span class="s2">&quot;CCF&quot;</span> <span class="k">else</span> <span class="sa">r</span><span class="s1">&#39;Wavelength [$\AA$]&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Local CCFs (Out-of-transit - In-transit)&#39;</span> <span class="k">if</span> <span class="n">profile_type</span> <span class="o">==</span> <span class="s2">&quot;CCF&quot;</span> <span class="k">else</span> <span class="sa">f</span><span class="s1">&#39;Local </span><span class="si">{</span><span class="n">line_name</span><span class="si">}</span><span class="s1"> (Out-of-transit - In-transit)&#39;</span><span class="p">)</span>  
+
+    <span class="n">cbar2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">cbar2</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">&#39;Residual flux [total stellar flux]&#39;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">save</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span> 
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">save</span><span class="o">+</span><span class="sa">f</span><span class="s2">&quot;local_CCFs.pdf&quot;</span> <span class="k">if</span> <span class="n">profile_type</span> <span class="o">==</span> <span class="s2">&quot;CCF&quot;</span> <span class="k">else</span> <span class="n">save</span><span class="o">+</span><span class="sa">f</span><span class="s2">&quot;local_</span><span class="si">{</span><span class="n">line_name</span><span class="si">}</span><span class="s2">.pdf&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">&quot;tight&quot;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">def plot_local_CCFs(hecate, local_CCFs:np.array, CCFs_sub_all:np.array, plot_fit:bool, save=None):</span>
+<span class="sd">    &quot;&quot;&quot;Plot local CCFs and tomography in function of orbital phases.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    hecate</span>
+<span class="sd">        HECATE class object.</span>
+<span class="sd">    local_CCFs : `numpy array`</span>
+<span class="sd">        local CCF profiles (RV, flux and flux error), with shape (N_CCFs, 3, N_points).</span>
+<span class="sd">    CCFs_sub_all : `numpy array`</span>
+<span class="sd">        all subtracted CCF profiles (RV, flux and flux error), with shape (N_CCFs, 3, N_points).</span>
+<span class="sd">    RV_reference : `numpy array`</span>
+<span class="sd">        RV grid for plotting.</span>
+<span class="sd">    save</span>
+<span class="sd">        path to save plot. </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    phases = hecate.phases</span>
+<span class="sd">    in_indices = hecate.phases_in_indices</span>
+
+<span class="sd">    fig, axes = plt.subplots(nrows=2, figsize=(12,9.5), gridspec_kw={&#39;height_ratios&#39;: [1.5, 1]})</span>
+<span class="sd">    norm = Normalize(vmin=phases[in_indices].min(), vmax=phases[in_indices].max())</span>
+<span class="sd">    cmap = plt.get_cmap(&#39;coolwarm_r&#39;)</span>
+
+<span class="sd">    axes[0].set_title(f&#39;Local CCFs (Out-of-transit - In-transit)&#39;)</span>
+
+<span class="sd">    for k, idx in enumerate(in_indices):</span>
+<span class="sd">        rv      = local_CCFs[k,0]</span>
+<span class="sd">        sub     = local_CCFs[k,1]</span>
+<span class="sd">        de_corr = local_CCFs[k,2]</span>
+
+<span class="sd">        color = cmap(norm(phases[idx]))</span>
+
+<span class="sd">        if plot_fit:</span>
+<span class="sd">            axes[0].plot(rv, sub, color=color, lw=2)</span>
+<span class="sd">        else:</span>
+<span class="sd">            axes[0].scatter(rv, sub, color=color, s=50)</span>
+<span class="sd">            axes[0].errorbar(rv, sub, yerr=de_corr, color=&#39;black&#39;, capsize=5, linewidth=0, elinewidth=1)</span>
+
+<span class="sd">    sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)</span>
+<span class="sd">    sm.set_array([])  </span>
+<span class="sd">    cbar1 = fig.colorbar(sm, ax=axes[0])</span>
+<span class="sd">    cbar1.set_label(&#39;Orbital Phase&#39;)</span>
+
+<span class="sd">    axes[0].set_ylabel(&#39;Residual flux [total stellar flux]&#39;)</span>
+<span class="sd">    axes[0].grid()</span>
+<span class="sd">    axes[0].set_axisbelow(True)</span>
+<span class="sd">    axes[0].set_xlim([rv.min(), rv.max()])</span>
+<span class="sd">    axes[0].set_xticklabels([])</span>
+
+<span class="sd">    im = axes[1].imshow(CCFs_sub_all[:,1], cmap=&#39;jet&#39;, extent=[rv.min(), rv.max(), phases.min(), phases.max()], aspect=&#39;auto&#39;, origin=&#39;lower&#39;)</span>
+
+<span class="sd">    axes[1].axhline(-hecate.tr_dur/2, lw=1.5, ls=&quot;--&quot;, color=&quot;white&quot;)</span>
+<span class="sd">    axes[1].axhline(hecate.tr_dur/2, lw=1.5, ls=&quot;--&quot;, color=&quot;white&quot;)</span>
+<span class="sd">    axes[1].axhline(hecate.tr_ingress_egress/2 - hecate.tr_dur/2, lw=1.5, ls=&quot;--&quot;, color=&quot;white&quot;)</span>
+<span class="sd">    axes[1].axhline(-hecate.tr_ingress_egress/2 + hecate.tr_dur/2, lw=1.5, ls=&quot;--&quot;, color=&quot;white&quot;)</span>
+<span class="sd">    </span>
+<span class="sd">    axes[1].set_xlabel(&#39;Radial Velocities [km/s]&#39;)</span>
+<span class="sd">    axes[1].set_ylabel(&#39;Orbital Phase&#39;)</span>
+
+<span class="sd">    cbar2 = fig.colorbar(im, ax=axes[1])</span>
+<span class="sd">    cbar2.set_label(&#39;Residual flux [total stellar flux]&#39;)</span>
+
+<span class="sd">    plt.tight_layout()</span>
+
+<span class="sd">    if save: </span>
+<span class="sd">        plt.savefig(save+&quot;local_CCFs.pdf&quot;, dpi=300, bbox_inches=&quot;tight&quot;)</span>
+
+<span class="sd">    plt.show()</span>
+
+
+<span class="sd">def plot_local_spectral_line(hecate, local_spectra:np.array, spectra_sub_all:np.array, wave_lims:list, line_name:str, photometrical_rescale:bool=False, ylim_plot:list=[-0.01,0.04], save=None):</span>
+<span class="sd">    &quot;&quot;&quot;Plot local CCFs and tomography in function of orbital phases.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    hecate</span>
+<span class="sd">        HECATE class object.</span>
+<span class="sd">    local_spectra : `numpy array`</span>
+<span class="sd">        local spectral line profiles (wavelength, flux and flux error), with shape (N_spectra, 3, N_points).</span>
+<span class="sd">    spectra_sub_all : `numpy array`</span>
+<span class="sd">        all subtracted spectral line profiles (wavelength, flux and flux error), with shape (N_spectra, 3, N_points).</span>
+<span class="sd">    wave_lims : `list`</span>
+<span class="sd">        wavelength interval to plot.</span>
+<span class="sd">    line_name : `str`</span>
+<span class="sd">        name of the spectral line.</span>
+<span class="sd">    photometrical_rescale : `bool`</span>
+<span class="sd">        whether to rescale the local spectral line profiles by the photometric transit light curve.</span>
+<span class="sd">    ylim_plot : `list`</span>
+<span class="sd">        y-axis limits for the plot.</span>
+<span class="sd">    save</span>
+<span class="sd">        path to save plot. </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    phases = hecate.phases</span>
+<span class="sd">    in_indices = hecate.phases_in_indices</span>
+
+<span class="sd">    fig, axes = plt.subplots(nrows=2, figsize=(12,9.5), gridspec_kw={&#39;height_ratios&#39;: [1.5, 1]})</span>
+<span class="sd">    norm = Normalize(vmin=phases[in_indices].min(), vmax=phases[in_indices].max())</span>
+<span class="sd">    cmap = plt.get_cmap(&#39;coolwarm_r&#39;)</span>
+
+<span class="sd">    axes[0].set_title(f&#39;Local {line_name} (Out-of-transit - In-transit)&#39;)</span>
+
+<span class="sd">    mask = (local_spectra[0,0] &gt;= wave_lims[0]) &amp; (local_spectra[0,0] &lt;= wave_lims[1])</span>
+
+<span class="sd">    if photometrical_rescale:</span>
+<span class="sd">        local_spectra_rescaled = local_spectra.copy()</span>
+<span class="sd">        flux_corrections = hecate.Flux_SOAP[in_indices]</span>
+<span class="sd">        local_spectra_rescaled[:,1] = local_spectra_rescaled[:,1] / flux_corrections[:, np.newaxis]</span>
+<span class="sd">        local_spectra = local_spectra_rescaled</span>
+
+<span class="sd">    for k, idx in enumerate(in_indices):</span>
+<span class="sd">        sub     = local_spectra[k,1]</span>
+<span class="sd">        #de_corr = local_spectra[k,2]</span>
+
+<span class="sd">        color = cmap(norm(phases[idx]))</span>
+<span class="sd">        axes[0].plot(local_spectra[k,0][mask], sub[mask], color=color, lw=3)</span>
+<span class="sd">        #axes[0].errorbar(wave_grid, sub, yerr=de_corr, color=&#39;black&#39;, capsize=5, linewidth=0, elinewidth=1)</span>
+
+<span class="sd">    sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)</span>
+<span class="sd">    sm.set_array([])  </span>
+<span class="sd">    cbar1 = fig.colorbar(sm, ax=axes[0])</span>
+<span class="sd">    cbar1.set_label(&#39;Orbital Phase&#39;)</span>
+
+<span class="sd">    axes[0].set_ylabel(&#39;Residual flux [total stellar flux]&#39;)</span>
+<span class="sd">    axes[0].grid()</span>
+<span class="sd">    axes[0].set_axisbelow(True)</span>
+<span class="sd">    axes[0].set_xlim([local_spectra[0,0][mask].min(),local_spectra[0,0][mask].max()])</span>
+<span class="sd">    axes[0].set_xticklabels([])</span>
+
+<span class="sd">    axes[0].set_ylim(ylim_plot)</span>
+
+<span class="sd">    im = axes[1].imshow(spectra_sub_all[:,1][:,mask], cmap=&#39;jet&#39;, </span>
+<span class="sd">                        extent=[local_spectra[0,0][mask].min(), local_spectra[0,0][mask].max(), phases.min(), phases.max()], </span>
+<span class="sd">                        aspect=&#39;auto&#39;, origin=&#39;lower&#39;, vmin=0)</span>
+
+<span class="sd">    axes[1].axhline(-hecate.tr_dur/2, lw=1.5, ls=&quot;--&quot;, color=&quot;white&quot;)</span>
+<span class="sd">    axes[1].axhline(hecate.tr_dur/2, lw=1.5, ls=&quot;--&quot;, color=&quot;white&quot;)</span>
+<span class="sd">    axes[1].axhline(hecate.tr_ingress_egress/2 - hecate.tr_dur/2, lw=1.5, ls=&quot;--&quot;, color=&quot;white&quot;)</span>
+<span class="sd">    axes[1].axhline(-hecate.tr_ingress_egress/2 + hecate.tr_dur/2, lw=1.5, ls=&quot;--&quot;, color=&quot;white&quot;)</span>
+
+<span class="sd">    axes[1].set_xlabel(r&#39;Wavelength [$\AA$]&#39;)</span>
+<span class="sd">    axes[1].set_ylabel(&#39;Orbital Phase&#39;)</span>
+
+<span class="sd">    cbar2 = fig.colorbar(im, ax=axes[1])</span>
+<span class="sd">    cbar2.set_label(&#39;Residual flux [total stellar flux]&#39;)</span>
+
+<span class="sd">    plt.tight_layout()</span>
+
+<span class="sd">    if save: </span>
+<span class="sd">        plt.savefig(save+&quot;local_spectral_line.pdf&quot;, dpi=300, bbox_inches=&quot;tight&quot;)</span>
+
+<span class="sd">    plt.show()</span>
+
+
+<span class="sd">def plot_sysvel_corr_line(phases:np.array, tr_dur:float, tr_ingress_egress:float, out_indices:np.array, x0:np.array, rv:np.array, rv_corr:np.array, b0:np.array, wave_ctr_line:np.ndarray=[0,0], line_name:str=r&quot;H$\alpha$&quot;, save=None):</span>
+<span class="sd">    &quot;&quot;&quot;Plot stellar systemic velocity showing the R-M effect and it&#39;s correction.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    phases : `numpy array``</span>
+<span class="sd">        orbital phases.</span>
+<span class="sd">    tr_dur : `float`</span>
+<span class="sd">        transit duration.</span>
+<span class="sd">    tr_ingress_egress : `float`</span>
+<span class="sd">        duration between ingress and egress of transit.</span>
+<span class="sd">    out_indices : `numpy array`</span>
+<span class="sd">        array indices where planet is not in transit.</span>
+<span class="sd">    x0 : `numpy array`</span>
+<span class="sd">        non-corrected central wavelength.</span>
+<span class="sd">    rv : `numpy array`</span>
+<span class="sd">        non-corrected central RVs in km/s.</span>
+<span class="sd">    rv_corr : `numpy array`</span>
+<span class="sd">        corrected central RVs in km/s.</span>
+<span class="sd">    poly_coefs : `numpy array`</span>
+<span class="sd">        linear polynomial fit coefficients.</span>
+<span class="sd">    wave_ctr_line : `numpy array`</span>
+<span class="sd">        central wavelength of the spectral line and its uncertainty.</span>
+<span class="sd">    line_name : `str`</span>
+<span class="sd">        name of the spectral line.</span>
+<span class="sd">    save</span>
+<span class="sd">        path to save plot. </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    fig, axes = plt.subplots(nrows=3, figsize=(6, 10))</span>
+<span class="sd">    fig.suptitle(f&#39;Systemic velocity correction of {line_name} line&#39;)</span>
+
+<span class="sd">    axes[0].scatter(phases, x0[:,0]-wave_ctr_line[0], color=&quot;black&quot;, zorder=2)</span>
+<span class="sd">    axes[0].errorbar(x=phases, y=x0[:,0]-wave_ctr_line[0], yerr=x0[:,1], capsize=3, capthick=0.5, color=&#39;black&#39;, linewidth=0, elinewidth=1, zorder=2)</span>
+<span class="sd">    axes[0].axvspan(-tr_dur/2, tr_dur/2, alpha=0.3, color=&#39;orange&#39;)</span>
+<span class="sd">    axes[0].axvspan(-tr_ingress_egress/2, tr_ingress_egress/2, alpha=0.4, color=&#39;orange&#39;)</span>
+<span class="sd">    axes[0].grid()</span>
+<span class="sd">    axes[0].set_xlabel(&#39;Orbital Phases&#39;)</span>
+<span class="sd">    axes[0].set_ylabel(f&#39;Fitted central $\\lambda$ - $\\lambda_{{\\mathrm{{{line_name}}}}}$&#39;+&#39;\n[$\\AA$]&#39;)</span>
+
+<span class="sd">    axes[1].scatter(phases, rv[:,0], color =&#39;red&#39;, zorder=3)</span>
+<span class="sd">    axes[1].scatter(phases[out_indices], rv[:,0][out_indices], color=&quot;black&quot;, zorder=4)</span>
+<span class="sd">    axes[1].errorbar(x=phases, y=rv[:,0], yerr=rv[:,1], capsize=3, capthick=0.5, color=&#39;black&#39;, linewidth=0, elinewidth=1, zorder=2)</span>
+<span class="sd">    axes[1].axvspan(-tr_dur/2, tr_dur/2, alpha=0.3, color=&#39;orange&#39;)</span>
+<span class="sd">    axes[1].axvspan(-tr_ingress_egress/2, tr_ingress_egress/2, alpha=0.4, color=&#39;orange&#39;)</span>
+<span class="sd">    axes[1].plot(phases[out_indices], np.zeros_like(phases[out_indices])+b0, color=&quot;black&quot;, linestyle=&#39;dashed&#39;)</span>
+<span class="sd">    axes[1].grid()</span>
+<span class="sd">    axes[1].set_xlabel(&#39;Orbital Phases&#39;)</span>
+<span class="sd">    axes[1].set_ylabel(&#39;Central Radial Velocity\n[km/s]&#39;)</span>
+
+<span class="sd">    axes[2].scatter(phases, rv_corr[:,0], color=&quot;red&quot;, zorder=3)</span>
+<span class="sd">    axes[2].scatter(phases[out_indices], rv_corr[:,0][out_indices], color=&quot;black&quot;, zorder=3)</span>
+<span class="sd">    axes[2].errorbar(x=phases, y=rv_corr[:,0], yerr=rv_corr[:,1], capsize=3, capthick=0.5, color=&#39;black&#39;, linewidth=0, elinewidth=1, zorder=2)</span>
+<span class="sd">    axes[2].axvspan(-tr_dur/2., tr_dur/2., alpha=0.3, color=&#39;orange&#39;)</span>
+<span class="sd">    axes[2].axvspan(-tr_ingress_egress/2., tr_ingress_egress/2., alpha=0.4, color=&#39;orange&#39;)</span>
+<span class="sd">    axes[2].set_xlabel(&#39;Orbital Phases&#39;)</span>
+<span class="sd">    axes[2].set_ylabel(&#39;Central Radial Velocity\n[km/s]&#39;)</span>
+<span class="sd">    axes[2].grid()</span>
+
+<span class="sd">    plt.tight_layout()</span>
+
+<span class="sd">    if save:</span>
+<span class="sd">        plt.savefig(save+&quot;sys_vel_correction_line.pdf&quot;, dpi=300, bbox_inches=&quot;tight&quot;)</span>
+
+<span class="sd">    plt.show()</span>
+<span class="sd">&#39;&#39;&#39;</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Telmo Monteiro.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
