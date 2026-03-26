@@ -6,12 +6,12 @@ To install run the following commands:
 
 .. code:: bash
 
-    git clone https://github.com/telmonteiro/HECATE-DS
-    cd HECATE-DS
+    git clone https://github.com/telmonteiro/HECATE
+    cd HECATE
     pip install -e .
 
-Then you can use SOAP from Python with:
+Then you can use HECATE from Python with:
 
 .. code:: python
 
-    import HECATE-DS
+    import HECATE
