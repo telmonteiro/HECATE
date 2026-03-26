@@ -1,11 +1,12 @@
-# Class to normalize spectra, both globally and locally.
+# Class to locally normalize spectra.
 
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.colors import Normalize
+from matplotlib.patches import Patch
 
 class norm_spec:
-    """Class to normalize spectra, both globally and locally. 
+    """Class to locally normalize spectra. 
         
     Parameters
     ----------
@@ -13,67 +14,22 @@ class norm_spec:
         orbital phases of the spectra.
     spectra : `numpy array`
         matrix with the systemic velocity corrected spectra (wavelenth, flux, flux error).
+    plot : `bool`
+        whether to plot the spectra.
+    plot_masks : `dict`
+        dictionary with the wavelength ranges to plot and their titles. If None, a default set of wavelength ranges is used.
     
     Methods
     -------
-    global_norm(mask, plot=True, plot_masks=None)
-        Performs global normalization of the spectra using a given wavelength range to act as reference.
     cut_spectrum(spectra_global_norm, wave_min=6450, wave_max=6650)
         Cut the globally normalized spectra to a specific wavelength region to spare memory.
     local_norm(spectra_region, mask_line=[(6530,6590)], mask_poly=[(6538.8,6545.8),(6546.9,6551.4),(6575.6,6579.8),(6581.4,6586.05)], plot=True, line_name='Halpha')
         Normalize locally the spectra around the spectral line of interest by fitting a linear polynomial to the continuum.
     """
-    def __init__(self,phases:np.array, spectra:np.array):
+    def __init__(self,phases:np.array, spectra:np.array, plot:bool=True, plot_masks:dict=None):
 
         self.phases = phases
         self.spectra = spectra
-
-
-    def global_norm(self, mask:np.ndarray=[(6400,6800)], plot:bool=True, plot_masks:dict=None):
-        """Performs global normalization of the spectra using a given wavelength range to act as reference.
-        
-        Parameters
-        ----------
-        phases : `numpy array`
-            orbital phases of the spectra.
-        spectra : `numpy array`
-            matrix with the systemic velocity corrected spectra (wavelenth, flux, flux error).
-        mask : list of tuples
-            wavelength range(s) to use as reference for the normalization.
-        plot : `bool`
-            wether to plot the normalized spectra and different zoomed in regions.
-        plot_masks : `dict`, optional
-            wavelength ranges for zoomed plots in the form of dictionary with key being the subplot title and value being the interval as a tuple. 
-
-        Returns
-        -------
-        spectra_global_norm : `numpy array`
-            matrix with the globally normalized spectra (wavelenth, flux, flux error).
-        """
-        spectra_global_norm = np.zeros_like(self.spectra)
-        
-        wave = self.spectra[0, 0, :]
-
-        norm_mask = np.zeros(len(wave), dtype=bool) #mask for the normalization regions
-        for interval in mask:
-            norm_mask |= (wave >= interval[0]) & (wave <= interval[1])
-
-        for i in range(spectra_global_norm.shape[0]):
-
-            wave = self.spectra[i,0,:]
-            flux = self.spectra[i,1,:]
-            flux_err = self.spectra[i,2,:]
-
-            med = np.median(flux[norm_mask])
-
-            flux_norm = flux/med
-            median_err = np.sqrt(np.sum((flux_err[norm_mask])**2))/len(flux_err[norm_mask])
-
-            spectra_global_norm[i,0,:] = wave
-            spectra_global_norm[i,1,:] = flux_norm
-            spectra_global_norm[i,2,:] = flux_norm*np.sqrt((flux_err/flux)**2+(median_err/med)**2)
-
-        self.spectra_global_norm = spectra_global_norm
 
         if plot:
             
@@ -91,18 +47,18 @@ class norm_spec:
 
             fig, ax = plt.subplots(nrows=len(plot_masks), figsize=(9, 3.5*len(plot_masks)))
 
-            for i in range(spectra_global_norm.shape[0]):
+            for i in range(spectra.shape[0]):
                 color = cmap(normalized_phases[-i-1])
                 
-                wave = spectra_global_norm[i, 0, :]
-                flux_norm = spectra_global_norm[i, 1, :]
+                wave = spectra[i, 0, :]
+                flux = spectra[i, 1, :]
                 
                 for plot_idx, (title, wavelength_range) in enumerate(plot_masks.items()):
                     if wavelength_range is None:
-                        ax[plot_idx].plot(wave, flux_norm, linewidth=1, color=color)
+                        ax[plot_idx].plot(wave, flux, linewidth=1, color=color)
                     else:
                         plot_mask = (wave >= wavelength_range[0]) & (wave <= wavelength_range[1])
-                        ax[plot_idx].plot(wave[plot_mask], flux_norm[plot_mask], linewidth=1, color=color)
+                        ax[plot_idx].plot(wave[plot_mask], flux[plot_mask], linewidth=1, color=color)
 
             sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
             sm.set_array([])  
@@ -117,8 +73,6 @@ class norm_spec:
 
             plt.subplots_adjust(hspace=0.4, wspace=0.5)
             plt.show()
-
-        return spectra_global_norm
     
 
     def cut_spectrum(self, spectra_global_norm:np.ndarray, wave_min:float=6450, wave_max:float=6650):
@@ -211,15 +165,7 @@ class norm_spec:
             normalized_phases = norm(self.phases)
             cmap = plt.get_cmap('coolwarm_r')
 
-            fig, axes = plt.subplots(nrows=3, figsize=(9,15))
-
-            axes[0].plot(spectra_local_norm[0,0,:], spectra_local_norm[0,1,:], color='black', linewidth=0.5) 
-            for interval in mask_continuum:
-                mask = (spectra_local_norm[0,0,:] >= interval[0]) & (spectra_local_norm[0,0,:] <= interval[1])
-                axes[0].plot(spectra_local_norm[0,0,:][mask], spectra_local_norm[0,1,:][mask], color='red', linewidth=1)
-            
-            axes[0].set_title(f'Continuum around {line_name} for local normalization')
-            axes[0].set_ylabel('Relative flux')
+            fig, axes = plt.subplots(ncols=2, figsize=(14,4.5))
 
             for i in range(spectra_local_norm.shape[0]):
 
@@ -228,23 +174,31 @@ class norm_spec:
 
                 color = cmap(normalized_phases[i])
 
-                axes[1].plot(wave, flux, linewidth=0.5, color=color)
-                axes[1].plot(wave, poly_coefs_array[i,0]*wave+poly_coefs_array[i,1], linewidth=1.5, color=color, linestyle='dashed', label='Continuum fit')
+                axes[0].plot(wave, flux, linewidth=0.5, color=color)
+                axes[0].plot(wave, poly_coefs_array[i,0]*wave+poly_coefs_array[i,1], linewidth=1.5, color=color, linestyle='dashed', label='Continuum fit')
 
-                axes[2].plot(wave,flux_norm,linewidth=0.5,color=color)
+                axes[1].plot(wave,flux_norm,linewidth=0.5,color=color)
             
-            axes[1].set_title(f'{line_name} spectra with continuum fit')
-            axes[1].set_ylabel('Relative flux')
+            for interval in mask_continuum:
+                axes[0].axvspan(interval[0], interval[1], alpha=0.3, color='orange')
+        
+            axes[0].legend(handles=[Patch(facecolor='orange', alpha=0.3, label='Continuum')], loc='lower left', fontsize=15)
+            
+            axes[0].set_title(f'{line_name} spectra with continuum fit', fontsize=17)
+            axes[0].set_ylabel('Relative flux')
+            axes[0].set_xlabel(r'Wavelength [$\AA$]')
 
-            axes[2].set_title(f'Locally normalized {line_name} spectra')
-            axes[2].set_xlabel(r'Wavelength [$\AA$]')
-            axes[2].set_ylabel('Relative flux')
+            axes[1].set_title(f'Locally normalized {line_name} spectra', fontsize=17)
+            axes[1].set_xlabel(r'Wavelength [$\AA$]')
+            
+            axes[0].margins(0)
+            axes[1].margins(0)
 
             sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
-            cbar_ax1 = fig.add_axes([0.92, 0.11, 0.01, 0.49])
-            cbar1 = plt.colorbar(sm,cax=cbar_ax1)
+            cbar1 = plt.colorbar(sm, ax=axes[1], fraction=0.08, pad=0.02, orientation="vertical")
             cbar1.set_label('Orbital phases')
 
+            plt.tight_layout()
             plt.show()
 
         return spectra_local_norm, poly_coefs_array

@@ -7,12 +7,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.sparse import diags
 
-from HECATE.run_SOAP import run_SOAP
-from HECATE.nested_sampling import run_nestedsampler
-from HECATE.spectral_normalization import norm_spec
+from run_SOAP import run_SOAP
+from nested_sampling import run_nestedsampler
+from spectral_normalization import norm_spec
 
-from HECATE.utils import *
-from HECATE.plots import *
+from utils import *
+from plots import *
 
 
 class HECATE:
@@ -65,7 +65,7 @@ class HECATE:
 
     [2] Cristo, E. et al., "SOAPv4: A new step toward modeling stellar signatures in exoplanet research", Astronomy & Astrophysics, Vol. 702, A84, 17pp., 2025
     """
-    def __init__(self, planet_params:dict, stellar_params:dict, time:np.array, CCFs:np.array, spectra:np.array, soap_wv:np.array=[380,788], plot_soap:bool=False):
+    def __init__(self, planet_params:dict, stellar_params:dict, time:np.array, CCFs:np.array, spectra:np.array, soap_wv:np.array=[380,788], plot_soap:str=None):
 
         # Get orbital phases and mu
         phase_mu = get_phase_mu(planet_params, time)
@@ -97,7 +97,7 @@ class HECATE:
         self.Flux_SOAP = Flux_SOAP
             
 
-    def extract_local_CCF(self, model_fit:str, plot:dict, save=None):
+    def extract_local_CCF(self, model_fit:str, plot:dict, rv_step:float=0.5, save=None):
         """Run all steps of the Doppler Shadow extraction (simulated light curve, systemic velocity correction, compute average out-of-transit CCF and subtraction) and returns the local CCFs. 
         Ideal for quick extraction of local CCFs.
 
@@ -127,7 +127,7 @@ class HECATE:
         CCFs_sysvel_corr, _, _ = self.sysvel_correction_CCF(self.CCFs, model=model_fit, print_output=False, plot_fits=plot["fits_initial_CCF"], plot_sys_vel=plot["sys_vel_ccf"], save=save)
 
         # RV grid as the maximum minimum to minimum maximum of sys. velocity corrected CCF with 0.5 km/s step (ESPRESSO pixel size)
-        RV_reference = np.arange(round(np.max(CCFs_sysvel_corr[:,0,0])), round(np.min(CCFs_sysvel_corr[:,0,-1]))+0.5, 0.5) 
+        RV_reference = np.arange(round(np.max(CCFs_sysvel_corr[:,0,0])), round(np.min(CCFs_sysvel_corr[:,0,-1]))+rv_step, rv_step) 
 
         # average out-of-transit CCF
         CCF_interp, avg_out_of_transit_CCF = self.avg_out_of_transit_profile(CCFs_sysvel_corr, RV_reference, plot=plot["avg_out_of_transit_CCF"], save=save)
@@ -223,9 +223,8 @@ class HECATE:
             spectra_sys_vel_corr[i,1,:] = self.spectra[i,1,:]
             spectra_sys_vel_corr[i,2,:] = self.spectra[i,2,:]
 
-        normalizer = norm_spec(self.phases, spectra_sys_vel_corr)
-        spectra_global_norm = normalizer.global_norm(mask=masks_dict["glob_norm"], plot=plot["spec_global_normalization"])
-        spectra_region = normalizer.cut_spectrum(spectra_global_norm, wave_min=masks_dict["spec_slice"][0][0], wave_max=masks_dict["spec_slice"][0][1]) 
+        normalizer = norm_spec(self.phases, spectra_sys_vel_corr, plot=plot["spectra_regions"])
+        spectra_region = normalizer.cut_spectrum(self.spectra, wave_min=masks_dict["spec_slice"][0][0], wave_max=masks_dict["spec_slice"][0][1]) 
         spectra_local_norm, _ = normalizer.local_norm(spectra_region, mask_line=masks_dict["line_window"], mask_continuum=masks_dict["continuum"], plot=plot["spec_local_normalization"], line_name=line_name)
 
         # average out-of-transit spectrum
@@ -264,7 +263,7 @@ class HECATE:
                 l += 1
 
         if plot["local_spec_line"] == True: #local spectral line + tomography
-            plot_local_profile(self, local_spectra, spectra_sub_all, profile_type="line", wave_lims=wave_lims, line_name=line_name, photometrical_rescale=plot["photometrical_rescale"], save=save)
+            plot_local_profile(self, local_spectra, spectra_sub_all, profile_type="line", wave_lims=wave_lims, line_name=line_name, photometrical_rescale=plot["photometrical_rescale"], ylim_plot=plot["ylim_plot"], save=save)
 
         self.local_spectra_data = {
             "local_spectra": local_spectra,
@@ -318,7 +317,7 @@ class HECATE:
             profile_parameters, _, data, y_fit, _ = fit_prof._fit(print_output=print_output)
 
             if plot_fits:
-                plot_profile_fit(data, y_fit, phases[i], data_type="CCF", observation_type="raw", model=model, save=save)
+                plot_profile_fit(data, y_fit, phases[i], profile_parameters, data_type="CCF", observation_type="raw", model=model, save=save)
             
             y0[i,0] = profile_parameters["continuum"][0]
             y0[i,1] = profile_parameters["continuum"][1]
@@ -399,7 +398,10 @@ class HECATE:
             x = profiles[l,0]
             flux = profiles[l,1]
 
-            flux_e = cov_matrix[l] if profile_type == "CCF" else diags(profiles[l,2,:])**2 # full covariance matrix for CCFs, diagonal covariance matrix for spectral lines
+            if profile_type == "CCF":
+                flux_e = cov_matrix[l] # full covariance matrix for CCFs
+            else:
+                flux_e = diags(profiles[l,2,:])**2 # diagonal covariance matrix for spectral lines, as we don't have the full covariance matrix for them
             
             # build interpolation matrix for this CCF → target grid
             W = linear_interpolation_matrix(x, x_reference) 
@@ -462,7 +464,7 @@ class HECATE:
         -------
         profile_params : `dict`
             Dictionary containing:
-            - 'central_rv': central RV of the input CCFs/spectral lines. Single array for single line, list of arrays for multiple lines.
+            - 'central_val': central RV/wavelength of the input CCFs/spectral lines. Single array for single line, list of arrays for multiple lines.
             - 'continuum': continuum level of the input CCFs/spectral lines.
             - 'intensity': intensity of the input CCFs/spectral lines. Single array for single line, list of arrays for multiple lines.
             - 'width': width measure of the input CCFs/spectral lines. Single array for single line, list of arrays for multiple lines.
@@ -480,10 +482,12 @@ class HECATE:
         if num_lines == 1:
             intensity_array = np.zeros((N,2))
             central_rv_array = np.zeros((N,2))
+            central_wv_array = np.zeros((N,2))
             width_array = np.zeros((N,2))
         else:
             intensity_array = [np.zeros((N,2)) for _ in range(num_lines)]
             central_rv_array = [np.zeros((N,2)) for _ in range(num_lines)]
+            central_wv_array = [np.zeros((N,2)) for _ in range(num_lines)]
             width_array = [np.zeros((N,2)) for _ in range(num_lines)]
 
         for i in range(N):
@@ -501,11 +505,12 @@ class HECATE:
 
                 continuum = profile_parameters["continuum"]
                 central_rv = profile_parameters["central_rv"]
+                central_wv = profile_parameters["central_wv"]
                 intensity = profile_parameters["intensity"]
                 width = profile_parameters["width"]
 
                 if plot_fit:
-                    plot_profile_fit(data=data, y_fit=y_fit, phase=phase, data_type=data_type, observation_type=observation_type, model=model, save=save)
+                    plot_profile_fit(data=data, y_fit=y_fit, phase=phase, profile_parameters=profile_parameters, data_type=data_type, observation_type=observation_type, model=model, save=save)
 
             except Exception as e: # if no fit is achieved
                 print(f"Could not fit phase {str(phase)[:6]}")
@@ -516,10 +521,12 @@ class HECATE:
 
                 if num_lines == 1:
                     central_rv = np.array([np.nan, np.nan])
+                    central_wv = np.array([np.nan, np.nan])
                     intensity = np.array([np.nan, np.nan])
                     width = np.array([np.nan, np.nan])
                 else:
                     central_rv = [np.array([np.nan, np.nan]) for _ in range(num_lines)]
+                    central_wv = [np.array([np.nan, np.nan]) for _ in range(num_lines)]
                     intensity = [np.array([np.nan, np.nan]) for _ in range(num_lines)]
                     width = [np.array([np.nan, np.nan]) for _ in range(num_lines)]
             
@@ -531,11 +538,13 @@ class HECATE:
             # Store line-specific parameters
             if num_lines == 1:
                 central_rv_array[i,0], central_rv_array[i,1] = central_rv[0], central_rv[1]
+                central_wv_array[i,0], central_wv_array[i,1] = central_wv[0], central_wv[1]
                 intensity_array[i,0], intensity_array[i,1] = intensity[0], intensity[1]
                 width_array[i,0], width_array[i,1] = width[0], width[1]
             else:
                 for j in range(num_lines):
                     central_rv_array[j][i,0], central_rv_array[j][i,1] = central_rv[j][0], central_rv[j][1]
+                    central_wv_array[j][i,0], central_wv_array[j][i,1] = central_wv[j][0], central_wv[j][1]
                     intensity_array[j][i,0], intensity_array[j][i,1] = intensity[j][0], intensity[j][1]
                     width_array[j][i,0], width_array[j][i,1] = width[j][0], width[j][1]
 
@@ -701,17 +710,17 @@ class HECATE:
         ylabels = ["[km/s]", f"[{width_unit}]", "[%]"]
 
         ph_range = [-self.tr_dur/2, self.tr_dur/2]
-        ph_range_inner = [self.tr_ingress_egress/2-self.tr_dur/2, self.tr_dur/2-self.tr_ingress_egress/2]
-        mu_range = [0.6*self.mu_min, self.mu_max]
+        ph_range_inner = [-self.tr_ingress_egress/2, self.tr_ingress_egress/2]
+        mu_range = [0.5*self.mu_min, self.mu_max]
         mu_range_inner = [self.mu_min, self.mu_max]
 
         plot_data = {"phases":[axes_ph, ph_range, ph_range_inner, self.in_phases[indices_final]], "mu":[axes_mu, mu_range, mu_range_inner, self.mu_in[indices_final]]}
 
         for i in range(len(ylabels)):
 
-            plot_index = (0,i) if need_linear_fit else (i)
+            plot_index = (0,i) if need_linear_fit else i
 
-            if need_linear_fit is None: 
+            if not need_linear_fit: 
                 axes_ph[plot_index].set_xlabel("Orbital phases")
                 axes_mu[plot_index].set_xlabel(r"$\mu$")
 
@@ -787,7 +796,7 @@ class HECATE:
 
         labels = ['Partially in-transit','Fully in-transit','Master out of transit']
         for fig in [fig_ph, fig_mu]:
-            fig.legend([l0,l1,l2], labels=labels, loc='lower center', ncol=3, bbox_to_anchor=(0.5, -0.07), fontsize=15)
+            fig.legend([l0,l1,l2], labels=labels, loc='lower center', ncol=3, bbox_to_anchor=(0.5, -0.1), fontsize=15)
             fig.tight_layout()
 
         if save:

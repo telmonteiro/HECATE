@@ -4,7 +4,7 @@ import SOAP # type: ignore
 from ldtk import LDPSetCreator, BoxcarFilter
 import matplotlib.pyplot as plt
 import numpy as np
-from HECATE.utils import *
+from utils import *
 
 class run_SOAP:
     """Wrapper around SOAPv4.
@@ -23,8 +23,8 @@ class run_SOAP:
             minimum wavelength [nm] of spectrograph.
         max_wave : `int` 
             maximum wavelength [nm] of spectrograph.
-        plot : `bool` 
-            whether to plot the simulated transit light curve.
+        plot : `str` 
+            type of plot to generate ("simple" or "SOAP").
         save
             path to save the plot.
 
@@ -33,7 +33,7 @@ class run_SOAP:
         flux : `numpy array` 
             simulated flux from SOAP.
     """
-    def __init__(self, time:np.array, stellar_params:dict, planet_params:dict, min_wav:int=380, max_wav:int=788, plot:bool=True, save=None):
+    def __init__(self, time:np.array, stellar_params:dict, planet_params:dict, min_wav:int=380, max_wav:int=788, plot:str="SOAP", save=None):
         
         Teff, Teff_err = stellar_params["Teff"], stellar_params["Teff_err"]
         logg, logg_err = stellar_params["logg"], stellar_params["logg_err"]
@@ -58,16 +58,18 @@ class run_SOAP:
         ps = sc.create_profiles(nsamples=1000) #create the limb darkening profiles
         ldcn, _ = ps.coeffs_qd(do_mc=True, n_mc_samples=20000, mc_thin=25, mc_burn=500) #coefficients and quadratic profile errors
 
-        sim = SOAP.Simulation(active_regions=[]) #light curve
-        sim.star.set(prot=P_rot, incl=inc_star, radius=R_star, teff=Teff, u1=ldcn[0,0], u2=ldcn[0,1])
+        sim = SOAP.Simulation(active_regions=[], grid=1000) #light curve
+        sim.star.set(prot=P_rot, incl=inc_star, radius=R_star, teff=Teff, coeffs=ldcn[0], law=1)
         sim.planet.set(P=P_orb, t0=0, e=e, w=w, ip=inc_planet, lbda=lbda, a=a_R, Rp=Rp_Rs)
 
         output = sim.calculate_signal(psi=phases/P_rot*P_orb, skip_rv=True)
         Flux_SOAP = output.flux
 
-        if plot == True:
-            #self._plot(phases, tr_dur, tr_ingress_egress, Flux_SOAP, save)
-            sim.visualize(output=output, plot_type="flux")
+        if plot is not None:
+            if plot == "simple":
+                self._plot(phases, tr_dur, tr_ingress_egress, Flux_SOAP, save)
+            elif plot == "SOAP":
+                sim.visualize(output=output, plot_type="flux")
             
             if save:
                 plt.savefig(save+"SOAP_light_curve.pdf", dpi=200, bbox_inches="tight")

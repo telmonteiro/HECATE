@@ -109,9 +109,7 @@ def linear_interpolation_matrix(x_old, x_new):
         W[i, j]   = w1
         W[i, j+1] = w2
 
-    W = W.tocsr()
-
-    return W
+    return W.tocsr()
 
 
 
@@ -213,18 +211,17 @@ class profile_models:
         flux_fit_array : `numpy array`
             array with the same shape as local_spectra (wavelength, fitted flux, zeros).
         """
-        flux_fit_array = np.zeros((local_spectra.shape[0], 3, local_spectra.shape[2]))
+        if indices_final is not None:
+            flux_fit_array = np.full((local_spectra.shape[0], 3, local_spectra.shape[2]), np.nan, dtype=float)
+            flux_fit_array[:,0,:] = local_spectra[:,0,:]
+        else:
+            flux_fit_array = np.zeros((local_spectra.shape[0], 3, local_spectra.shape[2]))
 
         for i in range(len(flux_fit_params)):
-            flux_fit_array[i, 0, :] = local_spectra[i, 0, :]
-            flux_fit_array[i, 1, :] = self.model(local_spectra[i, 0, :], *flux_fit_params[i])
-            flux_fit_array[i, 2, :] = np.zeros_like(local_spectra[i, 2, :])
-
-        if indices_final is not None:
-            flux_fit_array_masked = np.full_like(flux_fit_array, np.nan, dtype=float)
-            flux_fit_array_masked[indices_final] = flux_fit_array[indices_final]
-            flux_fit_array_masked[:,0,:] = local_spectra[:,0,:]
-            flux_fit_array = flux_fit_array_masked.copy()
+            if indices_final is None or i in indices_final:
+                flux_fit_array[i, 0, :] = local_spectra[i, 0, :]
+                flux_fit_array[i, 1, :] = self.model(local_spectra[i, 0, :], *flux_fit_params[i])
+                flux_fit_array[i, 2, :] = np.zeros_like(local_spectra[i, 2, :])
 
         return flux_fit_array
 
@@ -289,10 +286,16 @@ class fit_profile:
         c = 299792.458 #km/s
 
         if mask_x is None:
-            x_mask = np.ones(len(self.data[0]), dtype=bool) 
+            try:
+                x_mask = np.ones(len(self.data[0]), dtype=bool) 
+            except:
+                x_mask = np.ones(self.data[0].shape, dtype=bool) 
         
         else:
-            x_mask = np.zeros(len(self.data[0]), dtype=bool)
+            try:
+                x_mask = np.zeros(len(self.data[0]), dtype=bool)
+            except:
+                x_mask = np.zeros(self.data[0].shape, dtype=bool)
             for interval in mask_x:
                 x_mask |= (self.data[0] >= interval[0]) & (self.data[0] <= interval[1])
         
@@ -305,10 +308,10 @@ class fit_profile:
 
         if self.data_type == "line":
             x0_guess = [wave_ctr_line[i][0] for i in range(num_lines)]
-            x0_min = [wave_ctr_line[i][0] - 0.1 for i in range(num_lines)]
-            x0_max = [wave_ctr_line[i][0] + 0.1 for i in range(num_lines)]
+            x0_min = [wave_ctr_line[i][0] - 0.3 for i in range(num_lines)]
+            x0_max = [wave_ctr_line[i][0] + 0.3 for i in range(num_lines)]
         else:
-            x0_guess = [0] * num_lines
+            x0_guess = [x[np.argmin(d)]] * num_lines
             x0_min = [np.min(x)] * num_lines
             x0_max = [np.max(x)] * num_lines
 
@@ -487,13 +490,12 @@ class fit_profile:
 
         Returns
         -------
-        r : `float`
+        r : float
             coefficient of determination.
         """
         ssres = np.sum((y-yfit)**2)
         sstot = np.sum((y-np.mean(y))**2)
         r = 1 - ssres/sstot
-
         return r
     
 
