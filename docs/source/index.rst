@@ -27,7 +27,7 @@ The “Doppler Shadow” method allows us to probe local regions of the stellar 
 As a planet transits its host star, it sequentially blocks different regions of the stellar surface, causing variations in 
 the observed stellar spectrum. 
 The missing spectrum of the star during the transit is recovered by subtracting the flux weighted in-transit spectrum 
-from a reference spectrum usually constructed by averaging out-of-transit observations. 
+from a reference spectrum (usually the average out-of-transit observation). 
 This allows us to recover what is usually referred to as the shadow spectra.
 Accessing the local spectra of the star also allows us to better understand the behavior of the distortions in 
 transmission spectra, improving the reliability of atmospheric characterization.
