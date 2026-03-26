@@ -8,3 +8,4 @@ This section explains how to install, configure, and use HECATE.
 
    installation
    examples/index
+   contacts
