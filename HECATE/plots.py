@@ -3,7 +3,7 @@
 import matplotlib.pyplot as plt
 from matplotlib.colors import Normalize
 import numpy as np
-from HECATE.utils import get_phase_mu
+from utils import get_phase_mu
 
 def plot_air_snr(planet_params:dict, time:np.array, airmass:np.array, snr:np.array, save=None):
     """Plot airmass and SNR at spectral order 111 (midpoint in the selected Fe I spectral lines) of spectra used.
@@ -26,8 +26,8 @@ def plot_air_snr(planet_params:dict, time:np.array, airmass:np.array, snr:np.arr
 
     fig, ax0 = plt.subplots(figsize=(7,4.5))
 
-    l0 = ax0.axvspan(-tr_dur/2., tr_dur/2., alpha=0.3, color='orange')
-    l1 = ax0.axvspan(tr_ingress_egress/2.-tr_dur/2, -tr_ingress_egress/2.+tr_dur/2, alpha=0.4, color='orange')
+    l0 = ax0.axvspan(-tr_dur/2, tr_dur/2, alpha=0.3, color='orange')
+    l1 = ax0.axvspan(tr_ingress_egress/2, -tr_ingress_egress/2, alpha=0.4, color='orange')
     l2 = ax0.scatter(phases, airmass, color='black')
 
     ax0.set_xlabel('Orbital Phase', fontsize=14)
@@ -106,8 +106,8 @@ def plot_sysvel_corr_CCF(phases:np.array, tr_dur:float, tr_ingress_egress:float,
     """
     fig, axes = plt.subplots(ncols=2, figsize=(13,5))
 
-    l0 = axes[0].axvspan(-tr_dur/2., tr_dur/2., alpha=0.3, color='orange')
-    l1 = axes[0].axvspan(tr_ingress_egress/2.-tr_dur/2, -tr_ingress_egress/2.+tr_dur/2, alpha=0.4, color='orange')
+    l0 = axes[0].axvspan(-tr_dur/2, tr_dur/2, alpha=0.3, color='orange')
+    l1 = axes[0].axvspan(tr_ingress_egress/2, -tr_ingress_egress/2, alpha=0.4, color='orange')
     axes[0].errorbar(phases[in_indices], x0[:,0][in_indices], x0[:,1][in_indices], fmt="r.", markersize=10, elinewidth=10)
     axes[0].errorbar(phases[out_indices], x0[:,0][out_indices], x0[:,1][out_indices], fmt="k.", markersize=10, elinewidth=10)
     l2 = axes[0].plot(phases[out_indices], poly_coefs[0]*phases[out_indices]+poly_coefs[1], color="black", lw=1)
@@ -118,7 +118,7 @@ def plot_sysvel_corr_CCF(phases:np.array, tr_dur:float, tr_ingress_egress:float,
     axes[0].set_axisbelow(True)
 
     axes[1].axvspan(-tr_dur/2, tr_dur/2, alpha=0.3, color="orange")
-    axes[1].axvspan(tr_ingress_egress/2.-tr_dur/2, -tr_ingress_egress/2.+tr_dur/2, alpha=0.4, color='orange')
+    axes[1].axvspan(tr_ingress_egress/2, -tr_ingress_egress/2, alpha=0.4, color='orange')
     axes[1].errorbar(phases[in_indices], x0_corr[:,0][in_indices], x0_corr[:,1][in_indices], fmt="r.", markersize=10, elinewidth=10)
     axes[1].errorbar(phases[out_indices], x0_corr[:,0][out_indices], x0_corr[:,1][out_indices], fmt="k.", markersize=10, elinewidth=10)
     axes[1].axhline(0, lw=1, ls= "--", color="k")
@@ -172,8 +172,8 @@ def plot_avg_out_of_transit_profile(avg_out_of_transit_prof:np.array, profile_ty
     plt.show()
 
 
-def plot_profile_fit(data:np.ndarray, y_fit:np.ndarray, phase:float, data_type:str, observation_type:str, model:str, save):
-    """Plot fit of spectral line or CCF profile. Four subplots: (1) observed and fitted profile; (2) residuals; (3) distribution of residuals; (4) distribution of data uncertainties.
+def plot_profile_fit(data:np.ndarray, y_fit:np.ndarray, phase:float, profile_parameters:dict, data_type:str, observation_type:str, model:str, plot_prof_params:bool=False, save:str=None):
+    """Plot fit of spectral line or CCF profile, and correspondent residuals.
 
     Parameters
     ----------
@@ -183,20 +183,24 @@ def plot_profile_fit(data:np.ndarray, y_fit:np.ndarray, phase:float, data_type:s
         fitted profile flux.
     phase : `float`
         orbital phase of observation.
+    profile_parameter : `dict`
+        dictionary containing the profile parameters (central RV, width, intensity).
     data_type : `str`
         whether it's a CCF or spectral line.
     observation_type : `str`
         whether it's a local, average out-of-transit or raw CCF.
     model : `str`
         type of profile model to fit.
-    save
-        path to save plot. 
+    plot_prof_params : `bool`
+        whether to plot profile parameters.
+    save : `str`
+        path to save plot.
     """
     x = data[0]
     y = data[1]
     y_err = data[2]
-    
-    fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(12,7), gridspec_kw={'height_ratios': [1.7, 1]})
+
+    fig, axes = plt.subplots(nrows=2, figsize=(7.5,6.5), gridspec_kw={'height_ratios': [2.2, 1]})
     
     if observation_type == "local":
         title = f'Local {data_type}, Model: {model}, Phase: {str(phase)[:6]}'
@@ -205,38 +209,46 @@ def plot_profile_fit(data:np.ndarray, y_fit:np.ndarray, phase:float, data_type:s
     elif observation_type == "raw":
         title = f'Model: {model}, Phase: {str(phase)[:6]}'
 
-    fig.suptitle(title)
+    axes[0].set_title(title, fontsize=15)
 
     x_label = 'Radial Velocities [km/s]' if data_type == "CCF" else r'Wavelength [$\AA$]'
 
-    axes[0,0].scatter(x, y, color="k")
-    axes[0,0].errorbar(x, y, yerr=y_err, color='black', capsize=5, linewidth=0, elinewidth=1)
-    axes[0,0].plot(x, y_fit, label='fit', color="r", lw=2)
-    axes[0,0].set_xlabel(x_label)
-    axes[0,0].set_ylabel('Flux')
-    axes[0,0].grid()
-    axes[0,0].set_axisbelow(True)
-    axes[0,0].legend()
+    axes[0].scatter(x, y*100, color="k")
+    axes[0].errorbar(x, y*100, yerr=y_err*100, color='black', capsize=5, linewidth=0, elinewidth=1)
+    p1 = axes[0].plot(x, y_fit*100, color="r", lw=2)
 
-    axes[0,1].scatter(x, y-y_fit, color="k")
-    axes[0,1].set_xlabel(x_label)
-    axes[0,1].set_ylabel('Residuals')
-    axes[0,1].grid(); axes[0,1].set_axisbelow(True)
+    if data_type == "CCF":
+        central_val = profile_parameters["central_rv"]
+    else: 
+        central_val = profile_parameters["central_wv"]
 
-    axes[1,0].hist(y-y_fit, bins=10, edgecolor='k', color="k")
-    axes[1,0].set_xlabel('Residuals')
-    axes[1,0].set_ylabel('Frequency')
-    axes[1,0].grid(); axes[1,0].set_axisbelow(True)
+    if plot_prof_params:
+        p2 = axes[0].axvline(central_val[0], color='black', lw=2, ls=":")
+        p3 = axes[0].axvline(central_val[0]+profile_parameters["width"][0], color='blue', lw=2, ls="--")
+        axes[0].axvline(central_val[0]-profile_parameters["width"][0], color='blue', lw=2, ls="--")
+        p4 = axes[0].axhline(profile_parameters["continuum"][0]*100, color='green', lw=2, ls="--")
+        p5 = axes[0].axhline(profile_parameters["intensity"][0], color='orange', lw=2, ls="-")
 
-    axes[1,1].hist(y_err, bins=10, edgecolor='k', color="k")
-    axes[1,1].set_xlabel('Uncertainties')
-    axes[1,1].set_ylabel('Frequency')
-    axes[1,1].grid(); axes[1,1].set_axisbelow(True)
-    axes[1,1].tick_params(axis='x', which='major', labelsize=12)
+    axes[0].set_ylabel('Normalized Flux [%]')
+    axes[0].set_xticklabels([])
+
+    axes[1].scatter(x, (y-y_fit)*100, color="k")
+    axes[1].errorbar(x, (y-y_fit)*100, yerr=y_err*100, color='black', capsize=5, linewidth=0, elinewidth=1)
+    axes[1].axhline(0, color='red', lw=2, ls="--")
+    axes[1].set_xlabel(x_label)
+    axes[1].set_ylabel('Residuals [%]')
+
+    if plot_prof_params:
+        fig.legend([*p1, p2, p3, p4, p5], 
+                ['Model fit', 'Central RV' if data_type == "CCF" else 'Central wavelength', 'Line-width measure', 'Continuum level', 'Line-center intensity'], 
+                loc='lower center', ncol=2, bbox_to_anchor=(0.5, -0.1), fontsize=14)
+    else:
+        fig.legend([*p1], ['Model fit'], loc='lower center', ncol=1, bbox_to_anchor=(0.5, -0.02), fontsize=14)
 
     plt.tight_layout()
+    plt.subplots_adjust(hspace=0.3, bottom=0.15)
 
-    if save:
+    if save is not None:
         file_name = save+f"{data_type}_fit_master.pdf" if observation_type == "master" else save+f"{data_type}_fit_{str(phase)[:6]}.pdf"
         plt.savefig(file_name, dpi=300, bbox_inches="tight")
 
@@ -297,15 +309,15 @@ def plot_local_profile(hecate, local_profiles:np.array, profiles_sub_all:np.arra
         if np.allclose(sub_e, 0) or profile_type != "CCF":
             axes[0].plot(x[mask], sub[mask], color=color, lw=2)
         else:
-            axes[0].scatter(x[mask], sub[mask], color=color, s=50)
-            axes[0].errorbar(x[mask], sub[mask], yerr=sub_e[mask], color='black', capsize=5, linewidth=0, elinewidth=1)
+            axes[0].scatter(x[mask], sub[mask], color=color, s=50,zorder=2)
+            axes[0].errorbar(x[mask], sub[mask], yerr=sub_e[mask], color='black', capsize=5, linewidth=0, elinewidth=1,zorder=0)
     
     sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
     sm.set_array([])  
     cbar1 = fig.colorbar(sm, ax=axes[0])
-    cbar1.set_label('Orbital Phase')
+    cbar1.set_label('Orbital Phase', fontsize=13)
 
-    axes[0].set_ylabel('Residual flux [total stellar flux]')
+    axes[0].set_ylabel('Residual flux [total stellar flux]', fontsize=13)
     axes[0].grid()
     axes[0].set_axisbelow(True)
     axes[0].set_xlim([x_0[mask].min(),x_0[mask].max()])
@@ -320,16 +332,16 @@ def plot_local_profile(hecate, local_profiles:np.array, profiles_sub_all:np.arra
 
     axes[1].axhline(-hecate.tr_dur/2, lw=1.5, ls="--", color="white")
     axes[1].axhline(hecate.tr_dur/2, lw=1.5, ls="--", color="white")
-    axes[1].axhline(hecate.tr_ingress_egress/2 - hecate.tr_dur/2, lw=1.5, ls="--", color="white")
-    axes[1].axhline(-hecate.tr_ingress_egress/2 + hecate.tr_dur/2, lw=1.5, ls="--", color="white")
+    axes[1].axhline(hecate.tr_ingress_egress/2, lw=1.5, ls="--", color="white")
+    axes[1].axhline(-hecate.tr_ingress_egress/2, lw=1.5, ls="--", color="white")
 
-    axes[1].set_ylabel('Orbital Phase')
+    axes[1].set_ylabel('Orbital Phase', fontsize=13)
     
-    axes[1].set_xlabel('Radial Velocities [km/s]' if profile_type == "CCF" else r'Wavelength [$\AA$]')
-    axes[0].set_title(f'Local CCFs (Out-of-transit - In-transit)' if profile_type == "CCF" else f'Local {line_name} (Out-of-transit - In-transit)')  
+    axes[1].set_xlabel('Radial Velocities [km/s]' if profile_type == "CCF" else r'Wavelength [$\AA$]', fontsize=13)
+    axes[0].set_title(f'Local CCFs (Out-of-transit - In-transit)' if profile_type == "CCF" else f'Local {line_name} (Out-of-transit - In-transit)', fontsize=15)  
 
     cbar2 = fig.colorbar(im, ax=axes[1])
-    cbar2.set_label('Residual flux [total stellar flux]')
+    cbar2.set_label('Residual flux [total stellar flux]', fontsize=13)
 
     plt.tight_layout()
 
