@@ -1,9 +1,8 @@
 Examples
 ========
 
-Example workflows using real datasets.
-
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    
    HD189733_example
+   HD189733_example_multi_night

@@ -35,8 +35,8 @@ class HECATE:
         matrix with spectral line profiles (wavelength, flux and flux error), with shape (N_spectra, 3, N_points).
     soap_wv : `numpy array`, optional
         wavelength interval [min, max] in nm for SOAP simulation. Default is [380, 788].
-    plot_soap : `bool`, optional
-        whether to plot the simulated light curve from SOAP. Default is False.
+    plot_soap : `str`, optional
+        whether to plot the "simple" or "SOAP" simulated light curve. Default is None (no plot).
 
     Methods
     -------
