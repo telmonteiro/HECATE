@@ -4,7 +4,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import cm
-from HECATE.nested_sampling import run_nestedsampler
+from nested_sampling import run_nestedsampler
 
 
 class multi_night_analysis:
@@ -98,20 +98,6 @@ class multi_night_analysis:
         
         fit_results = {}
         
-        # calculate global mu span for consistent x-limits
-        global_mu_min = None
-        global_mu_max = None
-        if param_type == 'mu':
-            mu_all = np.array([])
-            for night in self.night_names:
-                hecate = self.nights_data[night]['hecate']
-                indices = self.nights_data[night]['indices']
-                mu_all = np.concatenate([mu_all, hecate.mu_in[indices]])
-            
-            if len(mu_all) > 0:
-                global_mu_min = np.nanmin(mu_all)
-                global_mu_max = np.nanmax(mu_all)
-        
         legend_lines = []
         legend_labels = []
         
@@ -128,16 +114,12 @@ class multi_night_analysis:
             
             if param_type == 'phases':
                 x_range = [-self.nights_data[self.night_names[0]]['hecate'].tr_dur/2, self.nights_data[self.night_names[0]]['hecate'].tr_dur/2]
-                x_range_inner = [self.nights_data[self.night_names[0]]['hecate'].tr_ingress_egress/2 - self.nights_data[self.night_names[0]]['hecate'].tr_dur/2, 
-                                 self.nights_data[self.night_names[0]]['hecate'].tr_dur/2 - self.nights_data[self.night_names[0]]['hecate'].tr_ingress_egress/2]
+                x_range_inner = [self.nights_data[self.night_names[0]]['hecate'].tr_ingress_egress/2, 
+                                 - self.nights_data[self.night_names[0]]['hecate'].tr_ingress_egress/2]
             else:
-                if global_mu_min is None or global_mu_max is None: # first night's bounds as fallback
-                    hecate_first = self.nights_data[self.night_names[0]]['hecate']
-                    x_range = [0.6*hecate_first.mu_min, 1.1*hecate_first.mu_max]
-                    x_range_inner = [hecate_first.mu_min, hecate_first.mu_max]
-                else:
-                    x_range = [0.65*global_mu_min, 1.05*global_mu_max]
-                    x_range_inner = [global_mu_min, global_mu_max]
+                hecate_first = self.nights_data[self.night_names[0]]['hecate']
+                x_range = [np.nanmin(hecate_first.mu), hecate_first.mu_max]
+                x_range_inner = [hecate_first.mu_min, hecate_first.mu_max]
             
             for night in self.night_names:
 
@@ -159,7 +141,7 @@ class multi_night_analysis:
                 l2 = axes[ax_idx].axhline(y=master_params[param_idx, 0, 0], color=data['color'], linestyle='-', lw=2, zorder=1, label=f'Master OoT {data["label"]}')
                 
                 # plot night's data
-                l3 = axes[ax_idx].scatter(x, local_params[param_idx, :, 0][indices], color=data['color'], s=60, zorder=3, label=data['label']+' values')
+                l3 = axes[ax_idx].scatter(x, local_params[param_idx, :, 0][indices], color=data['color'], s=55, zorder=3, label=data['label']+' values')
                 
                 if param_idx == 0:
                     legend_lines.append(l2)
@@ -168,7 +150,7 @@ class multi_night_analysis:
                     legend_labels.append(l3.get_label())
 
                 axes[ax_idx].errorbar(x=x, y=local_params[param_idx, :, 0][indices], yerr=local_params[param_idx, :, 1][indices],
-                                     capsize=6, capthick=0.5, color='black', linewidth=0, elinewidth=2)
+                                     capsize=5, capthick=0.5, color='black', linewidth=0, elinewidth=2)
                 
             axes[ax_idx].set_xlim(x_range)
 
@@ -221,7 +203,7 @@ class multi_night_analysis:
                     
                     axes[ax_idx].plot(fit_data['x'], fit_data['y_fit'][0], color='black', linestyle='--', linewidth=2, zorder=2)
                     axes[ax_idx].fill_between(fit_data['x_grid'], fit_data['y_grid'][0] - fit_data['y_grid'][1],
-                                             fit_data['y_grid'][0] + fit_data['y_grid'][1], color='gray', alpha=0.25, zorder=2)
+                                             fit_data['y_grid'][0] + fit_data['y_grid'][1], color='gray', alpha=0.35, zorder=2)
             
             if need_fits and param_idx in fit_param_indices: # add residuals subplot only for fitted parameters
                 ax_res = (1, param_idx)
@@ -237,19 +219,20 @@ class multi_night_analysis:
                 for night in self.night_names:
                     if (night, param_idx, param_type) in fit_results:
                         fit_data = fit_results[(night, param_idx, param_type)]
-                        axes[ax_res].scatter(fit_data['x'], fit_data['residual'][0], color=self.nights_data[night]['color'], s=60, zorder=3, alpha=0.7)
+                        axes[ax_res].scatter(fit_data['x'], fit_data['residual'][0], color=self.nights_data[night]['color'], s=60, zorder=3)
                         axes[ax_res].errorbar(x=fit_data['x'], y=fit_data['residual'][0], yerr=fit_data['residual'][1],
-                                             capsize=5, capthick=0.5, color="black", linewidth=0, elinewidth=2, alpha=0.7)
+                                             capsize=5, capthick=0.5, color="black", linewidth=0, elinewidth=2,zorder=2)
                 
                 if combined_label and (combined_label, param_idx, param_type) in fit_results:
                     fit_data = fit_results[(combined_label, param_idx, param_type)]
-                    axes[ax_res].scatter(fit_data['x'], fit_data['residual'][0], color='black', s=60, zorder=3, marker='s', alpha=0.7)
+                    axes[ax_res].scatter(fit_data['x'], fit_data['residual'][0], color='black', s=60, zorder=3, marker='s')
                     axes[ax_res].errorbar(x=fit_data['x'], y=fit_data['residual'][0], yerr=fit_data['residual'][1],
-                                         capsize=5, capthick=0.5, color='black', linewidth=0, elinewidth=2, alpha=0.7)
+                                         capsize=5, capthick=0.5, color='black', linewidth=0, elinewidth=2,zorder=2)
                 
                 axes[ax_res].set_xlim(x_range)
             
             elif need_fits:  # hide residuals subplot for unfitted parameters
+                axes[0,param_idx].set_xlabel("Orbital phases" if param_type == "phases" else r"$\mu$")
                 axes[(1, param_idx)].axis('off')
         
         legend_lines = [l0, l1] + legend_lines
@@ -284,7 +267,7 @@ class multi_night_analysis:
         
         Returns
         -------
-        fit_results : `dict` or None
+        fit_data : `dict` or None
             Dictionary containing:
             - 'x': cleaned input x values
             - 'x_grid': regular grid for smooth predictions
@@ -298,9 +281,9 @@ class multi_night_analysis:
             Returns None if insufficient valid data points (< 3).
         """
         if param_idx == 0:
-            m_span, b_span = 1000, 10  # wider priors for RV
+            m_span, b_span = 2000, 1000  # wider priors for RV
         else:
-            m_span, b_span = 100, 100  # narrower for width/intensity
+            m_span, b_span = 2000, 1000  # narrower for width/intensity
         
         valid_mask = ~(np.isnan(x) | np.isnan(y) | np.isnan(yerr)) # filter out NaN values
         x_clean = x[valid_mask]
@@ -332,16 +315,14 @@ class multi_night_analysis:
         
         residual = y_clean - y_fit
         residual_err = np.sqrt(yerr_clean**2)
-
-        fit_results = {"x": x_clean,
-                        "x_grid": x_grid,
-                        "y_fit": np.array([y_fit, dy_fit]),
-                        "y_grid": np.array([y_grid, dy_grid]),
-                        "residual": np.array([residual, residual_err]),
-                        "slope": slope,
-                        "slope_err": slope_err,
-                        "intercept": intercept,
-                        "intercept_err": intercept_err,
-                        "model": model}
         
-        return fit_results
+        return {"x": x_clean,
+            "x_grid": x_grid,
+            "y_fit": np.array([y_fit, dy_fit]),
+            "y_grid": np.array([y_grid, dy_grid]),
+            "residual": np.array([residual, residual_err]),
+            "slope": slope,
+            "slope_err": slope_err,
+            "intercept": intercept,
+            "intercept_err": intercept_err,
+            "model": model}
