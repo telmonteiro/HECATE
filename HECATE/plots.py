@@ -5,13 +5,15 @@ from matplotlib.colors import Normalize
 import numpy as np
 from HECATE.utils import get_phase_mu
 
-def plot_air_snr(planet_params:dict, time:np.array, airmass:np.array, snr:np.array, save=None):
+def plot_air_snr(planet_params:dict, stellar_params:dict, time:np.array, airmass:np.array, snr:np.array, save=None):
     """Plot airmass and SNR at spectral order 111 (midpoint in the selected Fe I spectral lines) of spectra used.
 
     Parameters
     ----------
     planet_params : `dict`
         dictionary containing the following planetary parameters: orbital period, system scale, planet-to-star radius ratio, mid-transit time, eccentricity, argument of periastron, planetary inclination and spin-orbit angle.
+    stellar_params : `dict`
+        dictionary containing the following stellar parameters: stellar radius, stellar mass, and effective temperature.
     time : `numpy array`
         time of observations in BJD.
     airmass : `numpy array`
@@ -21,7 +23,7 @@ def plot_air_snr(planet_params:dict, time:np.array, airmass:np.array, snr:np.arr
     save
         path to save plot. 
     """
-    phase_mu = get_phase_mu(planet_params, time)
+    phase_mu = get_phase_mu(time, planet_params, stellar_params)
     phases, tr_dur, tr_ingress_egress = phase_mu.phases, phase_mu.tr_dur, phase_mu.tr_ingress_egress
 
     fig, ax0 = plt.subplots(figsize=(7,4.5))
@@ -104,7 +106,7 @@ def plot_sysvel_corr_CCF(phases:np.array, tr_dur:float, tr_ingress_egress:float,
     save
         path to save plot. 
     """
-    fig, axes = plt.subplots(ncols=2, figsize=(13,5))
+    fig, axes = plt.subplots(ncols=2, figsize=(13,4.7))
 
     l0 = axes[0].axvspan(-tr_dur/2, tr_dur/2, alpha=0.3, color='orange')
     l1 = axes[0].axvspan(tr_ingress_egress/2, -tr_ingress_egress/2, alpha=0.4, color='orange')
@@ -130,7 +132,7 @@ def plot_sysvel_corr_CCF(phases:np.array, tr_dur:float, tr_ingress_egress:float,
 
     labels = ['Partially in transit','Fully in transit','out of transit linear fit']
     fig.legend([l0,l1,l2], labels=labels, loc='lower center', ncol=3, bbox_to_anchor=(0.5, -0.12))
-    fig.suptitle('Central values of CCFs',fontsize=19)
+    #fig.suptitle('Central values of CCFs',fontsize=19)
 
     plt.tight_layout()
 
@@ -209,7 +211,7 @@ def plot_profile_fit(data:np.ndarray, y_fit:np.ndarray, phase:float, profile_par
     elif observation_type == "raw":
         title = f'Model: {model}, Phase: {str(phase)[:6]}'
 
-    axes[0].set_title(title, fontsize=15)
+    axes[0].set_title(title, fontsize=17)
 
     x_label = 'Radial Velocities [km/s]' if data_type == "CCF" else r'Wavelength [$\AA$]'
 
@@ -229,21 +231,21 @@ def plot_profile_fit(data:np.ndarray, y_fit:np.ndarray, phase:float, profile_par
         p4 = axes[0].axhline(profile_parameters["continuum"][0]*100, color='green', lw=2, ls="--")
         p5 = axes[0].axhline(profile_parameters["intensity"][0], color='orange', lw=2, ls="-")
 
-    axes[0].set_ylabel('Normalized Flux [%]')
+    axes[0].set_ylabel('Normalized Flux [%]', fontsize=16)
     axes[0].set_xticklabels([])
 
     axes[1].scatter(x, (y-y_fit)*100, color="k")
     axes[1].errorbar(x, (y-y_fit)*100, yerr=y_err*100, color='black', capsize=5, linewidth=0, elinewidth=1)
     axes[1].axhline(0, color='red', lw=2, ls="--")
-    axes[1].set_xlabel(x_label)
-    axes[1].set_ylabel('Residuals [%]')
+    axes[1].set_xlabel(x_label, fontsize=16)
+    axes[1].set_ylabel('Residuals [%]', fontsize=16)
 
     if plot_prof_params:
         fig.legend([*p1, p2, p3, p4, p5], 
                 ['Model fit', 'Central RV' if data_type == "CCF" else 'Central wavelength', 'Line-width measure', 'Continuum level', 'Line-center intensity'], 
-                loc='lower center', ncol=2, bbox_to_anchor=(0.5, -0.1), fontsize=14)
+                loc='lower center', ncol=2, bbox_to_anchor=(0.5, -0.1), fontsize=15)
     else:
-        fig.legend([*p1], ['Model fit'], loc='lower center', ncol=1, bbox_to_anchor=(0.5, -0.02), fontsize=14)
+        fig.legend([*p1], ['Model fit'], loc='lower center', ncol=1, bbox_to_anchor=(0.5, -0.02), fontsize=15)
 
     plt.tight_layout()
     plt.subplots_adjust(hspace=0.3, bottom=0.15)
@@ -315,9 +317,9 @@ def plot_local_profile(hecate, local_profiles:np.array, profiles_sub_all:np.arra
     sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
     sm.set_array([])  
     cbar1 = fig.colorbar(sm, ax=axes[0])
-    cbar1.set_label('Orbital Phase', fontsize=13)
+    cbar1.set_label('Orbital Phase', fontsize=19)
 
-    axes[0].set_ylabel('Residual flux [total stellar flux]', fontsize=13)
+    axes[0].set_ylabel(r'Residual flux [total $F_\star$]', fontsize=19)
     axes[0].grid()
     axes[0].set_axisbelow(True)
     axes[0].set_xlim([x_0[mask].min(),x_0[mask].max()])
@@ -335,13 +337,12 @@ def plot_local_profile(hecate, local_profiles:np.array, profiles_sub_all:np.arra
     axes[1].axhline(hecate.tr_ingress_egress/2, lw=1.5, ls="--", color="white")
     axes[1].axhline(-hecate.tr_ingress_egress/2, lw=1.5, ls="--", color="white")
 
-    axes[1].set_ylabel('Orbital Phase', fontsize=13)
-    
-    axes[1].set_xlabel('Radial Velocities [km/s]' if profile_type == "CCF" else r'Wavelength [$\AA$]', fontsize=13)
-    axes[0].set_title(f'Local CCFs (Out-of-transit - In-transit)' if profile_type == "CCF" else f'Local {line_name} (Out-of-transit - In-transit)', fontsize=15)  
+    axes[1].set_ylabel('Orbital Phase', fontsize=19)
+    axes[1].set_xlabel('Radial Velocities [km/s]' if profile_type == "CCF" else r'Wavelength [$\AA$]', fontsize=19)
+    axes[0].set_title(f'Local CCFs (Out-of-transit - In-transit)' if profile_type == "CCF" else f'Local {line_name} (Out-of-transit - In-transit)', fontsize=22)  
 
     cbar2 = fig.colorbar(im, ax=axes[1])
-    cbar2.set_label('Residual flux [total stellar flux]', fontsize=13)
+    cbar2.set_label(r'Residual flux [total $F_\star$]', fontsize=19)
 
     plt.tight_layout()
 

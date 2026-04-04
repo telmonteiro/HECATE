@@ -65,10 +65,10 @@ class HECATE:
 
     [2] Cristo, E. et al., "SOAPv4: A new step toward modeling stellar signatures in exoplanet research", Astronomy & Astrophysics, Vol. 702, A84, 17pp., 2025
     """
-    def __init__(self, planet_params:dict, stellar_params:dict, time:np.array, CCFs:np.array, spectra:np.array, soap_wv:np.array=[380,788], plot_soap:str=None):
+    def __init__(self, planet_params:dict, stellar_params:dict, time:np.array, CCFs:np.array, spectra:np.array, mu_type:str="weighted", ld_law:str="quadratic", soap_wv:np.array=[380,788], plot_soap:str=None):
 
         # Get orbital phases and mu
-        phase_mu = get_phase_mu(planet_params, time)
+        phase_mu = get_phase_mu(time, planet_params, stellar_params, mu_type, ld_law, soap_wv)
 
         self.phases = phase_mu.phases
         self.phases_in_indices = phase_mu.in_indices # indices of in-transit phases
@@ -82,8 +82,8 @@ class HECATE:
         self.mu = phase_mu.mu_values
         self.mu_in = self.mu[self.phases_in_indices]
         
-        self.mu_min = get_phase_mu.mu(self.tr_dur/2-self.tr_ingress_egress/2, planet_params)
-        self.mu_max = get_phase_mu.mu(0, planet_params)
+        self.mu_min = phase_mu.mu_min
+        self.mu_max = phase_mu.mu_max
 
         self.planet_params = planet_params
         self.stellar_params = stellar_params
@@ -93,7 +93,7 @@ class HECATE:
         self.spectra = spectra
 
         # simulated light curve
-        Flux_SOAP = run_SOAP(self.time, self.stellar_params, self.planet_params, plot=plot_soap, min_wav=soap_wv[0], max_wav=soap_wv[1]).flux
+        Flux_SOAP = run_SOAP(self.time, self.stellar_params, self.planet_params, ld_law=ld_law, wav_range=soap_wv, plot=plot_soap).flux
         self.Flux_SOAP = Flux_SOAP
             
 
@@ -652,7 +652,7 @@ class HECATE:
         return phases_data, mu_data
 
 
-    def plot_local_params(self, indices_final:np.array, local_params:np.array, master_params:np.array, suptitle:str=None, linear_fit:bool=False, plot_nested:bool=False, linear_fit_pairs:list=None, save=None):
+    def plot_local_params(self, indices_final:np.array, local_params:np.array, master_params:np.array, suptitle:str=None, linear_fit:bool=False, plot_nested:bool=False, linear_fit_pairs:list=None, mu_min_plot:float=0.3, save=None):
         """Plot local CCF parameters (central RV, line-width measure and line-center intensity) in function of orbital phases and mu.
         Optionally, a linear fit via nested sampling is tested for specified parameter-axis pairs, plotting the fit and the corresponding residuals.
 
@@ -675,6 +675,8 @@ class HECATE:
             Example: [("phases", 0), ("mu", 1), ("phases", 2)].
             If None and linear_fit=True, fits all parameters on both axes (backward compatible).
             If specified, only those pairs will have linear fits.
+        mu_min_plot : `float`, optional
+            Minimum value for the mu axis in the plots.
         save
             path to save plots.
         """
@@ -711,7 +713,7 @@ class HECATE:
 
         ph_range = [-self.tr_dur/2, self.tr_dur/2]
         ph_range_inner = [-self.tr_ingress_egress/2, self.tr_ingress_egress/2]
-        mu_range = [0.5*self.mu_min, self.mu_max]
+        mu_range = [mu_min_plot, self.mu_max]
         mu_range_inner = [self.mu_min, self.mu_max]
 
         plot_data = {"phases":[axes_ph, ph_range, ph_range_inner, self.in_phases[indices_final]], "mu":[axes_mu, mu_range, mu_range_inner, self.mu_in[indices_final]]}

@@ -6,15 +6,18 @@ from matplotlib.colors import Normalize
 from astropy.io import fits
 import os
 import glob
-from .utils import get_phase_mu
 
-def get_CCFs(planet_params:dict, directory_path:str='/home/telmo/phd_seminar/Eduardos_code/white_light_ccfs/', day:str='2021-08-11', index_to_remove:str="last", plot:bool=True):
+from HECATE.utils import get_phase_mu
+
+def get_CCFs(planet_params:dict, stellar_params:dict, directory_path:str='/home/telmo/phd_seminar/Eduardos_code/white_light_ccfs/', day:str='2021-08-11', index_to_remove:str="last", plot:bool=True):
     """Fetch ESPRESSO white-light CCFs data.
 
     Parameters
     ----------
     planet_params : `dict`
         dictionary containing the following planetary parameters: orbital period, system scale, planet-to-star radius ratio, mid-transit time, eccentricity, argument of periastron, planetary inclination and spin-orbit angle.
+    stellar_params : `dict`
+        dictionary containing the following stellar parameters: effective temperature and error, superficial gravity and error, metallicity and error.
     directory_path : `str`
         path where the white light CCFs are stored.
     day : `str`
@@ -43,7 +46,7 @@ def get_CCFs(planet_params:dict, directory_path:str='/home/telmo/phd_seminar/Edu
     """
     listfiles = glob.glob(os.path.join(directory_path, '*.fits'))
 
-    list_ccfs = [name for name in listfiles if day in name and 'SKY' in name]
+    list_ccfs = [name for name in listfiles if day in name and 'CCF_SKYSUB_A' in name]
     list_ccfs = sorted(list_ccfs)
 
     #removing low SNR observations
@@ -79,13 +82,16 @@ def get_CCFs(planet_params:dict, directory_path:str='/home/telmo/phd_seminar/Edu
         CCFs[i,2,:] = de[-1]
         
         time[i] = h['HIERARCH ESO QC BJD']
-        airmass[i] = h['HIERARCH ESO TEL1 AIRM START'] 
+        try:
+            airmass[i] = h['HIERARCH ESO TEL1 AIRM START'] 
+        except:
+            airmass[i] = h['HIERARCH ESO TEL3 AIRM START']
         berv[i] = h['HIERARCH ESO QC BERV']
         bervmax[i] = h['HIERARCH ESO QC BERVMAX']
         snr[i] = h['HIERARCH ESO QC ORDER111 SNR'] #order 567.76 nm to 576.42 nm
 
     if plot:
-        phases = get_phase_mu(planet_params, time).phases
+        phases = get_phase_mu(time, planet_params, stellar_params).phases
         norm = Normalize(vmin=phases.min(), vmax=phases.max())
         cmap = plt.get_cmap('coolwarm_r')
 
@@ -109,7 +115,7 @@ def get_CCFs(planet_params:dict, directory_path:str='/home/telmo/phd_seminar/Edu
     return CCFs, time, airmass, berv, bervmax, snr, list_ccfs
 
 
-def get_spectra(directory_path:str='/home/telmo/phd_seminar/Eduardos_code/telluric_corrected_spectra/', day:str='2021-08-11', index_to_remove:str="last"):
+def get_spectra(directory_path:str='/home/telmo/phd_seminar/Eduardos_code/telluric_corrected_spectra/', day:str='2021-08-11', type_spec:str='SKY', index_to_remove:str="last"):
     """Fetch ESPRESSO spectra.
 
     Parameters
@@ -118,6 +124,8 @@ def get_spectra(directory_path:str='/home/telmo/phd_seminar/Eduardos_code/tellur
         path where the spectra are stored.
     day : `str`
         in case where the target was observed in more than one night, choose the one to use.
+    type_spec : `str`
+        type of spectra to be retrieved (e.g., S1D_TELL_CORR_A).
     index_to_remove : `str`
         in case the user wants to remove a given spectra a priori.
 
@@ -142,7 +150,7 @@ def get_spectra(directory_path:str='/home/telmo/phd_seminar/Eduardos_code/tellur
     """
     listfiles = glob.glob(os.path.join(directory_path, '*.fits'))
 
-    list_spectra = [name for name in listfiles if day in name and 'SKY' in name]
+    list_spectra = [name for name in listfiles if day in name and type_spec in name]
     list_spectra = sorted(list_spectra)
 
     #removing low SNR observation
@@ -177,7 +185,10 @@ def get_spectra(directory_path:str='/home/telmo/phd_seminar/Eduardos_code/tellur
         spectra[i,3] = np.array(tbl.field(4)) #quality
 
         time[i] = hdr['HIERARCH ESO QC BJD']
-        airmass[i] = hdr['HIERARCH ESO TEL1 AIRM START'] 
+        try:
+            airmass[i] = hdr['HIERARCH ESO TEL1 AIRM START'] 
+        except:
+            airmass[i] = hdr['HIERARCH ESO TEL3 AIRM START']
         berv[i] = hdr['HIERARCH ESO QC BERV']
         bervmax[i] = hdr['HIERARCH ESO QC BERVMAX']
         snr[i] = hdr['HIERARCH ESO QC ORDER111 SNR'] #order 567.76 nm to 576.42 nm

@@ -4,6 +4,7 @@ import SOAP # type: ignore
 from ldtk import LDPSetCreator, BoxcarFilter
 import matplotlib.pyplot as plt
 import numpy as np
+
 from HECATE.utils import *
 
 class run_SOAP:
@@ -19,10 +20,10 @@ class run_SOAP:
             dictionary containing the following stellar parameters: effective temperature and error, superficial gravity and error, metallicity and error, rotation period, radius and stellar inclination.
         planet_params : `dict`
             dictionary containing the following planetary parameters: orbital period, system scale, planet-to-star radius ratio, mid-transit time, eccentricity, argument of periastron, planetary inclination and spin-orbit angle.
-        min_wave : `int` 
-            minimum wavelength [nm] of spectrograph.
-        max_wave : `int` 
-            maximum wavelength [nm] of spectrograph.
+        ld_law : `str`
+            limb-darkening law to use ("linear", "quadratic", "square-root", "exponential", "claret-nonlinear").
+        wav_range : `list` 
+            list containing the minimum and maximum wavelengths [nm] of the spectrograph.
         plot : `str` 
             type of plot to generate ("simple" or "SOAP").
         save
@@ -33,14 +34,12 @@ class run_SOAP:
         flux : `numpy array` 
             simulated flux from SOAP.
     """
-    def __init__(self, time:np.array, stellar_params:dict, planet_params:dict, min_wav:int=380, max_wav:int=788, plot:str="SOAP", save=None):
+    def __init__(self, time:np.array, stellar_params:dict, planet_params:dict, ld_law:str="quadratic", wav_range:list=[380,788], plot:str="SOAP", save=None):
         
-        Teff, Teff_err = stellar_params["Teff"], stellar_params["Teff_err"]
-        logg, logg_err = stellar_params["logg"], stellar_params["logg_err"]
-        FeH, FeH_err   = stellar_params["FeH"], stellar_params["FeH_err"]
-        P_rot          = stellar_params["P_rot"]
-        R_star         = stellar_params["R_star"]
-        inc_star       = stellar_params["inc_star"]
+        Teff       = stellar_params["Teff"]
+        P_rot      = stellar_params["P_rot"]
+        R_star     = stellar_params["R_star"]
+        inc_star   = stellar_params["inc_star"]
 
         a_R        = planet_params["a_R"]
         Rp_Rs      = planet_params["Rp_Rs"]
@@ -50,16 +49,18 @@ class run_SOAP:
         inc_planet = planet_params["inc_planet"]
         lbda       = planet_params["lbda"]
 
-        phase_mu = get_phase_mu(planet_params, time)
+        # compute orbital phases, transit duration, time between ingress and egress, array indices in-transit and out-of-transit
+        phase_mu = get_phase_mu(time, planet_params, stellar_params, None, ld_law, wav_range) 
         phases, tr_dur, tr_ingress_egress = phase_mu.phases, phase_mu.tr_dur, phase_mu.tr_ingress_egress
 
-        filters = [BoxcarFilter('filter', min_wav, max_wav)] 
-        sc = LDPSetCreator(teff=(Teff, Teff_err), logg = (logg, logg_err), z = (FeH, FeH_err), filters=filters)
-        ps = sc.create_profiles(nsamples=1000) #create the limb darkening profiles
-        ldcn, _ = ps.coeffs_qd(do_mc=True, n_mc_samples=20000, mc_thin=25, mc_burn=500) #coefficients and quadratic profile errors
+        # compute limb-darkening coefficients
+        ld_class = get_limb_darkening(stellar_params, planet_params, wav_range)
+        ldcn = ld_class.ld_coeffs(ld_law)
 
-        sim = SOAP.Simulation(active_regions=[], grid=1000) #light curve
-        sim.star.set(prot=P_rot, incl=inc_star, radius=R_star, teff=Teff, coeffs=ldcn[0], law=1)
+        law_mapping = {"linear":0, "quadratic":1, "square-root":2, "exponential":4,"claret-nonlinear":5}
+
+        sim = SOAP.Simulation(active_regions=[], grid=1000) # light curve
+        sim.star.set(prot=P_rot, incl=inc_star, radius=R_star, teff=Teff, coeffs=ldcn, law=law_mapping[ld_law])
         sim.planet.set(P=P_orb, t0=0, e=e, w=w, ip=inc_planet, lbda=lbda, a=a_R, Rp=Rp_Rs)
 
         output = sim.calculate_signal(psi=phases/P_rot*P_orb, skip_rv=True)

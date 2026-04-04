@@ -4,6 +4,7 @@ from bisect import bisect_left
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.colors import Normalize
+
 from HECATE.utils import get_phase_mu
 
 class build_CCF:
