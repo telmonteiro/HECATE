@@ -64,7 +64,7 @@ def get_CCFs(planet_params:dict, stellar_params:dict, directory_path:str='/home/
     airmass = np.zeros(len(list_ccfs))
     berv = np.zeros(len(list_ccfs))
     bervmax = np.zeros(len(list_ccfs))
-    snr = np.zeros(len(list_ccfs))
+    snr = {}
 
     for i,name in enumerate(list_ccfs):
 
@@ -88,7 +88,17 @@ def get_CCFs(planet_params:dict, stellar_params:dict, directory_path:str='/home/
             airmass[i] = h['HIERARCH ESO TEL3 AIRM START']
         berv[i] = h['HIERARCH ESO QC BERV']
         bervmax[i] = h['HIERARCH ESO QC BERVMAX']
-        snr[i] = h['HIERARCH ESO QC ORDER111 SNR'] #order 567.76 nm to 576.42 nm
+
+        j = 1
+        while True:
+            try:
+                snr_val = h[f'HIERARCH ESO QC ORDER{j} SNR']
+                if j not in snr:
+                    snr[j] = []
+                snr[j].append(snr_val)
+                j += 1
+            except KeyError:
+                break
 
     if plot:
         phases = get_phase_mu(time, planet_params, stellar_params).phases
