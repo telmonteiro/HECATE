@@ -7,7 +7,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.sparse import diags
 
-from run_SOAP import run_SOAP
+from HECATE.run_SOAP import run_SOAP
 from HECATE.nested_sampling import run_nestedsampler
 from HECATE.spectral_normalization import norm_spec
 
@@ -132,7 +132,7 @@ class HECATE:
         RV_reference = np.arange(round(np.max(CCFs_sysvel_corr[:,0,0])), round(np.min(CCFs_sysvel_corr[:,0,-1]))+rv_step, rv_step) 
 
         # average out-of-transit CCF
-        CCF_interp, master_out_of_transit_CCF = self.master_out_of_transit_profile(CCFs_sysvel_corr, RV_reference, master_type=master_type, plot=plot["master_out_of_transit_CCF"], save=save)
+        CCF_interp, master_out_of_transit_CCF = self.master_out_of_transit_profile(CCFs_sysvel_corr, RV_reference, master_type=master_type, plot=plot["master_out_of_transit"], save=save)
 
         CCFs_flux_corr = np.zeros_like(CCF_interp) # only flux corrected
         CCFs_sub_all = np.zeros_like(CCF_interp) # flux corrected and subtracted
@@ -235,7 +235,7 @@ class HECATE:
 
         # master out-of-transit spectrum
         wave_grid = np.linspace(min(spectra_local_norm[0,0,:]), max(spectra_local_norm[0,0,:]), len(spectra_local_norm[0,0,:])) 
-        spectra_interp, master_out_of_transit_spectrum = self.master_out_of_transit_profile(spectra_local_norm, wave_grid, master_type=master_type, profile_type="line", plot=plot["avg_out_of_transit_spectrum"], save=save)
+        spectra_interp, master_out_of_transit_spectrum = self.master_out_of_transit_profile(spectra_local_norm, wave_grid, master_type=master_type, profile_type="line", plot=plot["master_out_of_transit"], save=save)
 
         spectra_flux_corr = np.zeros_like(spectra_interp) # only flux corrected
         spectra_sub_all = np.zeros_like(spectra_interp) # flux corrected and subtracted

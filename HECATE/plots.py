@@ -6,7 +6,7 @@ import numpy as np
 
 from HECATE.utils import get_phase_mu
 
-def plot_air_snr(planet_params:dict, stellar_params:dict, time:np.array, airmass:np.array, snr:np.array, save=None):
+def plot_air_snr(planet_params:dict, stellar_params:dict, time:np.array, airmass:np.array, snr:np.array, spectral_order:int=111, save=None):
     """Plot airmass and SNR at spectral order 111 (midpoint in the selected Fe I spectral lines) of spectra used.
 
     Parameters
@@ -20,7 +20,9 @@ def plot_air_snr(planet_params:dict, stellar_params:dict, time:np.array, airmass
     airmass : `numpy array`
         airmass at the time of observation.
     snr : `numpy array`
-        signal-to-noise ratio (SNR) at spectral order 111.
+        signal-to-noise ratio (SNR) at the specified spectral order.
+    spectral_order : `int`
+        the spectral order to plot.
     save
         path to save plot. 
     """
@@ -38,8 +40,8 @@ def plot_air_snr(planet_params:dict, stellar_params:dict, time:np.array, airmass
     ax0.tick_params(axis="y")
 
     ax1 = ax0.twinx()
-    l3 = ax1.scatter(phases, snr, color='black', marker="x")
-    ax1.set_ylabel('SNR order 111', fontsize=14)
+    l3 = ax1.scatter(phases, snr[spectral_order], color='black', marker="x")
+    ax1.set_ylabel(f'SNR order {spectral_order}', fontsize=14)
     ax1.tick_params(axis="y")
 
     labels = ['Partially in-transit','Fully in-transit', 'Airmass', 'SNR']
@@ -49,6 +51,104 @@ def plot_air_snr(planet_params:dict, stellar_params:dict, time:np.array, airmass
 
     if save:
         plt.savefig(save+"airmass_snr.pdf", dpi=300, bbox_inches="tight")
+
+    plt.show()
+
+
+def plot_snr_orders(planet_params:dict, stellar_params:dict, time:np.array, snr:np.array, save=None):
+    """Plot SNR at different spectral orders of observations used, colored by orbital phases.
+    
+    Parameters
+    ----------
+    planet_params : `dict`
+        dictionary containing the following planetary parameters: orbital period, system scale, planet-to-star radius ratio, mid-transit time, eccentricity, argument of periastron, planetary inclination and spin-orbit angle.
+    stellar_params : `dict`
+        dictionary containing the following stellar parameters: stellar radius, stellar mass, and effective temperature.
+    time : `numpy array`
+        time of observations in BJD.
+    snr : `numpy array`
+        signal-to-noise ratio (SNR) at the specified spectral order.
+    save : `str`, optional
+        path to save plot.
+    """
+    phase_mu = get_phase_mu(time, planet_params, stellar_params)
+    phases = phase_mu.phases
+
+    fig, ax = plt.subplots(figsize=(8, 4.5))
+
+    norm = Normalize(vmin=phases.min(), vmax=phases.max())
+    cmap = plt.get_cmap('coolwarm_r')
+
+    for file_idx in range(len(snr[1])):
+        snr_values = [snr[order][file_idx] for order in sorted(snr.keys())]
+        color = cmap(norm(phases[file_idx]))
+        ax.plot(sorted(snr.keys()), snr_values, alpha=0.8, linewidth=1, color=color)
+
+    ax.set_xlabel('Spectral Order', fontsize=15)
+    ax.set_ylabel('SNR', fontsize=15)
+
+    sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
+    sm.set_array([])
+    cbar = fig.colorbar(sm, ax=ax, pad=-0.005)
+    cbar.set_label('Orbital Phase', fontsize=15)
+
+    plt.tight_layout()
+
+    if save:
+        plt.savefig(save+"snr_orders.pdf", dpi=300, bbox_inches="tight")
+
+    plt.show()
+
+
+def plot_sequential_residuals_local_profiles(local_data:dict, planet_params:dict, stellar_params:dict, time:np.array, data_type:str="CCF", save=None):
+    """Plot sequential residuals of local profiles (CCF or spectral line) in function of orbital phases.
+    
+    Parameters
+    ----------
+    local_data : `dict`
+        dictionary containing the local profiles (CCF or spectral line) and subtracted local profiles.
+    planet_params : `dict`
+        dictionary containing the following planetary parameters: orbital period, system scale, planet-to-star radius ratio, mid-transit time, eccentricity, argument of periastron, planetary inclination and spin-orbit angle.
+    stellar_params : `dict`
+        dictionary containing the following stellar parameters: stellar radius, stellar mass, and effective temperature.
+    time : `numpy array`
+        time of observations in BJD.
+    data_type : `str`
+        whether the local profiles are CCFs or spectral lines.
+    save : `str`, optional
+        path to save plot.
+    """
+    fig, ax = plt.subplots(figsize=(8, 4.5))
+
+    phase_mu = get_phase_mu(time, planet_params, stellar_params)
+
+    mu = phase_mu.mu_values[~np.isnan(phase_mu.mu_values)]
+
+    norm = Normalize(vmin=mu.min(), vmax=mu.max())
+    cmap = plt.get_cmap('coolwarm_r')
+
+    if data_type == "CCF":
+        local_str = "CCFs"
+    else:
+        local_str = "spectra"
+
+    for i in range(local_data[f'local_{local_str}'].shape[0]-1):
+        color = cmap(norm(mu[i]))
+        plt.plot(local_data[f'local_{local_str}'][0,0], local_data[f'local_{local_str}'][i+1,1] - local_data[f'local_{local_str}'][i,1], color=color)
+
+    plt.xlabel('RV [km/s]', fontsize=16)
+    plt.ylabel(f'Residual {local_str}', fontsize=16)
+    plt.title(f'Local {local_str} - Sequential Residuals', fontsize=16)
+
+    sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
+    sm.set_array([])
+    cbar = fig.colorbar(sm, ax=ax, pad=0.005)
+    cbar.set_label(r'$\mu$', fontsize=16)
+
+    plt.tight_layout()
+
+    if save:
+        plt.savefig(save+"sequential_residuals_local_profiles.pdf", dpi=300, bbox_inches="tight")
 
     plt.show()
 
