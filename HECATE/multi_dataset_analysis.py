@@ -1,21 +1,22 @@
-# Multi-night analysis module for HECATE.
+# Multi-data set analysis module for HECATE.
 # Aggregate and compare profile parameters across multiple observation nights.
 
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import cm
+
 from HECATE.nested_sampling import run_nestedsampler
 
 
-class multi_night_analysis:
-    """Aggregate and analyze profile parameters across multiple observation nights.
+class multi_dataset_analysis:
+    """Aggregate and analyze profile parameters across multiple observation nights or data sets.
     This class enables comparison of local CCF/spectral line parameters (RV, width, intensity)
     across different observation nights, with flexible fitting and visualization options.
     
     Parameters
     ----------
-    nights_data : `dict`
-        Dictionary mapping night identifiers to data dictionaries. Each night dict should contain:
+    data_sets : `dict`
+        Dictionary mapping data set identifiers to data dictionaries. Each data set dict should contain:
         {
             'hecate': HECATE_instance,
             'indices': indices_array (good data indices),
@@ -28,37 +29,93 @@ class multi_night_analysis:
     data_type : `str`
         Type of data being analyzed, either 'CCF' or 'line'.
     """
-    def __init__(self, nights_data:dict, data_type:str='CCF'):
+    def __init__(self, data_sets:dict, data_type:str='CCF'):
         
-        self.nights_data = nights_data
-        self.night_names = list(nights_data.keys())
+        self.data_sets = data_sets
+        self.data_set_names = list(data_sets.keys())
         self.data_type = data_type
         
-        n_nights = len(self.night_names)
+        n_data_sets = len(self.data_set_names)
         cmap = cm.get_cmap('tab10')
         
-        for i, (night, data) in enumerate(nights_data.items()):
+        for i, (data_set, data) in enumerate(data_sets.items()):
             if 'color' not in data:
-                data['color'] = cmap(i / max(1, n_nights - 1))
+                data['color'] = cmap(i / max(1, n_data_sets - 1))
             if 'label' not in data:
-                data['label'] = str(night)
+                data['label'] = str(data_set)
+
+
+    def plot_master_oot_difference(self):
+        """Plot difference between master out-of-transit profiles across data sets.
+        """
+        avg_oot_profiles = {}
+
+        for data_set, data in self.data_sets.items():
+            if self.data_type == "CCF":
+                avg_oot_profile = data['hecate'].local_data['avg_out_of_transit_CCF']
+            else:
+                avg_oot_profile = data['hecate'].local_data['avg_out_of_transit_spectrum']
+
+            avg_oot_profiles[data_set] = avg_oot_profile
+        
+        # one subplot per each combination of data sets. if 2 data-sets, 1 subplot. if 3 data-sets, 3 subplots (A-B, A-C, B-C)
+        # 3 data sets = grid 1x2. 4 data sets = 1x2. 5 data sets = 2x2. 6 data sets = 2x3. 7 data sets = 3x3 (last 2 empty). 8 data sets = 3x3 (last empty). 9 data sets = 3x3.
+        data_set_names = list(avg_oot_profiles.keys())
+        n_data_sets = len(data_set_names)
+        n_cols = min(2, n_data_sets - 1)
+        n_comparisons = n_data_sets * (n_data_sets - 1) // 2
+        n_rows = (n_comparisons + n_cols - 1) // n_cols
+
+        fig, axes = plt.subplots(nrows=n_rows, ncols=n_cols, figsize=(6*n_cols, 4 if n_rows == 1 else 4.5*n_rows), constrained_layout=True)
+        if isinstance(axes, np.ndarray):
+            axes = axes.flatten()
+        else:
+            axes = [axes]
+
+        idx = 0
+        for i in range(n_data_sets):
+            for j in range(i+1, n_data_sets):
+                data_set_i = data_set_names[i]
+                data_set_j = data_set_names[j]
+
+                profile_i = avg_oot_profiles[data_set_i]
+                profile_j = avg_oot_profiles[data_set_j]
+
+                diff_profile = profile_j[1] - profile_i[1]
+
+                axes[idx].scatter(profile_i[0], diff_profile, color='black')
+                axes[idx].errorbar(profile_i[0], diff_profile, yerr=np.sqrt(profile_i[2]**2+profile_j[2]**2), color='black', capsize=5, linewidth=0, elinewidth=1)
+                
+                axes[idx].set_title(f"{data_set_j} - {data_set_i}", fontsize=16)
+                axes[idx].set_xlabel("Radial Velocity [km/s]" if self.data_type == "CCF" else r"Wavelength [$\AA$]", fontsize=14)
+                axes[idx].set_ylabel("Relative Flux", fontsize=14)
+
+                axes[idx].axhline(0, color='black', linestyle='--', linewidth=1)
+                idx += 1
+        
+        if idx < len(axes):
+            for k in range(idx, len(axes)):
+                axes[k].axis('off')
+        
+        plt.show()
+            
     
     
-    def plot_parameters(self, param_type:str='phases', fit_each_night:bool=False, fit_combined:bool=False, combined_night_names:np.array=None, fit_param_indices:np.array=None, plot_nested:bool=False, suptitle:str=None, save=None):
-        """Plot profile parameters from all nights with optional linear fits.
+    def plot_parameters(self, param_type:str='phases', fit_each:bool=False, fit_combined:bool=False, combined_dataset_names:np.array=None, fit_param_indices:np.array=None, plot_nested:bool=False, suptitle:str=None, save=None):
+        """Plot profile parameters from all data sets with optional linear fits.
         
         Parameters
         ----------
         param_type : `str`
             'phases' or 'mu' - which x-axis to plot against.
-        fit_each_night : `bool`
-            Whether to fit each night individually.
+        fit_each : `bool`
+            Whether to fit each data set individually.
         fit_combined : `bool`
-            Whether to fit combined nights.
-        combined_night_names : `numpy array`, optional
-            List of night names to combine for fitting. If None and fit_combined=True, uses all nights.
+            Whether to fit combined data sets.
+        combined_dataset_names : `numpy array`, optional
+            List of data set names to combine for fitting. If None and fit_combined=True, uses all data sets.
         fit_param_indices : `numpy array`, optional
-            Parameter indices to fit (0, 1, 2). If None and fit_each_night or fit_combined is True, fits all.
+            Parameter indices to fit (0, 1, 2). If None and fit_each or fit_combined is True, fits all.
         plot_nested : `bool`
             Whether to plot Dynesty trace/corner plots.
         suptitle : `str`, optional
@@ -69,16 +126,16 @@ class multi_night_analysis:
         Returns
         -------
         fit_results : `dict`
-            Dictionary with fit results keyed by (night, param_idx, param_type).
+            Dictionary with fit results keyed by (data_set, param_idx, param_type).
         """        
         combined_label = None
-        if fit_combined and combined_night_names is None: # use all nights
-            combined_night_names = self.night_names
+        if fit_combined and combined_dataset_names is None: # use all data sets
+            combined_dataset_names = self.data_set_names
         
-        if combined_night_names is not None:
-            combined_label = '+'.join(combined_night_names)
+        if combined_dataset_names is not None:
+            combined_label = '+'.join(combined_dataset_names)
         
-        need_fits = fit_each_night or fit_combined
+        need_fits = fit_each or fit_combined
         
         # default fit_param_indices to all if fits are requested
         if need_fits and fit_param_indices is None:
@@ -113,17 +170,17 @@ class multi_night_analysis:
             axes[ax_idx].set_axisbelow(True)
             
             if param_type == 'phases':
-                x_range = [-self.nights_data[self.night_names[0]]['hecate'].tr_dur/2, self.nights_data[self.night_names[0]]['hecate'].tr_dur/2]
-                x_range_inner = [self.nights_data[self.night_names[0]]['hecate'].tr_ingress_egress/2, 
-                                 - self.nights_data[self.night_names[0]]['hecate'].tr_ingress_egress/2]
+                x_range = [-self.data_sets[self.data_set_names[0]]['hecate'].tr_dur/2, self.data_sets[self.data_set_names[0]]['hecate'].tr_dur/2]
+                x_range_inner = [self.data_sets[self.data_set_names[0]]['hecate'].tr_ingress_egress/2, 
+                                 - self.data_sets[self.data_set_names[0]]['hecate'].tr_ingress_egress/2]
             else:
-                hecate_first = self.nights_data[self.night_names[0]]['hecate']
+                hecate_first = self.data_sets[self.data_set_names[0]]['hecate']
                 x_range = [np.nanmin(hecate_first.mu), hecate_first.mu_max]
                 x_range_inner = [hecate_first.mu_min, hecate_first.mu_max]
             
-            for night in self.night_names:
+            for night in self.data_set_names:
 
-                data = self.nights_data[night]
+                data = self.data_sets[night]
                 hecate = data['hecate']
                 indices = data['indices']
                 local_params = data['local_params']
@@ -134,7 +191,7 @@ class multi_night_analysis:
                 else:
                     x = hecate.mu_in[indices]
                 
-                if night == self.night_names[0]:
+                if night == self.data_set_names[0]:
                     l0 = axes[ax_idx].axvspan(x_range[0], x_range[1], alpha=0.3, color='orange')
                     l1 = axes[ax_idx].axvspan(x_range_inner[0], x_range_inner[1], alpha=0.4, color='orange')
                 
@@ -154,10 +211,10 @@ class multi_night_analysis:
                 
             axes[ax_idx].set_xlim(x_range)
 
-            if fit_each_night and param_idx in fit_param_indices:
+            if fit_each and param_idx in fit_param_indices:
 
-                for night in self.night_names:
-                    data = self.nights_data[night]
+                for night in self.data_set_names:
+                    data = self.data_sets[night]
                     hecate = data['hecate']
                     indices = data['indices']
                     local_params = data['local_params']
@@ -178,14 +235,14 @@ class multi_night_analysis:
                     axes[ax_idx].fill_between(fit_data['x_grid'], fit_data['y_grid'][0] - fit_data['y_grid'][1],
                                             fit_data['y_grid'][0] + fit_data['y_grid'][1], color=data['color'], alpha=0.15, zorder=0)
                     
-            if fit_combined and combined_night_names and param_idx in fit_param_indices: # combine data from specified nights
+            if fit_combined and combined_dataset_names and param_idx in fit_param_indices: # combine data from specified data sets
                 
                 x_combined = np.array([])
                 y_combined = np.array([])
                 yerr_combined = np.array([])
                 
-                for night in combined_night_names:
-                    data = self.nights_data[night]
+                for dataset in combined_dataset_names:
+                    data = self.data_sets[dataset]
                     hecate = data['hecate']
                     indices = data['indices']
                     local_params = data['local_params']
@@ -216,10 +273,10 @@ class multi_night_analysis:
                 axes[ax_res].axvspan(x_range[0], x_range[1], alpha=0.3, color='orange')
                 axes[ax_res].axvspan(x_range_inner[0], x_range_inner[1], alpha=0.4, color='orange')
                 
-                for night in self.night_names:
+                for night in self.data_set_names:
                     if (night, param_idx, param_type) in fit_results:
                         fit_data = fit_results[(night, param_idx, param_type)]
-                        axes[ax_res].scatter(fit_data['x'], fit_data['residual'][0], color=self.nights_data[night]['color'], s=60, zorder=3)
+                        axes[ax_res].scatter(fit_data['x'], fit_data['residual'][0], color=self.data_sets[night]['color'], s=60, zorder=3)
                         axes[ax_res].errorbar(x=fit_data['x'], y=fit_data['residual'][0], yerr=fit_data['residual'][1],
                                              capsize=5, capthick=0.5, color="black", linewidth=0, elinewidth=2,zorder=2)
                 
