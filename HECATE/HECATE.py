@@ -7,7 +7,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.sparse import diags
 
-from HECATE.run_SOAP import run_SOAP
+from run_SOAP import run_SOAP
 from HECATE.nested_sampling import run_nestedsampler
 from HECATE.spectral_normalization import norm_spec
 
@@ -97,7 +97,7 @@ class HECATE:
         self.Flux_SOAP = Flux_SOAP
             
 
-    def extract_local_CCF(self, model_fit:str, plot:dict, rv_step:float=0.5, save=None):
+    def extract_local_CCF(self, model_fit:str, plot:dict, master_type:str="average", rv_step:float=0.5, save=None):
         """Run all steps of the Doppler Shadow extraction (simulated light curve, systemic velocity correction, compute average out-of-transit CCF and subtraction) and returns the local CCFs. 
         Ideal for quick extraction of local CCFs.
 
@@ -106,7 +106,9 @@ class HECATE:
         model_fit : `str`
             profile model to fit to CCFs.
         plot : `dict` 
-            dictionary including boolean value for each type of plot available (SOAP, fits_initial_CCF, sys_vel, avg_out_of_transit_CCF, local_CCFs and whether to photometrical rescale).
+            dictionary including boolean value for each type of plot available (SOAP, fits_initial_CCF, sys_vel, master_out_of_transit_CCF, local_CCFs and whether to photometrical rescale).
+        master_type : `str`
+            whether the master profile is obtained via averaging or coadding the out-of-transit profiles.
         save 
             path to save plots.
 
@@ -117,9 +119,9 @@ class HECATE:
         CCFs_flux_corr : `numpy array`
             matrix with all CCF profiles, only flux corrected, with shape (N_CCFs, 3, N_points)
         CCFs_sub_all : `numpy array` 
-            matrix with all CCF profiles, flux corrected and subtracted from average out-of-transit, with shape (N_CCFs, 3, N_points).
-        average_out_of_transit_CCF : `numpy array`
-            matrix with the average out-of-transit CCF profile, with shape (3, N_points).
+            matrix with all CCF profiles, flux corrected and subtracted from master out-of-transit, with shape (N_CCFs, 3, N_points).
+        master_out_of_transit_CCF : `numpy array`
+            matrix with the master out-of-transit CCF profile, with shape (3, N_points).
         """
         self.data_type = "CCF"
 
@@ -130,7 +132,7 @@ class HECATE:
         RV_reference = np.arange(round(np.max(CCFs_sysvel_corr[:,0,0])), round(np.min(CCFs_sysvel_corr[:,0,-1]))+rv_step, rv_step) 
 
         # average out-of-transit CCF
-        CCF_interp, avg_out_of_transit_CCF = self.avg_out_of_transit_profile(CCFs_sysvel_corr, RV_reference, plot=plot["avg_out_of_transit_CCF"], save=save)
+        CCF_interp, master_out_of_transit_CCF = self.master_out_of_transit_profile(CCFs_sysvel_corr, RV_reference, master_type=master_type, plot=plot["master_out_of_transit_CCF"], save=save)
 
         CCFs_flux_corr = np.zeros_like(CCF_interp) # only flux corrected
         CCFs_sub_all = np.zeros_like(CCF_interp) # flux corrected and subtracted
@@ -142,10 +144,10 @@ class HECATE:
             de = CCF_interp[i,2,:]
             
             # performing the subtraction
-            sub = avg_out_of_transit_CCF[1] - d*self.Flux_SOAP[i]
+            sub = master_out_of_transit_CCF[1] - d*self.Flux_SOAP[i]
 
             d_corr = d*self.Flux_SOAP[i]
-            de_corr = np.sqrt(avg_out_of_transit_CCF[2]**2 + (de*self.Flux_SOAP[i])**2)
+            de_corr = np.sqrt(master_out_of_transit_CCF[2]**2 + (de*self.Flux_SOAP[i])**2)
 
             CCFs_sub_all[i,0] = RV_reference
             CCFs_sub_all[i,1] = sub
@@ -166,17 +168,19 @@ class HECATE:
         if plot["local_CCFs"] == True: #local CCFs + tomography
             plot_local_profile(self, local_CCFs, CCFs_sub_all, profile_type="CCF", photometrical_rescale=plot["photometrical_rescale"], save=save)
 
-        self.local_CCFs_data = {
+        local_data = {
             "local_CCFs": local_CCFs,
             "CCFs_flux_corr": CCFs_flux_corr,
             "CCFs_sub_all": CCFs_sub_all,
-            "avg_out_of_transit_CCF": avg_out_of_transit_CCF}
+            "master_out_of_transit_CCF": master_out_of_transit_CCF}
+        
+        self.local_data = local_data
 
-        return local_CCFs, CCFs_flux_corr, CCFs_sub_all, avg_out_of_transit_CCF
+        return local_data
     
 
-    def extract_local_spectral_line(self, model_fit_ccf:str, plot:dict, line_name:str, wave_lims:list, masks_dict:dict={"glob_norm":[(6400, 6800)],"spec_slice":[(6450,6650)],"line_window":[(6535,6590)],"continuum":[(6538.8,6545.8),(6546.9,6551.4),(6575.6,6579.8),(6581.4,6586.05)]}, save=None):
-        """Run all steps of the Doppler Shadow extraction (simulated light curve, systemic velocity correction, compute average out-of-transit CCF and subtraction) and returns the local CCFs. 
+    def extract_local_spectral_line(self, model_fit_ccf:str, plot:dict, line_name:str, wave_lims:list, master_type:str="average", masks_dict:dict={"glob_norm":[(6400, 6800)],"spec_slice":[(6450,6650)],"line_window":[(6535,6590)],"continuum":[(6538.8,6545.8),(6546.9,6551.4),(6575.6,6579.8),(6581.4,6586.05)]}, save=None):
+        """Run all steps of the Doppler Shadow extraction (simulated light curve, systemic velocity correction, compute master out-of-transit CCF and subtraction) and returns the local CCFs. 
         Ideal for quick extraction of local CCFs.
 
         Parameters
@@ -184,11 +188,13 @@ class HECATE:
         model_fit_ccf : `str`
             profile model to fit to white light CCFs.
         plot : `dict` 
-            dictionary including boolean value for each type of plot available (SOAP, fits_initial_CCF, sys_vel_CCF, sys_vel_line, avg_out_of_transit_spectra, local_spec_line).
+            dictionary including boolean value for each type of plot available (SOAP, fits_initial_CCF, sys_vel_CCF, sys_vel_line, master_out_of_transit_spectra, local_spec_line).
         line_name : `str`
             name of the spectral line.
         wave_lims : `list`
             wavelength interval to plot in the tomography plot.
+        master_type : `str`
+            whether the master profile is obtained via averaging or coadding the out-of-transit profiles.
         masks_dict : `dict`
             dictionary containing the wavvelength masks as lists of tuples for (1) global normalization (2) spectrum slice to save memory (3) window containing the line of interest (4) bits of spectrum continuum (5) spectral line to fit for systemic velocity correction.
         save 
@@ -201,9 +207,9 @@ class HECATE:
         spectra_flux_corr : `numpy array`
             matrix with all spectral line profiles, only flux corrected, with shape (N_spectra, 3, N_points)
         spectra_sub_all : `numpy array` 
-            matrix with all spectral line profiles, flux corrected and subtracted from average out-of-transit, with shape (N_spectra, 3, N_points).
-        avg_out_of_transit_spectrum : `numpy array`
-            matrix with the average out-of-transit spectral line profile, with shape (3, N_points).
+            matrix with all spectral line profiles, flux corrected and subtracted from master out-of-transit, with shape (N_spectra, 3, N_points).
+        master_out_of_transit_spectrum : `numpy array`
+            matrix with the master out-of-transit spectral line profile, with shape (3, N_points).
         """
         self.data_type = "spectral_line"
 
@@ -227,9 +233,9 @@ class HECATE:
         spectra_region = normalizer.cut_spectrum(self.spectra, wave_min=masks_dict["spec_slice"][0][0], wave_max=masks_dict["spec_slice"][0][1]) 
         spectra_local_norm, _ = normalizer.local_norm(spectra_region, mask_line=masks_dict["line_window"], mask_continuum=masks_dict["continuum"], plot=plot["spec_local_normalization"], line_name=line_name)
 
-        # average out-of-transit spectrum
+        # master out-of-transit spectrum
         wave_grid = np.linspace(min(spectra_local_norm[0,0,:]), max(spectra_local_norm[0,0,:]), len(spectra_local_norm[0,0,:])) 
-        spectra_interp, avg_out_of_transit_spectrum = self.avg_out_of_transit_profile(spectra_local_norm, wave_grid, profile_type="line", plot=plot["avg_out_of_transit_spectrum"], save=save)
+        spectra_interp, master_out_of_transit_spectrum = self.master_out_of_transit_profile(spectra_local_norm, wave_grid, master_type=master_type, profile_type="line", plot=plot["avg_out_of_transit_spectrum"], save=save)
 
         spectra_flux_corr = np.zeros_like(spectra_interp) # only flux corrected
         spectra_sub_all = np.zeros_like(spectra_interp) # flux corrected and subtracted
@@ -241,10 +247,10 @@ class HECATE:
             de = spectra_interp[i,2,:]
             
             # performing the subtraction
-            sub = avg_out_of_transit_spectrum[1] - d*self.Flux_SOAP[i]
+            sub = master_out_of_transit_spectrum[1] - d*self.Flux_SOAP[i]
 
             d_corr = d*self.Flux_SOAP[i]
-            de_corr = np.sqrt(avg_out_of_transit_spectrum[2]**2 + (de*self.Flux_SOAP[i])**2)
+            de_corr = np.sqrt(master_out_of_transit_spectrum[2]**2 + (de*self.Flux_SOAP[i])**2)
 
             spectra_sub_all[i,0] = wave_grid
             spectra_sub_all[i,1] = sub
@@ -265,13 +271,15 @@ class HECATE:
         if plot["local_spec_line"] == True: #local spectral line + tomography
             plot_local_profile(self, local_spectra, spectra_sub_all, profile_type="line", wave_lims=wave_lims, line_name=line_name, photometrical_rescale=plot["photometrical_rescale"], ylim_plot=plot["ylim_plot"], save=save)
 
-        self.local_spectra_data = {
+        local_data = {
             "local_spectra": local_spectra,
             "spectra_flux_corr": spectra_flux_corr,
             "spectra_sub_all": spectra_sub_all,
-            "avg_out_of_transit_spectrum": avg_out_of_transit_spectrum}
+            "master_out_of_transit_spectrum": master_out_of_transit_spectrum}
+        
+        self.local_data = local_data
 
-        return local_spectra, spectra_flux_corr, spectra_sub_all, avg_out_of_transit_spectrum
+        return local_data
     
 
     def sysvel_correction_CCF(self, CCFs:np.array, model:str, print_output:bool, plot_fits:bool, plot_sys_vel:bool, save:str=None):
@@ -349,9 +357,10 @@ class HECATE:
         return CCFs_corr, x0_corr, poly_coefs
 
 
-    def avg_out_of_transit_profile(self, profiles:np.array, x_reference:np.array, profile_type:str="CCF", plot:bool=False, save:str=None):
-        """Computes the average out-of-transit profile (CCF or spectral line) by linearly interpolating the profiles (CCFs or sliced spectra) into a common grid.
+    def master_out_of_transit_profile(self, profiles:np.array, x_reference:np.array, master_type:str="average",profile_type:str="CCF", plot:bool=False, save:str=None):
+        """Computes the master out-of-transit profile (CCF or spectral line) by linearly interpolating the profiles (CCFs or sliced spectra) into a common grid.
         In the case of CCFs, they must be corrected by the systemic velocity before averaging. The interpolated uncertainties are propagated taking the covariances into account.
+        The master profile can either be obtained via averaging or coadding.
         
         Parameters
         ----------
@@ -359,6 +368,8 @@ class HECATE:
             matrix with the out-of-transit profiles (CCFs or spectral lines), with shape (N_profiles, 3, N_points).
         x_reference : `numpy array`
             grid for interpolation (RV for CCFs, wavelength for spectral lines).
+        master_type : `str`
+            whether the master profile is obtained via averaging or coadding the out-of-transit profiles.
         profile_type : `str`
             whether the profiles are CCFs or spectral lines, as they require slightly different treatments.
         plot : `bool`
@@ -423,17 +434,21 @@ class HECATE:
             else:
                 M += 1
 
-        average_out_of_transit_profile = np.mean(out_of_transit_profiles[:,1,:], axis=0)
+        if master_type == "average":
+            average_out_of_transit_profile = np.mean(out_of_transit_profiles[:,1,:], axis=0)
+            A_e = np.sum(out_of_transit_profiles[:,2,:]**2, axis=0) # propagation of uncertainty into the average profile
+            average_out_of_transit_profile_e = np.sqrt(A_e) / len(self.phases_out_indices)
+            master_out_of_transit_profile = np.array([x_reference, average_out_of_transit_profile, average_out_of_transit_profile_e])
 
-        A_e = np.sum(out_of_transit_profiles[:,2,:]**2, axis=0) # propagation of uncertainty into the average profile
-        average_out_of_transit_profile_e = np.sqrt(A_e) / len(self.phases_out_indices)
+        elif master_type == "coadd":
+            coadd_out_of_transit_profile = np.sum(out_of_transit_profiles[:,1,:], axis=0)
+            coadd_out_of_transit_profile_e = np.sqrt(np.sum(out_of_transit_profiles[:,2,:]**2, axis=0))
+            master_out_of_transit_profile = np.array([x_reference, coadd_out_of_transit_profile, coadd_out_of_transit_profile_e])
 
-        avg_out_of_transit_profile = np.array([x_reference, average_out_of_transit_profile, average_out_of_transit_profile_e])
-        
         if plot:
-            plot_avg_out_of_transit_profile(avg_out_of_transit_profile, profile_type, save)
+            plot_master_out_of_transit_profile(master_out_of_transit_profile, master_type, profile_type, save)
 
-        return profile_interp, avg_out_of_transit_profile
+        return profile_interp, master_out_of_transit_profile
 
 
     def get_profile_parameters(self, profiles:np.array, data_type:str, observation_type:str, model:str, print_output:bool, plot_fit:bool, wave_ctr_line:list=[(0,0)], mask_x:np.ndarray=None, save=None):
@@ -685,26 +700,33 @@ class HECATE:
         else:
             linear_fit_pairs_set = set(linear_fit_pairs)
         
-        need_linear_fit = len(linear_fit_pairs_set) > 0
+        need_fit_phases = any(pair[0] == "phases" for pair in linear_fit_pairs_set)
+        need_fit_mu = any(pair[0] == "mu" for pair in linear_fit_pairs_set)
         
-        if need_linear_fit:
+        if need_fit_phases:
             if suptitle is not None:
                 fig_ph, axes_ph = plt.subplots(nrows=2, ncols=3, figsize=(16,6.7), gridspec_kw={'height_ratios': [1.5, 1]}, constrained_layout=True)
-                fig_mu, axes_mu = plt.subplots(nrows=2, ncols=3, figsize=(16,6.7), gridspec_kw={'height_ratios': [1.5, 1]}, constrained_layout=True)
                 fig_ph.suptitle(suptitle, fontsize=20)
-                fig_mu.suptitle(suptitle, fontsize=20)
             else:
                 fig_ph, axes_ph = plt.subplots(nrows=2, ncols=3, figsize=(16,6.2), gridspec_kw={'height_ratios': [1.5, 1]})
-                fig_mu, axes_mu = plt.subplots(nrows=2, ncols=3, figsize=(16,6.2), gridspec_kw={'height_ratios': [1.5, 1]})
-        
-        else: 
+        else:
             if suptitle is not None:
                 fig_ph, axes_ph = plt.subplots(nrows=1, ncols=3, figsize=(16,4.7), constrained_layout=True)
-                fig_mu, axes_mu = plt.subplots(nrows=1, ncols=3, figsize=(16,4.7), constrained_layout=True)
                 fig_ph.suptitle(suptitle, fontsize=20)
-                fig_mu.suptitle(suptitle, fontsize=20)
             else:
                 fig_ph, axes_ph = plt.subplots(nrows=1, ncols=3, figsize=(16,4.2))
+        
+        if need_fit_mu:
+            if suptitle is not None:
+                fig_mu, axes_mu = plt.subplots(nrows=2, ncols=3, figsize=(16,6.7), gridspec_kw={'height_ratios': [1.5, 1]}, constrained_layout=True)
+                fig_mu.suptitle(suptitle, fontsize=20)
+            else:
+                fig_mu, axes_mu = plt.subplots(nrows=2, ncols=3, figsize=(16,6.2), gridspec_kw={'height_ratios': [1.5, 1]})
+        else:
+            if suptitle is not None:
+                fig_mu, axes_mu = plt.subplots(nrows=1, ncols=3, figsize=(16,4.7), constrained_layout=True)
+                fig_mu.suptitle(suptitle, fontsize=20)
+            else:
                 fig_mu, axes_mu = plt.subplots(nrows=1, ncols=3, figsize=(16,4.2))
 
         width_unit = "km/s" if self.data_type == "CCF" else r"$\AA$"
@@ -720,11 +742,13 @@ class HECATE:
 
         for i in range(len(ylabels)):
 
-            plot_index = (0,i) if need_linear_fit else i
+            plot_index_ph = (0,i) if need_fit_phases else i
+            plot_index_mu = (0,i) if need_fit_mu else i
 
-            if not need_linear_fit: 
-                axes_ph[plot_index].set_xlabel("Orbital phases")
-                axes_mu[plot_index].set_xlabel(r"$\mu$")
+            if not need_fit_phases: 
+                axes_ph[plot_index_ph].set_xlabel("Orbital phases")
+            if not need_fit_mu:
+                axes_mu[plot_index_mu].set_xlabel(r"$\mu$")
 
             for key in plot_data.keys():
 
@@ -732,6 +756,7 @@ class HECATE:
                 x_range = plot_data[key][1]
                 x_range_inner = plot_data[key][2]
                 x = plot_data[key][3]
+                plot_index = plot_index_ph if key == "phases" else plot_index_mu
 
                 ax[plot_index].set_title(titles[i], fontsize=17)
 
@@ -763,21 +788,23 @@ class HECATE:
                 phases_data, mu_data = self.local_params_linear_fit(local_params[i], indices_final, titles[i], priors, plot_nested, axes_to_fit=axes_to_fit)
 
                 for key in plot_data.keys():
-
-                    if (key, i) not in linear_fit_pairs_set:
-                        ax_temp = plot_data[key][0]
-                        ax_temp[1,i].clear()
-                        ax_temp[1,i].axis('off')
-                        continue
-
                     ax = plot_data[key][0]
                     x_range = plot_data[key][1]
                     x_range_inner = plot_data[key][2]
                     data = phases_data if key == "phases" else mu_data
+                    axis_has_fit = (key == "phases" and need_fit_phases) or (key == "mu" and need_fit_mu)
                     
+                    if (key, i) not in linear_fit_pairs_set:
+
+                        if axis_has_fit:
+                            ax[1,i].clear()
+                            ax[1,i].axis('off')
+                        continue
+
                     if data is None:
-                        ax[1,i].clear()
-                        ax[1,i].axis('off')
+                        if axis_has_fit:
+                            ax[1,i].clear()
+                            ax[1,i].axis('off')
                         continue
 
                     ax[0,i].plot(data["x"], data["y_fit"][0], color='blue', linestyle='--')
@@ -795,6 +822,12 @@ class HECATE:
                     ax[1,i].set_ylim([-2*np.max(np.abs(data["residual"][0])), 2*np.max(np.abs(data["residual"][0]))])
                     ax[1,i].axhline(0, lw=1, ls="--", color="black")
                     ax[1,i].set_ylabel("Residuals " + ylabels[i])
+            
+            else: 
+                if need_fit_phases:
+                    axes_ph[1,i].axis('off')
+                if need_fit_mu:
+                    axes_mu[1,i].axis('off')
 
         labels = ['Partially in-transit','Fully in-transit','Master out of transit']
         for fig in [fig_ph, fig_mu]:
@@ -806,149 +839,3 @@ class HECATE:
             fig_mu.savefig(save+"local_parameters_mu.pdf", dpi=400)
 
         plt.show()
-
-
-'''
-    def avg_out_of_transit_CCF(self, CCFs:np.array, RV_reference:np.array, plot:bool, save=None):
-        """Computes the average out-of-transit CCF by linearly interpolating the (systemic velocity corrected) CCFs into a common grid.
-        The interpolated CCF uncertainties are propagated tooking the covariances into account.
-
-        Parameters
-        ----------
-        CCFs : `numpy array`
-            matrix with the out-of-transit CCF profiles, with shape (N_CCFs, 3, N_points).
-        RV_reference : `numpy array`
-            RV grid for interpolation.
-        plot : `bool` 
-            whether to plot the average out of transit CCF.
-        save 
-            path to save plot.
-
-        Returns
-        -------
-        CCF_interp : `numpy array`
-            matrix with interpolated CCF profiles.
-        avg_out_of_transit_CCF : `numpy array`
-            matrix with the average out-of-transit CCF profile, with shape (3, N_points).
-        """
-        M = CCFs.shape[0]
-        K = CCFs.shape[2]
-
-        cov_matrix = np.zeros((M, K, K))
-        N = 10000
-
-        # covariance matrix obtained by sampling the CCFs 10 000 times
-        for i in range(M):
-            samples = np.zeros((K, N))
-
-            for j in range(K):
-                ymean = CCFs[i,1,j]
-                ysigma = CCFs[i,2,j]
-                samples[j,:] = np.random.normal(ymean, ysigma, N)
-
-            cov_matrix[i,:,:] = np.cov(samples)
-
-        out_of_transit_CCFs = np.zeros([len(self.phases_out_indices), 3, len(RV_reference)])
-        CCF_interp = np.zeros([CCFs.shape[0], 3, CCFs.shape[2]])
-
-        k, M = 0, 0
-        for l in range(CCF_interp.shape[0]):
-            ccf_rv = CCFs[l,0]
-            ccf_f = CCFs[l,1]
-            ccf_f_e = cov_matrix[l]  # full covariance matrix
-            
-            # build interpolation matrix for this CCF → target grid
-            W = linear_interpolation_matrix(ccf_rv, RV_reference) 
-
-            y_i = W @ ccf_f # interpolated flux
-            cov_new = W @ ccf_f_e @ W.T # propagated covariance
-            y_i_e = np.sqrt(cov_new.diagonal()) # propagated uncertainty
-
-            CCF_interp[l,0,:] = RV_reference
-            CCF_interp[l,1,:] = y_i
-            CCF_interp[l,2,:] = y_i_e
-
-            if l in self.phases_out_indices:
-
-                out_of_transit_CCFs[k,0,:] = RV_reference
-                out_of_transit_CCFs[k,1,:] = y_i
-                out_of_transit_CCFs[k,2,:] = y_i_e
-
-                k += 1
-            else:
-                M += 1
-
-        average_out_of_transit_CCF = np.mean(out_of_transit_CCFs[:,1,:], axis=0)
-
-        A_e = np.sum(out_of_transit_CCFs[:,2,:]**2, axis=0) # propagation of uncertainty into the average CCF
-        average_out_of_transit_CCF_e = np.sqrt(A_e) / len(self.phases_out_indices)
-
-        avg_out_of_transit_CCF = np.array([RV_reference, average_out_of_transit_CCF, average_out_of_transit_CCF_e])
-        
-        if plot:
-            plot_avg_out_of_transit_profile(avg_out_of_transit_CCF, save)
-
-        return CCF_interp, avg_out_of_transit_CCF
-
-        
-    def avg_out_of_transit_spectra(self, spectra:np.array, wave_grid:np.ndarray, plot:bool, save=None):
-        """Computes the average out-of-transit spectra by linearly interpolating the sliced spectra into a common grid.
-
-        Parameters
-        ----------
-        spectra : `numpy array`
-            matrix with the out-of-transit spectra, with shape (N_spectra, 3, N_points).
-        wave_grid : `numpy array`
-            wavelength grid for interpolation.
-        plot : `bool` 
-            whether to plot the average out of transit spectrum.
-        save 
-            path to save plot.
-
-        Returns
-        -------
-        spectra_interp : `numpy array`
-            matrix with interpolated spectra.
-        avg_out_of_transit_spectrum : `numpy array`
-            matrix with the average out-of-transit spectrum, with shape (3, N_points).
-        """
-        out_of_transit_spectra = np.zeros([len(self.phases_out_indices), 3, len(wave_grid)])
-        spectra_interp = np.zeros([spectra.shape[0], 3, spectra.shape[2]])
-
-        k, M = 0, 0
-        for l in range(spectra.shape[0]):
-
-            wave = spectra[l,0,:]
-            flux = spectra[l,1,:]
-            flux_err = diags(spectra[l,2,:])**2
-
-            W = linear_interpolation_matrix(wave, wave_grid) 
-
-            y_i = W @ flux # interpolated flux
-            cov_new = W @ flux_err @ W.T # propagated covariance
-            y_i_e = np.sqrt(cov_new.diagonal()) # propagated uncertainty
-
-            spectra_interp[l,0,:] = wave_grid
-            spectra_interp[l,1,:] = y_i
-            spectra_interp[l,2,:] = y_i_e
-
-            if l in self.phases_out_indices:
-                out_of_transit_spectra[k,0,:] = wave_grid
-                out_of_transit_spectra[k,1,:] = y_i
-                out_of_transit_spectra[k,2,:] = y_i_e
-                k += 1
-            else:
-                M += 1
-
-        average_out_of_transit_flux = np.mean(out_of_transit_spectra[:,1,:], axis=0)
-
-        A_e = np.sum(out_of_transit_spectra[:,2,:]**2, axis=0) # propagation of uncertainty into the average CCF
-        average_out_of_transit_flux_e = np.sqrt(A_e) / len(self.phases_out_indices)
-
-        avg_out_of_transit_spectrum = np.array([wave_grid, average_out_of_transit_flux, average_out_of_transit_flux_e])
-
-        if plot:
-            plot_avg_out_of_transit_profile(avg_out_of_transit_spectrum, profile_type="spectrum", save=save)
-
-        return spectra_interp, avg_out_of_transit_spectrum
-'''

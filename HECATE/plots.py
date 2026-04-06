@@ -3,6 +3,7 @@
 import matplotlib.pyplot as plt
 from matplotlib.colors import Normalize
 import numpy as np
+
 from HECATE.utils import get_phase_mu
 
 def plot_air_snr(planet_params:dict, stellar_params:dict, time:np.array, airmass:np.array, snr:np.array, save=None):
@@ -142,13 +143,15 @@ def plot_sysvel_corr_CCF(phases:np.array, tr_dur:float, tr_ingress_egress:float,
     plt.show()
 
 
-def plot_avg_out_of_transit_profile(avg_out_of_transit_prof:np.array, profile_type:str="CCF", save:str=None):
-    """Plot average out-of-transit profile, either CCF or spectral line.
+def plot_master_out_of_transit_profile(master_out_of_transit_prof:np.array, master_type:str="average", profile_type:str="CCF", save:str=None):
+    """Plot master out-of-transit profile, either CCF or spectral line.
     
     Parameters
     ----------
-    avg_out_of_transit_prof : `numpy array`
-        average out-of-transit profile (RV/wavelength, flux and flux error).
+    master_out_of_transit_prof : `numpy array`
+        master out-of-transit profile (RV/wavelength, flux and flux error).
+    master_type : `str`
+        whether it's an average or coadded profile.
     profile_type : `str`
         whether it's a CCF or spectral line profile.
     save : `str`
@@ -156,20 +159,25 @@ def plot_avg_out_of_transit_profile(avg_out_of_transit_prof:np.array, profile_ty
     """
     _, ax = plt.subplots(figsize=(7,4))
 
-    ax.set_title(f'Averaged out of transit {profile_type}')
+    if master_type == "average":
+        title_str = "Averaged" 
+    else:
+        title_str = "Coadded"
+
+    ax.set_title(f'{title_str} out of transit {profile_type}')
     ax.grid()
     ax.set_axisbelow(True)
     ax.set_xlabel(r'Wavelength [$\AA$]' if profile_type != "CCF" else 'Radial Velocities [km/s]')
     ax.set_ylabel('Normalized Flux')
 
     if profile_type == "CCF":
-        ax.scatter(avg_out_of_transit_prof[0], avg_out_of_transit_prof[1])
-        ax.errorbar(x=avg_out_of_transit_prof[0], y=avg_out_of_transit_prof[1], yerr=avg_out_of_transit_prof[2], capsize=7, capthick=1, color='black', linewidth=0, elinewidth=1)
+        ax.scatter(master_out_of_transit_prof[0], master_out_of_transit_prof[1])
+        ax.errorbar(x=master_out_of_transit_prof[0], y=master_out_of_transit_prof[1], yerr=master_out_of_transit_prof[2], capsize=7, capthick=1, color='black', linewidth=0, elinewidth=1)
     else:
-        ax.plot(avg_out_of_transit_prof[0], avg_out_of_transit_prof[1], color='black') 
+        ax.plot(master_out_of_transit_prof[0], master_out_of_transit_prof[1], color='black') 
 
     if save: 
-        plt.savefig(save+f"avg_out_of_transit_{profile_type}.pdf", dpi=200, bbox_inches="tight")
+        plt.savefig(save+f"master_out_of_transit_{profile_type}.pdf", dpi=200, bbox_inches="tight")
 
     plt.show()
 

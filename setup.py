@@ -1,8 +1,8 @@
 from setuptools import setup, find_packages
 
 setup(name = 'HECATE',
-    version = "0.1.0",
-    description = 'HarvEsting loCAl specTra with Exoplanets - Doppler Shadow',
+    version = "0.2.0",
+    description = 'HarvEsting loCAl specTra with Exoplanets',
     url = 'https://github.com/telmonteiro/HECATE/',
     license = 'MIT',
     author = 'Telmo Monteiro',
