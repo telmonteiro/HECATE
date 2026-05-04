@@ -85,6 +85,8 @@ html_theme_options = {
     "collapse_navigation": False,
 }
 
+html_favicon = 'HECATE_logo_white_color.png'
+
 # copybutton config
 copybutton_prompt_text = r">>> |\.\.\. "
 copybutton_prompt_is_regexp = True
