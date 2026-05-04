@@ -6,19 +6,15 @@
 HECATE
 ======
 
-.. grid:: 1 2 2 2
+.. list-table::
+   :widths: 60 40
+   :align: center
 
-   .. grid-item::
-
-      *Hecate is a goddess in ancient Greek religion and mythology, most often shown holding a pair of torches, a key, or snakes, 
-      or accompanied by dogs, and in later periods depicted as three-formed or triple-bodied. Hecate is often associated with 
-      illuminating what is hidden and find your way in cross-roads.*
-
-   .. grid-item::
-
-      .. image:: HECATE_logo_white_color.png
-         :align: center
-         :width: 90%
+   * - *Hecate is a goddess in ancient Greek religion and mythology, most often shown holding a pair of torches, a key, or snakes, 
+       or accompanied by dogs, and in later periods depicted as three-formed or triple-bodied. Hecate is often associated with 
+       illuminating what is hidden and find your way in cross-roads.*
+     - .. image:: HECATE_logo_white_color.png
+          :width: 100%
 
 Context
 -------
