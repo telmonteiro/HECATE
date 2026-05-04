@@ -1,0 +1,21 @@
+﻿HECATE.utils
+============
+
+.. automodule:: HECATE.utils
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      linear_interpolation_matrix
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      fit_profile
+      get_limb_darkening
+      get_phase_mu
+      profile_models
+   

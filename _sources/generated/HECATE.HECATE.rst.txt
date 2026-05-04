@@ -1,0 +1,12 @@
+﻿HECATE.HECATE
+=============
+
+.. automodule:: HECATE.HECATE
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      HECATE
+   

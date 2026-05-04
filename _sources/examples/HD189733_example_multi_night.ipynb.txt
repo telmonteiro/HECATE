@@ -1,0 +1,385 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "0d230a47",
+   "metadata": {},
+   "source": [
+    "# White light CCF of HD 189733 - two nights\n",
+    "\n",
+    "In this notebook, we present a simple example of the application of the Doppler Shadow technique to two nights of ESPRESSO observations of HD 189733, a K1V star, extracting the white light CCFs provided by the DRS. The nights of observations were 11-08-2021 and 31-08-2021.\n",
+    "\n",
+    "We run two different instances of HECATE and then use the multi_night_analysis class to combine the data."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "13a9ada1",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import numpy as np\n",
+    "\n",
+    "from HECATE.HECATE import HECATE   # main class\n",
+    "from HECATE.get_data import *\n",
+    "from HECATE.multi_dataset_analysis import multi_dataset_analysis # to perform the multi-night analysis"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "b82fead8",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "stellar_params = {\n",
+    "                \"Teff\":4969, \"Teff_err\":43,   #effective temperature [K]\n",
+    "                \"logg\":4.60, \"logg_err\":0.01, #superficial gravity [dex]\n",
+    "                \"FeH\":-0.07, \"FeH_err\":0.02,  #metallicity [dex]\n",
+    "                \"P_rot\":2.21857312,           #rotation period [d]\n",
+    "                \"R_star\":0.766,               #radius [solar radii]\n",
+    "                \"inc_star\":71.87              #stellar inclination [º]\n",
+    "                }\n",
+    "\n",
+    "planet_params = {\n",
+    "                \"P_orb\":2.21857312,           #orbital period [d]\n",
+    "                \"a_R\":8.76863,                #system scale [stellar radii]\n",
+    "                \"Rp_Rs\":0.1602,               #planet-to-star radius ratio \n",
+    "                \"t0\":53988.30339,             #mid-transit time [d]\n",
+    "                \"e\":0,                        #orbital eccentricity\n",
+    "                \"w\":90,                       #argument of periastron [º]\n",
+    "                \"inc_planet\":85.465,          #planet inclination [º]\n",
+    "                \"lbda\":-1.00,                 #spin-orbit angle [º]\n",
+    "                \"dfp\": -0.002424              #mid-transit phase shift, night of 2021-09-11\n",
+    "                }"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "d29f76cd",
+   "metadata": {},
+   "source": [
+    "Now we quickly run HECATE for the first night of observations, saving the local CCF parameters."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "e2570398",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "CCFs, time, airmass, berv, bervmax, snr, list_ccfs = get_CCFs(planet_params, stellar_params,\n",
+    "                                                              day='2021-08-11', \n",
+    "                                                              directory_path=\"HD189733_ESPRESSO_white_light_ccfs\",\n",
+    "                                                              plot=False)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "a99660da",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "hecate11 = HECATE(planet_params, stellar_params, time, CCFs, spectra=None, plot_soap=False)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "d3066ee8",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "plot = {\"fits_initial_CCF\":False,         # plot the initial fits to the CCFs\n",
+    "        \"sys_vel_ccf\":False,              # plot the systemic velocity of the star in the CCFs\n",
+    "        \"master_out_of_transit\":False,    # plot the master out-of-transit CCF\n",
+    "        \"local_CCFs\":True,                # plot the local CCFs\n",
+    "        \"photometrical_rescale\":False     # if the local CCFs are rescaled by the photometric transit model\n",
+    "        }\n",
+    "\n",
+    "ccf_type = \"white light\"\n",
+    "model_fit = \"modified Gaussian\""
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "93c21737",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "local_data11 = hecate11.extract_local_CCF(model_fit, plot, save=None)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "61282d62",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "master_results11 = hecate11.get_profile_parameters(profiles=local_data11['master_out_of_transit_CCF'], \n",
+    "                                               data_type=\"CCF\", \n",
+    "                                               observation_type=\"master\", \n",
+    "                                               model=\"modified Gaussian\", \n",
+    "                                               print_output=False, \n",
+    "                                               plot_fit=False)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "139a22bd",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "local_results11 = hecate11.get_profile_parameters(profiles=local_data11['local_CCFs'], \n",
+    "                                              data_type=\"CCF\", \n",
+    "                                              observation_type=\"local\", \n",
+    "                                              model=\"modified Gaussian\", \n",
+    "                                              print_output=False, \n",
+    "                                              plot_fit=False)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "1c9cef81",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "indices_final11 = np.array(list(set(np.where(local_results11['R2'] >= 0.95)[0]).intersection(set(np.where(hecate11.mu_in >= 0.3)[0]))))\n",
+    "\n",
+    "local_params11 = [local_results11['central_rv'], local_results11['width'], local_results11['intensity']]\n",
+    "master_params11 = [master_results11['central_rv'], master_results11['width'], master_results11['intensity']]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "2627862a",
+   "metadata": {},
+   "source": [
+    "Now we do the same for the second night."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "63d628d3",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "planet_params[\"dfp\"] = -0.002300    # mid-transit phase shift, night of 2021-08-31"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "d2291a9a",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "CCFs, time, airmass, berv, bervmax, snr, list_ccfs = get_CCFs(planet_params, stellar_params,\n",
+    "                                                              day='2021-08-31', \n",
+    "                                                              directory_path=\"HD189733_ESPRESSO_white_light_ccfs\",\n",
+    "                                                              plot=False)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "c4bbfa80",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "hecate31 = HECATE(planet_params, stellar_params, time, CCFs, None)\n",
+    "\n",
+    "plot = {\"fits_initial_CCF\":False, \n",
+    "        \"sys_vel_ccf\":False, \n",
+    "        \"master_out_of_transit\":False, \n",
+    "        \"local_CCFs\":True, \n",
+    "        \"photometrical_rescale\":False}\n",
+    "\n",
+    "ccf_type = \"white light\"\n",
+    "model_fit = \"modified Gaussian\"\n",
+    "\n",
+    "local_data31 = hecate31.extract_local_CCF(model_fit, plot, save=None)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "58849e09",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "master_results31 = hecate31.get_profile_parameters(profiles=local_data31['master_out_of_transit_CCF'], data_type=\"CCF\", \n",
+    "                                                    observation_type=\"master\", model=\"modified Gaussian\", \n",
+    "                                                    print_output=False, plot_fit=False)\n",
+    "\n",
+    "local_results31 = hecate31.get_profile_parameters(profiles=local_data31['local_CCFs'], data_type=\"CCF\", \n",
+    "                                                    observation_type=\"local\", model=\"modified Gaussian\", \n",
+    "                                                    print_output=False, plot_fit=False)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "ddd0031a",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "indices_final31 = np.array(list(set(np.where(local_results31['R2'] >= 0.9)[0]).intersection(set(np.where(hecate31.mu_in >= 0.3)[0]))))\n",
+    "\n",
+    "local_params31 = [local_results31['central_rv'], local_results31['width'], local_results31['intensity']]\n",
+    "master_params31 = [master_results31['central_rv'], master_results31['width'], master_results31['intensity']]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "ac82f66b",
+   "metadata": {},
+   "source": [
+    "Having the results for each night, we build the following dictionaries:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "c228c164",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "night_data_11 = {\n",
+    "    'hecate': hecate11,                             # HECATE instance\n",
+    "    'indices': indices_final11,                     # indices of points to retain\n",
+    "    'local_params': np.array(local_params11),       # local CCF parameters \n",
+    "    'master_params': np.array(master_params11),     # master CCF parameters\n",
+    "    'color': \"blue\",                                # color to use in the plots for this night\n",
+    "    'label': \"2021-08-11\"                           # label to use in the plots for this night\n",
+    "        }\n",
+    "\n",
+    "night_data_31 = {\n",
+    "    'hecate': hecate31,\n",
+    "    'indices': indices_final31,\n",
+    "    'local_params': np.array(local_params31),\n",
+    "    'master_params': np.array(master_params31),\n",
+    "    'color': \"red\",\n",
+    "    'label': \"2021-08-31\"\n",
+    "        }"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "b5e3a642",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "night_data = {\"2021-08-11\": night_data_11,\n",
+    "              \"2021-08-31\": night_data_31}"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "21ff6402",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "mult_night = multi_dataset_analysis(night_data, data_type='CCF')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "4b9c24a8",
+   "metadata": {},
+   "source": [
+    "We can just plot the two nights data in one single plot for each position parameter ($\\phi$ or $\\mu$):"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "0e043cba",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "mult_night.plot_parameters(param_type='phases', \n",
+    "                            fit_each_night=False, \n",
+    "                            fit_combined=False, \n",
+    "                            combined_night_names=None, \n",
+    "                            plot_nested=False, \n",
+    "                            suptitle=\"Local white light CCF parameters\")\n",
+    "\n",
+    "\n",
+    "mult_night.plot_parameters(param_type='mu', \n",
+    "                            fit_each=False, \n",
+    "                            fit_combined=False, \n",
+    "                            combined_datasets_names=None, \n",
+    "                            plot_nested=False, \n",
+    "                            suptitle=\"Local white light CCF parameters\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "bc509f19",
+   "metadata": {},
+   "source": [
+    "Or fit a linear model to each night:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "478f4f6f",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "fit_results = mult_night.plot_parameters(param_type='phases', \n",
+    "                                      fit_each=True, \n",
+    "                                      fit_combined=False, \n",
+    "                                      fit_param_indices = np.array([0]),\n",
+    "                                      suptitle=\"Local white light CCF parameters\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "19b0c924",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "fit_results = mult_night.plot_parameters(param_type='mu', \n",
+    "                                      fit_each=True, \n",
+    "                                      fit_combined=False, \n",
+    "                                      fit_param_indices = np.array([1, 2]),\n",
+    "                                      suptitle=\"Local white light CCF parameters\")"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.11.9"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
