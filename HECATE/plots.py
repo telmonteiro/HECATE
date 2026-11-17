@@ -1,12 +1,11 @@
 # File with plotting functions.
-
 import matplotlib.pyplot as plt
 from matplotlib.colors import Normalize
 import numpy as np
 
-from HECATE.utils import get_phase_mu
+from utils import get_phase_mu
 
-def plot_air_snr(planet_params:dict, stellar_params:dict, time:np.array, airmass:np.array, snr:np.array, spectral_order:int=111, save=None):
+def plot_air_snr(planet_params:dict, stellar_params:dict, time:np.array, airmass:np.array, snr:np.array, spectral_order:int=111, title:str=None, save=None):
     """Plot airmass and SNR at spectral order 111 (midpoint in the selected Fe I spectral lines) of spectra used.
 
     Parameters
@@ -20,10 +19,12 @@ def plot_air_snr(planet_params:dict, stellar_params:dict, time:np.array, airmass
     airmass : `numpy array`
         airmass at the time of observation.
     snr : `numpy array`
-        signal-to-noise ratio (SNR) at the specified spectral order.
+        signal-to-noise ratio (SNR) across all orders.
     spectral_order : `int`
         the spectral order to plot.
-    save
+    title : `str`, optional
+        title for the plot.
+    save : `str`, optional
         path to save plot. 
     """
     phase_mu = get_phase_mu(time, planet_params, stellar_params)
@@ -40,7 +41,7 @@ def plot_air_snr(planet_params:dict, stellar_params:dict, time:np.array, airmass
     ax0.tick_params(axis="y")
 
     ax1 = ax0.twinx()
-    l3 = ax1.scatter(phases, snr[spectral_order], color='black', marker="x")
+    l3 = ax1.scatter(phases, snr[:,spectral_order], color='black', marker="x")
     ax1.set_ylabel(f'SNR order {spectral_order}', fontsize=14)
     ax1.tick_params(axis="y")
 
@@ -48,6 +49,9 @@ def plot_air_snr(planet_params:dict, stellar_params:dict, time:np.array, airmass
     fig.legend([l0, l1, l2, l3], labels=labels, loc='lower center', ncol=4, bbox_to_anchor=(0.5, -0.07), fontsize=12)
 
     plt.tight_layout()
+
+    if title:
+        plt.title(title, fontsize=16)
 
     if save:
         plt.savefig(save+"airmass_snr.pdf", dpi=300, bbox_inches="tight")
@@ -67,7 +71,7 @@ def plot_snr_orders(planet_params:dict, stellar_params:dict, time:np.array, snr:
     time : `numpy array`
         time of observations in BJD.
     snr : `numpy array`
-        signal-to-noise ratio (SNR) at the specified spectral order.
+        signal-to-noise ratio (SNR) across all orders.
     save : `str`, optional
         path to save plot.
     """
@@ -79,10 +83,10 @@ def plot_snr_orders(planet_params:dict, stellar_params:dict, time:np.array, snr:
     norm = Normalize(vmin=phases.min(), vmax=phases.max())
     cmap = plt.get_cmap('coolwarm_r')
 
-    for file_idx in range(len(snr[1])):
-        snr_values = [snr[order][file_idx] for order in sorted(snr.keys())]
-        color = cmap(norm(phases[file_idx]))
-        ax.plot(sorted(snr.keys()), snr_values, alpha=0.8, linewidth=1, color=color)
+    for i in range(snr.shape[0]):
+        snr_values = snr[i]
+        color = cmap(norm(phases[i]))
+        ax.plot(np.arange(snr.shape[1]), snr_values, alpha=0.8, linewidth=1, color=color)
 
     ax.set_xlabel('Spectral Order', fontsize=15)
     ax.set_ylabel('SNR', fontsize=15)
@@ -243,8 +247,8 @@ def plot_sysvel_corr_CCF(phases:np.array, tr_dur:float, tr_ingress_egress:float,
     plt.show()
 
 
-def plot_master_out_of_transit_profile(master_out_of_transit_prof:np.array, master_type:str="average", profile_type:str="CCF", save:str=None):
-    """Plot master out-of-transit profile, either CCF or spectral line.
+def plot_master_out_of_transit(master_out_of_transit_prof:np.array, master_type:str="average", profile_type:str="CCF", save:str=None):
+    """Plot master out-of-transit profile, either CCF, spectral line or full/portion of spectrum.
     
     Parameters
     ----------
@@ -253,11 +257,14 @@ def plot_master_out_of_transit_profile(master_out_of_transit_prof:np.array, mast
     master_type : `str`
         whether it's an average or coadded profile.
     profile_type : `str`
-        whether it's a CCF or spectral line profile.
+        whether it's a CCF, spectral line or full/portion of spectrum (CCF, line, or spectrum).
     save : `str`
         path to save plot.
     """
-    _, ax = plt.subplots(figsize=(7,4))
+    if profile_type not in ["CCF", "line"]:
+        _, ax = plt.subplots(figsize=(7,4))
+    else:
+        _, ax = plt.subplots(figsize=(12,4))
 
     if master_type == "average":
         title_str = "Averaged" 
@@ -314,10 +321,16 @@ def plot_profile_fit(data:np.ndarray, y_fit:np.ndarray, phase:float, profile_par
     
     if observation_type == "local":
         title = f'Local {data_type}, Model: {model}, Phase: {str(phase)[:6]}'
+        axes[0].set_ylabel('Flux', fontsize=16)
+        axes[1].set_ylabel('Residuals', fontsize=16)
     elif observation_type == "master":
         title = f'Master out-of-transit {data_type}, Model: {model}'
+        axes[0].set_ylabel('Normalized Flux [%]', fontsize=16)
+        axes[1].set_ylabel('Residuals [%]', fontsize=16)
     elif observation_type == "raw":
         title = f'Model: {model}, Phase: {str(phase)[:6]}'
+        axes[0].set_ylabel('Flux', fontsize=16)
+        axes[1].set_ylabel('Residuals', fontsize=16)
 
     axes[0].set_title(title, fontsize=17)
 
@@ -339,21 +352,20 @@ def plot_profile_fit(data:np.ndarray, y_fit:np.ndarray, phase:float, profile_par
         p4 = axes[0].axhline(profile_parameters["continuum"][0]*100, color='green', lw=2, ls="--")
         p5 = axes[0].axhline(profile_parameters["intensity"][0], color='orange', lw=2, ls="-")
 
-    axes[0].set_ylabel('Normalized Flux [%]', fontsize=16)
     axes[0].set_xticklabels([])
 
-    axes[1].scatter(x, (y-y_fit)*100, color="k")
-    axes[1].errorbar(x, (y-y_fit)*100, yerr=y_err*100, color='black', capsize=5, linewidth=0, elinewidth=1)
+    axes[1].scatter(x, y-y_fit, color="k")
+    axes[1].errorbar(x, y-y_fit, yerr=y_err, color='black', capsize=5, linewidth=0, elinewidth=1)
     axes[1].axhline(0, color='red', lw=2, ls="--")
+    axes[1].set_ylim(-np.abs(y-y_fit).max()*1.5, np.abs(y-y_fit).max()*1.5)
     axes[1].set_xlabel(x_label, fontsize=16)
-    axes[1].set_ylabel('Residuals [%]', fontsize=16)
-
+    
     if plot_prof_params:
         fig.legend([*p1, p2, p3, p4, p5], 
                 ['Model fit', 'Central RV' if data_type == "CCF" else 'Central wavelength', 'Line-width measure', 'Continuum level', 'Line-center intensity'], 
                 loc='lower center', ncol=2, bbox_to_anchor=(0.5, -0.1), fontsize=15)
-    else:
-        fig.legend([*p1], ['Model fit'], loc='lower center', ncol=1, bbox_to_anchor=(0.5, -0.02), fontsize=15)
+    #else:
+        #fig.legend([*p1], ['Model fit'], loc='lower center', ncol=1, bbox_to_anchor=(0.5, -0.02), fontsize=15)
 
     plt.tight_layout()
     plt.subplots_adjust(hspace=0.3, bottom=0.15)
@@ -365,8 +377,10 @@ def plot_profile_fit(data:np.ndarray, y_fit:np.ndarray, phase:float, profile_par
     plt.show()
 
 
-def plot_local_profile(hecate, local_profiles:np.array, profiles_sub_all:np.array, profile_type:str="CCF", wave_lims:list=None, ylim_plot:list=[-0.01,0.04], line_name:str=None, photometrical_rescale:bool=False, save:str=None):
-    """Plot local profiles for a given profile type (CCF or spectral line) and tomography in function of orbital phases.
+
+
+def plot_local_profile(hecate, local_profiles:np.array, profiles_sub_all:np.array=None, flux_residuals:np.array=None, profile_type:str="CCF", title_name:str=None, wave_lims:list=None, phases_plot:list=None, ylim_plot:list=[-0.01,0.04], photometrical_rescale:bool=False, horizontal:bool=False, save:str=None):
+    """Plot local profiles for a given profile type (CCF, spectral line, or spectrum) and tomography in function of orbital phases.
 
     Parameters
     ----------
@@ -376,23 +390,46 @@ def plot_local_profile(hecate, local_profiles:np.array, profiles_sub_all:np.arra
         local profiles (RV/wavelength, flux and flux error), with shape (N_profiles, 3, N_points).
     profiles_sub_all : `numpy array`
         all subtracted profiles (RV/wavelength, flux and flux error), with shape (N_profiles, 3, N_points).
+    flux_residuals : `numpy array`
+        flux residuals of local profiles.
     profile_type : `str`
-        whether it's a CCF or spectral line profile.
+        whether it's a CCF, spectral line, or spectrum profile.
+    title_name : `str`
+        name of the profile type to plot in the title (e.g., "strong Fe I" or "white light").
     wave_lims : `list`
         wavelength interval to plot (only for spectral line profiles).
+    phases_plot : `list`
+        orbital phases to plot (if None, all phases are plotted).
     ylim_plot : `list`
         y-axis limits for the plot (only for spectral line profiles).
-    line_name : `str`
-        name of the spectral line (only for spectral line profiles).
     photometrical_rescale : `bool`
         whether to rescale the local profiles by the photometric transit light curve.
+    horizontal : `bool`
+        whether to plot the local profiles horizontally or vertically.
     save : `str`
         path to save the plot.
     """
-    phases = hecate.phases
-    in_indices = hecate.phases_in_indices
+    if flux_residuals is not None:
+        local_profiles = np.stack([local_profiles[:, 0], np.asarray(flux_residuals), local_profiles[:, 2]], axis=1)
 
-    fig, axes = plt.subplots(nrows=2, figsize=(12,9.5), gridspec_kw={'height_ratios': [1.5, 1]})
+    phases = hecate.phases
+    in_indices = np.asarray(hecate.phases_in_indices)
+    plot_indices = np.arange(len(phases))
+
+    if phases_plot is not None:
+        plot_indices = [i for i, phase in enumerate(phases) if phase in phases_plot]
+
+    local_indices = [i for i, idx in enumerate(in_indices) if idx in plot_indices]
+    in_indices = in_indices[local_indices]
+    local_profiles = local_profiles[local_indices]
+
+    if horizontal:
+        length = 25 if profile_type == "spectrum" else 22
+        fig, axes = plt.subplots(ncols=2, figsize=(length, 5.5))
+    else:
+        length = 20 if profile_type == "spectrum" else 12
+        fig, axes = plt.subplots(nrows=2, figsize=(length, 9.5), gridspec_kw={'height_ratios': [1.5, 1]})
+
     norm = Normalize(vmin=phases[in_indices].min(), vmax=phases[in_indices].max())
     cmap = plt.get_cmap('coolwarm_r')
 
@@ -424,20 +461,28 @@ def plot_local_profile(hecate, local_profiles:np.array, profiles_sub_all:np.arra
     
     sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
     sm.set_array([])  
-    cbar1 = fig.colorbar(sm, ax=axes[0])
+    cbar1 = fig.colorbar(sm, ax=axes[0], pad=0.01)
     cbar1.set_label('Orbital Phase', fontsize=19)
 
     axes[0].set_ylabel(r'Residual flux [total $F_\star$]', fontsize=19)
-    axes[0].grid()
+    #axes[0].grid()
     axes[0].set_axisbelow(True)
     axes[0].set_xlim([x_0[mask].min(),x_0[mask].max()])
-    axes[0].set_xticklabels([])
+    if not horizontal:
+        axes[0].set_xticklabels([])
 
     if profile_type != "CCF" and ylim_plot is not None:
         axes[0].set_ylim(ylim_plot)
 
-    im = axes[1].imshow(profiles_sub_all[:,1][:,mask],
-                        extent=[x_0[mask].min(), x_0[mask].max(), phases.min(), phases.max()], 
+    if profiles_sub_all is not None:
+        tomography_profiles = profiles_sub_all[plot_indices]
+        tomography_phases = phases[plot_indices]
+    else:
+        tomography_profiles = local_profiles
+        tomography_phases = phases[in_indices]
+
+    im = axes[1].imshow(tomography_profiles[:,1][:,mask],
+                        extent=[x_0[mask].min(), x_0[mask].max(), tomography_phases.min(), tomography_phases.max()],
                         aspect='auto', origin='lower', cmap='jet', vmin=0)
 
     axes[1].axhline(-hecate.tr_dur/2, lw=1.5, ls="--", color="white")
@@ -446,21 +491,160 @@ def plot_local_profile(hecate, local_profiles:np.array, profiles_sub_all:np.arra
     axes[1].axhline(-hecate.tr_ingress_egress/2, lw=1.5, ls="--", color="white")
 
     axes[1].set_ylabel('Orbital Phase', fontsize=19)
-    axes[1].set_xlabel('Radial Velocities [km/s]' if profile_type == "CCF" else r'Wavelength [$\AA$]', fontsize=19)
-    axes[0].set_title(f'Local CCFs (Out-of-transit - In-transit)' if profile_type == "CCF" else f'Local {line_name} (Out-of-transit - In-transit)', fontsize=22)  
 
-    cbar2 = fig.colorbar(im, ax=axes[1])
+    if horizontal:
+        axes[0].set_xlabel('Radial Velocities [km/s]' if profile_type == "CCF" else r'Wavelength [$\AA$]', fontsize=19)
+
+    axes[1].set_xlabel('Radial Velocities [km/s]' if profile_type == "CCF" else r'Wavelength [$\AA$]', fontsize=19)
+    if title_name:
+        axes[0].set_title(f'Local {title_name}', fontsize=22)  
+
+    axes[1].set_ylim(tomography_phases.min(), tomography_phases.max())
+
+    cbar2 = fig.colorbar(im, ax=axes[1], pad=0.01)
     cbar2.set_label(r'Residual flux [total $F_\star$]', fontsize=19)
 
     plt.tight_layout()
 
     if save is not None: 
-        plt.savefig(save+f"local_CCFs.pdf" if profile_type == "CCF" else save+f"local_{line_name}.pdf", dpi=300, bbox_inches="tight")
+        name = f"local_{title_name}.pdf"
+        plt.savefig(save+name, dpi=500, bbox_inches="tight")
 
     plt.show()
 
 
 '''
+def plot_local_profile_fit(hecate, local_profiles:np.array, profiles_sub_all:np.array=None, profile_type:str="CCF", title_name:str=None, wave_lims:list=None, phases_plot:list=None, ylim_plot:list=[-0.01,0.04], line_name:str=None, photometrical_rescale:bool=False, horizontal:bool=False, save:str=None):
+    """Plot tomography like plot of local profiles fits or residuals as a function of orbital phases.
+
+    Parameters
+    ----------
+    hecate
+        HECATE class object.
+    local_profiles : `numpy array`
+        local profiles (RV/wavelength, flux and flux error), with shape (N_profiles, 3, N_points).
+    profiles_sub_all : `numpy array`, optional
+        All subtracted profiles (RV/wavelength, flux and flux error), with
+        shape (N_profiles, 3, N_points). If None, the tomography is built
+        from ``local_profiles``.
+    profile_type : `str`
+        whether it's a CCF or spectral line profile.
+    title_name : `str`
+        name of the profile type to plot in the title (e.g., "strong Fe I" or "white light").
+    wave_lims : `list`
+        wavelength interval to plot (only for spectral line profiles).
+    phases_plot : `list`, optional
+        Orbital phases to plot. If None, all phases are plotted.
+    ylim_plot : `list`
+        y-axis limits for the plot (only for spectral line profiles).
+    line_name : `str`
+        name of the spectral line (only for spectral line profiles).
+    photometrical_rescale : `bool`
+        whether to rescale the local profiles by the photometric transit light curve.
+    horizontal : `bool`
+        whether to plot the local profiles horizontally or vertically.
+    save : `str`
+        path to save the plot.
+    """
+    phases = hecate.phases
+    in_indices = np.asarray(hecate.phases_in_indices)
+    plot_indices = np.arange(len(phases))
+
+    if phases_plot is not None:
+        plot_indices = np.asarray(
+            [i for i, phase in enumerate(phases) if phase in phases_plot]
+        )
+
+    local_indices = np.asarray(
+        [i for i, idx in enumerate(hecate.phases_in_indices) if idx in plot_indices]
+    )
+    in_indices = in_indices[local_indices]
+    local_profiles = local_profiles[local_indices]
+
+    if horizontal:
+        fig, axes = plt.subplots(ncols=2, figsize=(20, 6))
+    else:
+        fig, axes = plt.subplots(nrows=2, figsize=(12,9.5), gridspec_kw={'height_ratios': [1.5, 1]})
+    norm = Normalize(vmin=phases[in_indices].min(), vmax=phases[in_indices].max())
+    cmap = plt.get_cmap('coolwarm_r')
+
+    if photometrical_rescale:
+        local_profiles_rescaled = local_profiles.copy()
+        flux_corrections = hecate.Flux_SOAP[in_indices]
+        local_profiles_rescaled[:,1] = local_profiles_rescaled[:,1] / flux_corrections[:, np.newaxis]
+        local_profiles = local_profiles_rescaled
+
+    x_0 = local_profiles[0,0] # wavelength or RV grid of first observation
+
+    if profile_type != "CCF" and wave_lims is not None:
+        mask = (x_0 >= wave_lims[0]) & (x_0 <= wave_lims[1])
+    else:
+        mask = np.ones(local_profiles.shape[2], dtype=bool)
+
+    for k, idx in enumerate(in_indices):
+        x     = local_profiles[k,0]
+        sub   = local_profiles[k,1]
+        sub_e = local_profiles[k,2]
+
+        color = cmap(norm(phases[idx]))
+
+        if np.allclose(sub_e, 0) or profile_type != "CCF":
+            axes[0].plot(x[mask], sub[mask], color=color, lw=2)
+        else:
+            axes[0].scatter(x[mask], sub[mask], color=color, s=50,zorder=2)
+            axes[0].errorbar(x[mask], sub[mask], yerr=sub_e[mask], color='black', capsize=5, linewidth=0, elinewidth=1,zorder=0)
+    
+    sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
+    sm.set_array([])  
+    cbar1 = fig.colorbar(sm, ax=axes[0], pad=0.01)
+    cbar1.set_label('Orbital Phase', fontsize=19)
+
+    axes[0].set_ylabel(r'Residual flux [total $F_\star$]', fontsize=19)
+    #axes[0].grid()
+    axes[0].set_axisbelow(True)
+    axes[0].set_xlim([x_0[mask].min(),x_0[mask].max()])
+    if not horizontal:
+        axes[0].set_xticklabels([])
+
+    if profile_type != "CCF" and ylim_plot is not None:
+        axes[0].set_ylim(ylim_plot)
+
+    if profiles_sub_all is None:
+        tomography_profiles = local_profiles
+        tomography_phases = phases[in_indices]
+    else:
+        tomography_profiles = profiles_sub_all[plot_indices]
+        tomography_phases = phases[plot_indices]
+
+    im = axes[1].imshow(tomography_profiles[:,1][:,mask],
+                        extent=[x_0[mask].min(), x_0[mask].max(), tomography_phases.min(), tomography_phases.max()], 
+                        aspect='auto', origin='lower', cmap='jet', vmin=0)
+
+    axes[1].axhline(-hecate.tr_dur/2, lw=1.5, ls="--", color="white")
+    axes[1].axhline(hecate.tr_dur/2, lw=1.5, ls="--", color="white")
+    axes[1].axhline(hecate.tr_ingress_egress/2, lw=1.5, ls="--", color="white")
+    axes[1].axhline(-hecate.tr_ingress_egress/2, lw=1.5, ls="--", color="white")
+
+    axes[1].set_ylabel('Orbital Phase', fontsize=19)
+    axes[1].set_ylim(tomography_phases.min(), tomography_phases.max())
+
+    if horizontal:
+        axes[0].set_xlabel('Radial Velocities [km/s]' if profile_type == "CCF" else r'Wavelength [$\AA$]', fontsize=19)
+
+    axes[1].set_xlabel('Radial Velocities [km/s]' if profile_type == "CCF" else r'Wavelength [$\AA$]', fontsize=19)
+    #axes[0].set_title(f'Local {title_name} CCFs' if profile_type == "CCF" else f'Local {line_name}', fontsize=22)  
+
+    cbar2 = fig.colorbar(im, ax=axes[1], pad=0.01)
+    cbar2.set_label(r'Residual flux [total $F_\star$]', fontsize=19)
+
+    plt.tight_layout()
+
+    if save is not None: 
+        plt.savefig(save+f"local_CCFs.pdf" if profile_type == "CCF" else save+f"local_{line_name}.pdf", dpi=500, bbox_inches="tight")
+
+    plt.show()
+
+
 def plot_local_CCFs(hecate, local_CCFs:np.array, CCFs_sub_all:np.array, plot_fit:bool, save=None):
     """Plot local CCFs and tomography in function of orbital phases.
 

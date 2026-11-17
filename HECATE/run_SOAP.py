@@ -1,11 +1,9 @@
 # Wrapper class to use SOAPv4.
 
 import SOAP # type: ignore
-from ldtk import LDPSetCreator, BoxcarFilter
 import matplotlib.pyplot as plt
 import numpy as np
-
-from HECATE.utils import *
+from utils import *
 
 class run_SOAP:
     """Wrapper around SOAPv4.
@@ -59,7 +57,7 @@ class run_SOAP:
 
         law_mapping = {"linear":0, "quadratic":1, "square-root":2, "exponential":4,"claret-nonlinear":5}
 
-        sim = SOAP.Simulation(active_regions=[], grid=1000) # light curve
+        sim = SOAP.Simulation(active_regions=[], grid=10000) # light curve
         sim.star.set(prot=P_rot, incl=inc_star, radius=R_star, teff=Teff, coeffs=ldcn, law=law_mapping[ld_law])
         sim.planet.set(P=P_orb, t0=0, e=e, w=w, ip=inc_planet, lbda=lbda, a=a_R, Rp=Rp_Rs)
 

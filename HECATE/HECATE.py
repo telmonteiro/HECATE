@@ -2,21 +2,19 @@
 # Hecate is a goddess in ancient Greek religion and mythology, most often shown holding a pair of torches,
 # a key, or snakes, or accompanied by dogs, and in later periods depicted as three-formed or triple-bodied. 
 # Hecate is often associated with illuminating what is hidden and find your way in cross-roads.
-
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.sparse import diags
 
-from HECATE.run_SOAP import run_SOAP
-from HECATE.nested_sampling import run_nestedsampler
-from HECATE.spectral_normalization import norm_spec
+from run_SOAP import run_SOAP
+from nested_sampling import run_nestedsampler
+from spectral_normalization import norm_spec
+from fit_profile import fit_profile
 
-from HECATE.utils import *
-from HECATE.plots import *
+from utils import *
+from plots import *
 
 
 class HECATE:
-
     """Main class for HECATE operations, allowing for the easy application of the Doppler Shadow technique to high-resolution data.
 
     This class encapsulates the extraction of local spectra/CCFs, as well as the analysis of their shapes (width, intensity, RV) and behavior (linearity, for now).
@@ -33,27 +31,41 @@ class HECATE:
         matrix with the CCF profiles (RV, flux and flux error), with shape (N_CCFs, 3, N_points).
     spectra : `numpy array`
         matrix with spectral line profiles (wavelength, flux and flux error), with shape (N_spectra, 3, N_points).
-    soap_wv : `numpy array`, optional
+    mu_type : `str`, optional
+        whether to compute mu values as "geometric" (mu = cos(theta)) or "weighted" by the limb-darkening law. Default is "weighted".
+    ld_law : `str`, optional
+        limb-darkening law to use for the weighted mu values. Default is "quadratic".
+    soap_wv : `list`, optional
         wavelength interval [min, max] in nm for SOAP simulation. Default is [380, 788].
     plot_soap : `str`, optional
-        whether to plot the "simple" or "SOAP" simulated light curve. Default is None (no plot).
+        type of simulated light-curve plot: ``"simple"`` or ``"SOAP"``.
+        Use None to disable plotting. Default is None.
 
     Methods
     -------
-    extract_local_CCF(model_fit, plot, save)
-        run all steps of the Doppler Shadow extraction and returns the local CCFs. Ideal for quick extraction.
-    extract_local_spectral_line(model_fit_ccf, plot, line_name, wave_lims, masks_dict, save)
-        run all steps of the Doppler Shadow extraction for spectral lines and returns the local spectra.
-    avg_out_of_transit_profile(profiles, x_reference, profile_type, plot, save)
-        computes the average out-of-transit profile (CCF or spectral line).
-    get_profile_parameters(profiles, data_type, observation_type, model, print_output, plot_fit, wave_ctr_line, mask_x, save)
-        computes profile parameters (central RV, width, intensity) for CCFs or spectral lines.
+    extract_local(plot, data_type, master_type, wave_lims, corr_type, masks_dict,
+                  rv_step, correct_vsys, RV_central, model_fit, return_all, save)
+        Extracts local CCF, spectral-line, or spectrum profiles and optionally
+        returns intermediate profiles.
     sysvel_correction_CCF(CCFs, model, print_output, plot_fits, plot_sys_vel, save)
-        removes the stellar systemic velocity from the initial CCFs RVs.
-    _local_params_linear_fit(local_param, indices_final, title, priors, plot_nested, axes_to_fit)
-        tests the linearity of local CCF parameters via nested sampling from Dynesty.
-    plot_local_params(indices_final, local_params, master_params, suptitle, linear_fit, plot_nested, linear_fit_pairs, save)
-        plots the local CCF parameters in function of orbital phases and mu.
+        Corrects CCF radial-velocity grids for the fitted out-of-transit
+        systemic-velocity trend.
+    master_out_of_transit_profile(profiles, x_reference, master_type,
+                                   profile_type, plot, save)
+        Interpolates profiles to a common grid and builds the out-of-transit
+        master profile by averaging or coadding.
+    get_profile_parameters(profiles, data_type, observation_type, model, priors,
+                           print_output, plot_fit, wave_ctr_line, mask_x, save)
+        Fits profile models and returns central RV, continuum, intensity, width,
+        goodness-of-fit, and fit arrays.
+    local_params_linear_fit(local_param, indices_final, title, priors,
+                            sampler_type, plot_nested, axes_to_fit)
+        Tests linear trends in local-profile parameters against orbital phase
+        and/or mu using nested sampling.
+    plot_local_params(indices_final, local_params, master_params, suptitle,
+                      linear_fit, plot_nested, linear_fit_pairs, mu_min_plot,
+                      priors_dict, sampler_type, save, plot_phases_mu_together)
+        Plots local-profile parameters against orbital phase and mu.
 
     Notes
     -----
@@ -73,15 +85,21 @@ class HECATE:
         self.phases = phase_mu.phases
         self.phases_in_indices = phase_mu.in_indices # indices of in-transit phases
         self.phases_out_indices = phase_mu.out_indices # indices of out-of-transit phases
+        self.in_phases = self.phases[self.phases_in_indices] # in-transit phases
+        self.out_phases = self.phases[self.phases_out_indices] # out-of-transit phases
+        
+        # to speed up some operations
+        self.in_transit_mask = np.zeros(len(self.phases), dtype=bool) 
+        self.in_transit_mask[self.phases_in_indices] = True
+        self.out_transit_mask = np.zeros(len(self.phases), dtype=bool)
+        self.out_transit_mask[self.phases_out_indices] = True
 
         self.tr_dur = phase_mu.tr_dur # transit duration
         self.tr_ingress_egress = phase_mu.tr_ingress_egress # times of transit ingress and egress
 
-        self.in_phases = self.phases[self.phases_in_indices] # in-transit phases
-        
+        # mu angles
         self.mu = phase_mu.mu_values
         self.mu_in = self.mu[self.phases_in_indices]
-        
         self.mu_min = phase_mu.mu_min
         self.mu_max = phase_mu.mu_max
 
@@ -97,190 +115,150 @@ class HECATE:
         self.Flux_SOAP = Flux_SOAP
             
 
-    def extract_local_CCF(self, model_fit:str, plot:dict, master_type:str="average", rv_step:float=0.5, save=None):
-        """Run all steps of the Doppler Shadow extraction (simulated light curve, systemic velocity correction, compute average out-of-transit CCF and subtraction) and returns the local CCFs. 
-        Ideal for quick extraction of local CCFs.
+    def extract_local(self, plot:dict, data_type:str="CCF", master_type:str="average", wave_lims:list=None, corr_type:str="linear", masks_dict:dict={"spec_slice":[(6450,6650)],"line_window":[(6535,6590)],"continuum":[(6538.8,6545.8),(6546.9,6551.4),(6575.6,6579.8),(6581.4,6586.05)]}, rv_step:float=0.5, correct_vsys=True, RV_central:np.ndarray=None, model_fit:str="modified Gaussian", return_all:bool=False, save=None):
+        """Run the Doppler Shadow extraction and return local profiles.
+
+        The input data can be CCFs, a spectral line, or a spectrum segment.
+        The method applies the SOAP photometric correction, optionally corrects
+        the systemic-velocity trend, constructs the out-of-transit master
+        profile, and subtracts it from the in-transit profiles.
 
         Parameters
         ----------
-        model_fit : `str`
-            profile model to fit to CCFs.
-        plot : `dict` 
-            dictionary including boolean value for each type of plot available (SOAP, fits_initial_CCF, sys_vel, master_out_of_transit_CCF, local_CCFs and whether to photometrical rescale).
+        plot : `dict`
+            Plot switches. Required keys depend on the selected data type and
+            include ``fits_initial_CCF``, ``sys_vel_ccf``,
+            ``spectra_regions``, ``spec_local_normalization``,
+            ``master_out_of_transit``, ``local``, and
+            ``photometrical_rescale``.
+        data_type : `str`
+            type of data to extract (e.g., "CCF", "line" or "spectrum").
         master_type : `str`
             whether the master profile is obtained via averaging or coadding the out-of-transit profiles.
-        save 
-            path to save plots.
-
-        Returns
-        -------
-        local_CCFs : `numpy array`
-            matrix with the local (in-transit) CCF profiles (RV, flux and flux error), with shape (N_CCFs, 3, N_points).
-        CCFs_flux_corr : `numpy array`
-            matrix with all CCF profiles, only flux corrected, with shape (N_CCFs, 3, N_points)
-        CCFs_sub_all : `numpy array` 
-            matrix with all CCF profiles, flux corrected and subtracted from master out-of-transit, with shape (N_CCFs, 3, N_points).
-        master_out_of_transit_CCF : `numpy array`
-            matrix with the master out-of-transit CCF profile, with shape (3, N_points).
-        """
-        self.data_type = "CCF"
-
-        # systemic velocity correction
-        CCFs_sysvel_corr, _, _ = self.sysvel_correction_CCF(self.CCFs, model=model_fit, print_output=False, plot_fits=plot["fits_initial_CCF"], plot_sys_vel=plot["sys_vel_ccf"], save=save)
-
-        # RV grid as the maximum minimum to minimum maximum of sys. velocity corrected CCF with 0.5 km/s step (ESPRESSO pixel size)
-        RV_reference = np.arange(round(np.max(CCFs_sysvel_corr[:,0,0])), round(np.min(CCFs_sysvel_corr[:,0,-1]))+rv_step, rv_step) 
-
-        # average out-of-transit CCF
-        CCF_interp, master_out_of_transit_CCF = self.master_out_of_transit_profile(CCFs_sysvel_corr, RV_reference, master_type=master_type, plot=plot["master_out_of_transit"], save=save)
-
-        CCFs_flux_corr = np.zeros_like(CCF_interp) # only flux corrected
-        CCFs_sub_all = np.zeros_like(CCF_interp) # flux corrected and subtracted
-        local_CCFs = np.zeros((len(self.phases_in_indices), 3, CCF_interp.shape[2])) # same as above but only in transit (local)
-
-        l = 0
-        for i in range(CCFs_flux_corr.shape[0]):
-            d = CCF_interp[i,1,:]
-            de = CCF_interp[i,2,:]
-            
-            # performing the subtraction
-            sub = master_out_of_transit_CCF[1] - d*self.Flux_SOAP[i]
-
-            d_corr = d*self.Flux_SOAP[i]
-            de_corr = np.sqrt(master_out_of_transit_CCF[2]**2 + (de*self.Flux_SOAP[i])**2)
-
-            CCFs_sub_all[i,0] = RV_reference
-            CCFs_sub_all[i,1] = sub
-            CCFs_sub_all[i,2] = de_corr
-
-            if i in self.phases_in_indices:
-                
-                CCFs_flux_corr[i,0] = RV_reference
-                CCFs_flux_corr[i,1] = d_corr
-                CCFs_flux_corr[i,2] = de*self.Flux_SOAP[i]
-
-                local_CCFs[l,0] = RV_reference
-                local_CCFs[l,1] = sub
-                local_CCFs[l,2] = de_corr
-
-                l += 1
-
-        if plot["local_CCFs"] == True: #local CCFs + tomography
-            plot_local_profile(self, local_CCFs, CCFs_sub_all, profile_type="CCF", photometrical_rescale=plot["photometrical_rescale"], save=save)
-
-        local_data = {
-            "local_CCFs": local_CCFs,
-            "CCFs_flux_corr": CCFs_flux_corr,
-            "CCFs_sub_all": CCFs_sub_all,
-            "master_out_of_transit_CCF": master_out_of_transit_CCF}
-        
-        self.local_data = local_data
-
-        return local_data
-    
-
-    def extract_local_spectral_line(self, model_fit_ccf:str, plot:dict, line_name:str, wave_lims:list, master_type:str="average", masks_dict:dict={"glob_norm":[(6400, 6800)],"spec_slice":[(6450,6650)],"line_window":[(6535,6590)],"continuum":[(6538.8,6545.8),(6546.9,6551.4),(6575.6,6579.8),(6581.4,6586.05)]}, save=None):
-        """Run all steps of the Doppler Shadow extraction (simulated light curve, systemic velocity correction, compute master out-of-transit CCF and subtraction) and returns the local CCFs. 
-        Ideal for quick extraction of local CCFs.
-
-        Parameters
-        ----------
-        model_fit_ccf : `str`
-            profile model to fit to white light CCFs.
-        plot : `dict` 
-            dictionary including boolean value for each type of plot available (SOAP, fits_initial_CCF, sys_vel_CCF, sys_vel_line, master_out_of_transit_spectra, local_spec_line).
-        line_name : `str`
-            name of the spectral line.
-        wave_lims : `list`
-            wavelength interval to plot in the tomography plot.
-        master_type : `str`
-            whether the master profile is obtained via averaging or coadding the out-of-transit profiles.
+        wave_lims : `list`, optional
+            Wavelength limits for plotting a spectral line or spectrum segment.
+        corr_type : `str`
+            type of normalization to apply to the spectral line/spectrum (e.g., "linear" or "polynomial").
         masks_dict : `dict`
-            dictionary containing the wavvelength masks as lists of tuples for (1) global normalization (2) spectrum slice to save memory (3) window containing the line of interest (4) bits of spectrum continuum (5) spectral line to fit for systemic velocity correction.
-        save 
-            path to save plots.
+            Masks with ``spec_slice``, ``line_window``, and ``continuum``
+            entries used for spectral extraction and normalization.
+        rv_step : `float`
+            step size for the RV grid.
+        correct_vsys 
+            whether to correct for systemic velocity. If it's a value, it will be used as a constant correction for all CCFs/spectra.
+        RV_central : `numpy array`, optional
+            Precomputed CCF central RV values and uncertainties. When supplied,
+            they are used to estimate the systemic-velocity trend.
+        model_fit : `str`
+            profile model to fit to CCFs for the systemic velocity correction.
+        return_all : `bool`
+            whether to return all intermediate results.
+        save : `str`, optional
+            Path prefix used to save plots.
 
         Returns
         -------
-        local_spectra : `numpy array`
-            matrix with the local (in-transit) spectral line profiles (wavelength, flux and flux error), with shape (N_spectra, 3, N_points).
-        spectra_flux_corr : `numpy array`
-            matrix with all spectral line profiles, only flux corrected, with shape (N_spectra, 3, N_points)
-        spectra_sub_all : `numpy array` 
-            matrix with all spectral line profiles, flux corrected and subtracted from master out-of-transit, with shape (N_spectra, 3, N_points).
-        master_out_of_transit_spectrum : `numpy array`
-            matrix with the master out-of-transit spectral line profile, with shape (3, N_points).
+        local_data : `dict`
+            Always contains ``local`` (in-transit, flux-corrected and
+            master-subtracted profiles) and ``master_out_of_transit``. If
+            ``return_all`` is true, also contains ``local_flux_corr`` and
+            ``local_sub_all`` for all observations.
         """
-        self.data_type = "spectral_line"
+        self.data_type = data_type
 
-        # systemic velocity correction
-        _, _, linear_fit_params = self.sysvel_correction_CCF(self.CCFs, model=model_fit_ccf, print_output=False, plot_fits=plot["fits_initial_CCF"], plot_sys_vel=plot["sys_vel_CCF"], save=save)
-
-        #RV correction using the slope
-        spectra_sys_vel_corr = np.zeros_like(self.spectra)
-
-        for i in range(spectra_sys_vel_corr.shape[0]):
-
-            wave = self.spectra[i,0,:]
-
-            vel = -linear_fit_params[0]*self.phases[i] #subtraction of systemic velocity, obtained via white light CCFs
-
-            spectra_sys_vel_corr[i,0,:] =  wave / (1+vel/299792.458) #wave * np.sqrt((1+vel/299792.458) / (1-vel/299792.458)) #shift wavelength
-            spectra_sys_vel_corr[i,1,:] = self.spectra[i,1,:]
-            spectra_sys_vel_corr[i,2,:] = self.spectra[i,2,:]
-
-        normalizer = norm_spec(self.phases, spectra_sys_vel_corr, plot=plot["spectra_regions"])
-        spectra_region = normalizer.cut_spectrum(self.spectra, wave_min=masks_dict["spec_slice"][0][0], wave_max=masks_dict["spec_slice"][0][1]) 
-        spectra_local_norm, _ = normalizer.local_norm(spectra_region, mask_line=masks_dict["line_window"], mask_continuum=masks_dict["continuum"], plot=plot["spec_local_normalization"], line_name=line_name)
-
-        # master out-of-transit spectrum
-        wave_grid = np.linspace(min(spectra_local_norm[0,0,:]), max(spectra_local_norm[0,0,:]), len(spectra_local_norm[0,0,:])) 
-        spectra_interp, master_out_of_transit_spectrum = self.master_out_of_transit_profile(spectra_local_norm, wave_grid, master_type=master_type, profile_type="line", plot=plot["master_out_of_transit"], save=save)
-
-        spectra_flux_corr = np.zeros_like(spectra_interp) # only flux corrected
-        spectra_sub_all = np.zeros_like(spectra_interp) # flux corrected and subtracted
-        local_spectra = np.zeros((len(self.phases_in_indices), 3, spectra_interp.shape[2])) # same as above but only in transit (local)
-
-        l = 0
-        for i in range(spectra_flux_corr.shape[0]):
-            d = spectra_interp[i,1,:]
-            de = spectra_interp[i,2,:]
-            
-            # performing the subtraction
-            sub = master_out_of_transit_spectrum[1] - d*self.Flux_SOAP[i]
-
-            d_corr = d*self.Flux_SOAP[i]
-            de_corr = np.sqrt(master_out_of_transit_spectrum[2]**2 + (de*self.Flux_SOAP[i])**2)
-
-            spectra_sub_all[i,0] = wave_grid
-            spectra_sub_all[i,1] = sub
-            spectra_sub_all[i,2] = de_corr
-
-            if i in self.phases_in_indices:
-                
-                spectra_flux_corr[i,0] = wave_grid
-                spectra_flux_corr[i,1] = d_corr
-                spectra_flux_corr[i,2] = de*self.Flux_SOAP[i] 
-
-                local_spectra[l,0] = wave_grid
-                local_spectra[l,1] = sub
-                local_spectra[l,2] = de_corr
-
-                l += 1
-
-        if plot["local_spec_line"] == True: #local spectral line + tomography
-            plot_local_profile(self, local_spectra, spectra_sub_all, profile_type="line", wave_lims=wave_lims, line_name=line_name, photometrical_rescale=plot["photometrical_rescale"], ylim_plot=plot["ylim_plot"], save=save)
-
-        local_data = {
-            "local_spectra": local_spectra,
-            "spectra_flux_corr": spectra_flux_corr,
-            "spectra_sub_all": spectra_sub_all,
-            "master_out_of_transit_spectrum": master_out_of_transit_spectrum}
+        # systemic velocity correction, or not
+        if correct_vsys is True:
+            if RV_central is None:
+                CCFs_sysvel_corr, _, linear_fit_params  = self.sysvel_correction_CCF(self.CCFs, model=model_fit, print_output=False, plot_fits=plot["fits_initial_CCF"], plot_sys_vel=plot["sys_vel_ccf"], save=save)
+                RV_central = CCFs_sysvel_corr[:,0]
+            else:
+                linear_fit_params, _ = np.polyfit(self.phases[self.out_phases], RV_central[:,0][self.out_phases], w=1/RV_central[:,1][self.out_phases], deg=1, cov=True)
         
-        self.local_data = local_data
+        if data_type == "CCF":
+            data_sysvel_corr = CCFs_sysvel_corr if correct_vsys else self.CCFs
+            # RV grid as the maximum minimum to minimum maximum of sys. velocity corrected CCF with 0.5 km/s step (ESPRESSO pixel size)
+            x_reference = np.arange(round(np.max(data_sysvel_corr[:,0,0])), round(np.min(data_sysvel_corr[:,0,-1]))+rv_step, rv_step) 
+        else:
+            # RV correction using the slope
+            if correct_vsys is True:
+                data_sysvel_corr = self.spectra.copy()
+                vel = -linear_fit_params[0] * self.phases
+                data_sysvel_corr[:, 0, :] = (self.spectra[:, 0, :] / (1 + vel[:, np.newaxis] / 299792.458))
+            elif correct_vsys is False:
+                data_sysvel_corr = self.spectra.copy()
+            else:
+                data_sysvel_corr = self.spectra.copy()
+                data_sysvel_corr[:, 0, :] = (self.spectra[:, 0, :] / (1 + correct_vsys / 299792.458))
+
+            # normalization of the spectral line/spectrum
+            normalizer = norm_spec(self.phases, data_sysvel_corr, plot=plot["spectra_regions"])
+            spectra_region = normalizer.cut_spectrum(data_sysvel_corr, 
+                                                     wave_min=masks_dict["spec_slice"][0][0], wave_max=masks_dict["spec_slice"][0][1]) 
+            
+            if data_type == "line":
+                spectra_local_norm, _ = normalizer.local_norm(spectra_region,
+                                                            corr_type=corr_type,
+                                                            mask_line=masks_dict["line_window"], 
+                                                            mask_continuum=masks_dict["continuum"], 
+                                                            plot=plot["spec_local_normalization"])
+            else:
+                spectra_local_norm = spectra_region
+            
+            x_reference = np.linspace(min(spectra_local_norm[0,0,:]), max(spectra_local_norm[0,0,:]), len(spectra_local_norm[0,0,:])) 
+
+            del normalizer, spectra_region
+
+        # master out-of-transit CCF/line/spectrum
+        local_interp, master_out_of_transit = self.master_out_of_transit_profile(data_sysvel_corr if data_type=="CCF" else spectra_local_norm, 
+                                                                                 x_reference, 
+                                                                                 master_type=master_type, 
+                                                                                 profile_type=data_type, 
+                                                                                 plot=plot["master_out_of_transit"], 
+                                                                                 save=save)
+        
+        del data_sysvel_corr
+
+        flux = self.Flux_SOAP[:, np.newaxis]
+        d_corr = local_interp[:, 1, :] * flux # flux corrected 
+        de_corr = local_interp[:, 2, :] * flux
+
+        sub = master_out_of_transit[1] - d_corr
+        sub_e = np.sqrt(master_out_of_transit[2]**2 + de_corr**2)
+
+        local = np.empty((self.in_transit_mask.sum(), 3, local_interp.shape[2]), dtype=local_interp.dtype) # only in transit (local)
+        local[:, 0, :] = x_reference
+        local[:, 1, :] = sub[self.in_transit_mask]
+        local[:, 2, :] = sub_e[self.in_transit_mask]
+
+        local_data = {"local":local, "master_out_of_transit":master_out_of_transit}
+
+        local_sub_all = None
+
+        if return_all or plot["local"]:
+            local_sub_all = np.empty_like(local_interp) # flux corrected and subtracted
+            local_sub_all[:, 0, :] = x_reference
+            local_sub_all[:, 1, :] = sub
+            local_sub_all[:, 2, :] = sub_e
+
+            local_flux_corr = np.empty_like(local_interp) # flux corrected
+            local_flux_corr[:, 0, :] = x_reference
+            local_flux_corr[:, 1, :] = d_corr
+            local_flux_corr[:, 2, :] = de_corr
+
+            local_data["local_flux_corr"] = local_flux_corr
+            local_data["local_sub_all"] = local_sub_all
+
+        if plot["local"]: #local CCFs/line/spectra + tomography
+            plot_local_profile(self, 
+                               local, local_sub_all, 
+                               profile_type=data_type, title_name=data_type, 
+                               wave_lims=wave_lims, 
+                               photometrical_rescale=plot["photometrical_rescale"], 
+                               ylim_plot=plot["ylim_plot"] if "ylim_plot" in plot else None, 
+                               save=save)
 
         return local_data
-    
+        
 
     def sysvel_correction_CCF(self, CCFs:np.array, model:str, print_output:bool, plot_fits:bool, plot_sys_vel:bool, save:str=None):
         """Extract the RV component due to the star's motion around the barycentre, excluding the stellar systemic velocity.
@@ -290,8 +268,9 @@ class HECATE:
         ----------
             CCFs : `numpy array`
                 matrix with the CCF profiles (RV, flux and flux error), with shape (N_CCFs, 3, N_points).
-            model : `str` 
-                type of profile model to fit.
+            model : `str`
+                Profile model label used for the diagnostic fit plot. The
+                systemic-velocity fit itself uses the modified Gaussian model.
             print_output : `bool`
                 whether to print the fit output.
             plot_fits : `bool`
@@ -335,21 +314,21 @@ class HECATE:
 
         poly_coefs, poly_cov = np.polyfit(phases[out_indices], x0[:,0][out_indices], w=1/x0[:,1][out_indices],deg=1,cov=True)
 
-        x0_corr = np.zeros_like(x0)
-        CCFs_corr = np.zeros_like(CCFs)
+        velocity_correction = poly_coefs[0] * phases + poly_coefs[1]
 
-        for i in range(CCFs.shape[0]):
-            d = CCFs[i,1]
-            de = CCFs[i,2]
-            
-            d_corr = d/y0[i,0]
+        d = CCFs[:, 1, :]
+        de = CCFs[:, 2]
 
-            CCFs_corr[i,0] = CCFs[i,0] - (poly_coefs[0]*phases[i] + poly_coefs[1])
-            CCFs_corr[i,1] = d_corr
-            CCFs_corr[i,2] = d_corr * np.sqrt( (y0[i,1]/y0[i,0])**2 + (de/d)**2 )
-            
-            x0_corr[i,0] = x0[i,0] - (poly_coefs[0]*phases[i] + poly_coefs[1])
-            x0_corr[i,1] = np.sqrt(x0[i,1]**2 + poly_cov[0,0]*phases[i]**2 + poly_cov[1,1])
+        d_corr = d / y0[:, 0, np.newaxis]
+
+        CCFs_corr = np.empty_like(CCFs)
+        CCFs_corr[:, 0, :] = CCFs[:, 0, :] - velocity_correction[:, np.newaxis]
+        CCFs_corr[:, 1, :] = d_corr
+        CCFs_corr[:, 2, :] = d_corr * np.sqrt((y0[:, 1, np.newaxis] / y0[:, 0, np.newaxis])**2 + (de / d)**2)
+
+        x0_corr = np.empty_like(x0)
+        x0_corr[:, 0] = x0[:, 0] - velocity_correction
+        x0_corr[:, 1] = np.sqrt(x0[:, 1]**2 + poly_cov[0, 0] * phases**2 + poly_cov[1, 1])
 
         if plot_sys_vel:
             plot_sysvel_corr_CCF(phases, tr_dur, tr_ingress_egress, in_indices, out_indices, x0, poly_coefs, x0_corr, save)
@@ -357,7 +336,7 @@ class HECATE:
         return CCFs_corr, x0_corr, poly_coefs
 
 
-    def master_out_of_transit_profile(self, profiles:np.array, x_reference:np.array, master_type:str="average",profile_type:str="CCF", plot:bool=False, save:str=None):
+    def master_out_of_transit_profile(self, profiles:np.array, x_reference:np.array, master_type:str="average", profile_type:str="CCF", plot:bool=False, save:str=None):
         """Computes the master out-of-transit profile (CCF or spectral line) by linearly interpolating the profiles (CCFs or sliced spectra) into a common grid.
         In the case of CCFs, they must be corrected by the systemic velocity before averaging. The interpolated uncertainties are propagated taking the covariances into account.
         The master profile can either be obtained via averaging or coadding.
@@ -365,7 +344,9 @@ class HECATE:
         Parameters
         ----------
         profiles : `numpy array`
-            matrix with the out-of-transit profiles (CCFs or spectral lines), with shape (N_profiles, 3, N_points).
+        Matrix with all profiles (CCFs or spectral lines), with shape
+        (N_profiles, 3, N_points). Out-of-transit profiles are selected
+        using the indices computed during initialization.
         x_reference : `numpy array`
             grid for interpolation (RV for CCFs, wavelength for spectral lines).
         master_type : `str`
@@ -381,58 +362,49 @@ class HECATE:
         -------
         profile_interp : `numpy array`
             matrix with interpolated profiles (CCFs or spectral lines), with shape (N_profiles, 3, N_points).
-        avg_out_of_transit_profile : `numpy array`
-            matrix with the average out-of-transit profile (CCF or spectral line), with shape (3, N_points).
+        master_out_of_transit_profile : `numpy array`
+            Master out-of-transit profile, with shape (3, N_points). Its flux
+            is either the mean or sum according to ``master_type``.
         """
-        if profile_type == "CCF":
-            M = profiles.shape[0]
-            K = profiles.shape[2]
+        N = 10000
+        rng = np.random.default_rng()
 
-            cov_matrix = np.zeros((M, K, K)) 
-            N = 10000      # covariance matrix obtained by sampling the CCFs 10 000 times
-            
-            for i in range(M): 
-                samples = np.zeros((K, N))
+        out_of_transit_profiles = np.zeros((len(self.phases_out_indices), 3, len(x_reference)), dtype=profiles.dtype)
+        profile_interp = np.zeros((profiles.shape[0], 3, len(x_reference)), dtype=profiles.dtype)
 
-                for j in range(K):
-                    ymean = profiles[i,1,j]
-                    ysigma = profiles[i,2,j]
-                    samples[j,:] = np.random.normal(ymean, ysigma, N)
-
-                cov_matrix[i,:,:] = np.cov(samples)
-
-        out_of_transit_profiles = np.zeros([len(self.phases_out_indices), 3, len(x_reference)])
-        profile_interp = np.zeros([profiles.shape[0], 3, profiles.shape[2]])
-
-        k, M = 0, 0
+        k = 0
         for l in range(profiles.shape[0]):
             x = profiles[l,0]
             flux = profiles[l,1]
+            flux_error = profiles[l, 2]
 
-            if profile_type == "CCF":
-                flux_e = cov_matrix[l] # full covariance matrix for CCFs
-            else:
-                flux_e = diags(profiles[l,2,:])**2 # diagonal covariance matrix for spectral lines, as we don't have the full covariance matrix for them
-            
             # build interpolation matrix for this CCF → target grid
             W = linear_interpolation_matrix(x, x_reference) 
-
             y_i = W @ flux # interpolated flux
-            cov_new = W @ flux_e @ W.T # propagated covariance
-            y_i_e = np.sqrt(cov_new.diagonal()) # propagated uncertainty
+
+            if profile_type == "CCF":
+                samples = rng.normal(loc=flux[:, np.newaxis], scale=flux_error[:, np.newaxis], size=(len(flux), N))
+                flux_covariance = np.cov(samples, rowvar=True)
+                variance_i = np.diag(W @ flux_covariance @ W.T)
+                del samples, flux_covariance
+            else:
+                # Independent errors: no full covariance matrix required
+                variance_i = W.power(2) @ flux_error**2
+                variance_i = np.asarray(variance_i).ravel()
+    
+            y_i_e = np.sqrt(np.clip(variance_i, 0, None))
 
             profile_interp[l,0,:] = x_reference
             profile_interp[l,1,:] = y_i
             profile_interp[l,2,:] = y_i_e
 
-            if l in self.phases_out_indices:
+            if self.out_transit_mask[l]:
                 out_of_transit_profiles[k,0,:] = x_reference
                 out_of_transit_profiles[k,1,:] = y_i
                 out_of_transit_profiles[k,2,:] = y_i_e
-
                 k += 1
-            else:
-                M += 1
+
+            del W, y_i, variance_i, y_i_e
 
         if master_type == "average":
             average_out_of_transit_profile = np.mean(out_of_transit_profiles[:,1,:], axis=0)
@@ -446,12 +418,12 @@ class HECATE:
             master_out_of_transit_profile = np.array([x_reference, coadd_out_of_transit_profile, coadd_out_of_transit_profile_e])
 
         if plot:
-            plot_master_out_of_transit_profile(master_out_of_transit_profile, master_type, profile_type, save)
+            plot_master_out_of_transit(master_out_of_transit_profile, master_type, profile_type, save)
 
         return profile_interp, master_out_of_transit_profile
 
 
-    def get_profile_parameters(self, profiles:np.array, data_type:str, observation_type:str, model:str, print_output:bool, plot_fit:bool, wave_ctr_line:list=[(0,0)], mask_x:np.ndarray=None, save=None):
+    def get_profile_parameters(self, profiles:np.array, data_type:str, observation_type:str, model:str, priors:dict=None, print_output:bool=False, plot_fit:bool=False, wave_ctr_line:list=[(0,0)], mask_x:np.ndarray=None, save=None):
         """Computes the profile parameters of an array of CCFs or spectral line profiles.
 
         Parameters
@@ -464,6 +436,8 @@ class HECATE:
             whether it's a local, average out-of-transit or raw CCF/spectral line. 
         model : `str`
             type of profile model to fit.
+        priors : `dict`, optional
+            dictionary containing prior information for the fit.
         print_output : `bool`
             whether to print fit output.
         plot_fit : `bool` 
@@ -479,18 +453,26 @@ class HECATE:
         -------
         profile_params : `dict`
             Dictionary containing:
-            - 'central_val': central RV/wavelength of the input CCFs/spectral lines. Single array for single line, list of arrays for multiple lines.
+            - 'central_rv': central RV of the input profiles. Single array for
+              one line, list of arrays for multiple lines.
             - 'continuum': continuum level of the input CCFs/spectral lines.
-            - 'intensity': intensity of the input CCFs/spectral lines. Single array for single line, list of arrays for multiple lines.
-            - 'width': width measure of the input CCFs/spectral lines. Single array for single line, list of arrays for multiple lines.
+            - 'intensity': intensity of the input profiles. Single array for
+              one line, list of arrays for multiple lines.
+            - 'width': width measure of the input profiles. Single array for
+              one line, list of arrays for multiple lines.
             - 'R2': coefficient of determination of all fits.
             - 'flux_fit_params': list of fit parameters for all profiles.
+            - 'flux_fit_values': list of fitted profile values.
+            - 'c': modified-Gaussian shape parameter when ``model`` is
+              ``"modified Gaussian"``.
         """
         N = profiles.shape[0] if observation_type == "local" else 1
 
         continuum_array = np.zeros((N,2))
         R2_array = np.zeros(N)
         flux_fit_params = []
+        y_fit_array = []
+        y_residuals_array = []
 
         num_lines = len(wave_ctr_line)
 
@@ -499,11 +481,15 @@ class HECATE:
             central_rv_array = np.zeros((N,2))
             central_wv_array = np.zeros((N,2))
             width_array = np.zeros((N,2))
+            if model == "modified Gaussian":
+                c_array = np.zeros((N,2))
         else:
             intensity_array = [np.zeros((N,2)) for _ in range(num_lines)]
             central_rv_array = [np.zeros((N,2)) for _ in range(num_lines)]
             central_wv_array = [np.zeros((N,2)) for _ in range(num_lines)]
             width_array = [np.zeros((N,2)) for _ in range(num_lines)]
+            if model == "modified Gaussian":
+                c_array = [np.zeros((N,2)) for _ in range(num_lines)]
 
         for i in range(N):
 
@@ -515,14 +501,27 @@ class HECATE:
                 profile = profiles.copy()
 
             try:
+                if priors:
+                    # check if priors values are arrays or single values. if arrays, use the ith value
+                    prior_info = {
+                        key: {
+                            key1: value1[i] if isinstance(value1, np.ndarray) else value1
+                            for key1, value1 in value.items()
+                        }
+                        for key, value in priors.items()
+                    }
+
                 fit_prof = fit_profile(phase, profile, data_type, observation_type, model)
-                profile_parameters, R2, data, y_fit, popt = fit_prof._fit(wave_ctr_line=wave_ctr_line, mask_x=mask_x, print_output=print_output)
+                profile_parameters, R2, data, y_fit, popt = fit_prof._fit(prior_info=prior_info if priors else None, wave_ctr_line=wave_ctr_line, 
+                                                                          mask_x=mask_x, print_output=print_output)
 
                 continuum = profile_parameters["continuum"]
                 central_rv = profile_parameters["central_rv"]
                 central_wv = profile_parameters["central_wv"]
                 intensity = profile_parameters["intensity"]
                 width = profile_parameters["width"]
+                if model == "modified Gaussian":
+                    c = profile_parameters["c"]
 
                 if plot_fit:
                     plot_profile_fit(data=data, y_fit=y_fit, phase=phase, profile_parameters=profile_parameters, data_type=data_type, observation_type=observation_type, model=model, save=save)
@@ -533,35 +532,47 @@ class HECATE:
                 continuum = np.array([np.nan, np.nan])
                 R2 = np.nan
                 popt = np.array([np.nan])
+                y_fit = np.array([np.nan])
 
                 if num_lines == 1:
                     central_rv = np.array([np.nan, np.nan])
                     central_wv = np.array([np.nan, np.nan])
                     intensity = np.array([np.nan, np.nan])
                     width = np.array([np.nan, np.nan])
+                    if model == "modified Gaussian":
+                        c = np.array([np.nan, np.nan])
                 else:
                     central_rv = [np.array([np.nan, np.nan]) for _ in range(num_lines)]
                     central_wv = [np.array([np.nan, np.nan]) for _ in range(num_lines)]
                     intensity = [np.array([np.nan, np.nan]) for _ in range(num_lines)]
                     width = [np.array([np.nan, np.nan]) for _ in range(num_lines)]
-            
-            # Store continuum (same for all lines)
+                    if model == "modified Gaussian":
+                        c = [np.array([np.nan, np.nan]) for _ in range(num_lines)]
+
+            # store continuum (same for all lines)
             continuum_array[i,0], continuum_array[i,1] = continuum[0], continuum[1]
             R2_array[i] = R2
             flux_fit_params.append(popt)
+            y_fit_array.append(y_fit)
+            y_residuals_array.append(data[1] - y_fit)
 
-            # Store line-specific parameters
+
+            # store line-specific parameters
             if num_lines == 1:
                 central_rv_array[i,0], central_rv_array[i,1] = central_rv[0], central_rv[1]
                 central_wv_array[i,0], central_wv_array[i,1] = central_wv[0], central_wv[1]
                 intensity_array[i,0], intensity_array[i,1] = intensity[0], intensity[1]
                 width_array[i,0], width_array[i,1] = width[0], width[1]
+                if model == "modified Gaussian":
+                    c_array[i,0], c_array[i,1] = c[0], c[1]
             else:
                 for j in range(num_lines):
                     central_rv_array[j][i,0], central_rv_array[j][i,1] = central_rv[j][0], central_rv[j][1]
                     central_wv_array[j][i,0], central_wv_array[j][i,1] = central_wv[j][0], central_wv[j][1]
                     intensity_array[j][i,0], intensity_array[j][i,1] = intensity[j][0], intensity[j][1]
                     width_array[j][i,0], width_array[j][i,1] = width[j][0], width[j][1]
+                    if model == "modified Gaussian":
+                        c_array[j][i,0], c_array[j][i,1] = c[j][0], c[j][1]
 
         if plot_fit and observation_type == "local":
             plot_R2(self.in_phases, R2_array, threshold=0.8, save=save)
@@ -571,12 +582,17 @@ class HECATE:
                           "intensity": intensity_array, 
                           "width": width_array, 
                           "R2": R2_array, 
-                          "flux_fit_params": flux_fit_params}
+                          "flux_fit_params": flux_fit_params,
+                          "flux_fit_values": y_fit_array,
+                          "flux_residuals": y_residuals_array}
+        
+        if model == "modified Gaussian":
+            profile_params["c"] = c_array
         
         return profile_params
     
 
-    def local_params_linear_fit(self, local_param:np.array, indices_final:np.array, title:str, priors:list, plot_nested:bool, axes_to_fit:list=None):
+    def local_params_linear_fit(self, local_param:np.array, indices_final:np.array, title:str, priors:list=(100,100), sampler_type:str="dynamic", plot_nested:bool=False, axes_to_fit:list=None):
         """Performs a tentative linear fit by applying nested sampling through `dynesty, comparing between a constant and unconstrained models, and then between a linear model with a positive slope and one with a negative slope.
         Useful for a first approximation analysis of the local CCF parameters.
 
@@ -590,6 +606,8 @@ class HECATE:
             CCF parameter to use as title in the plot.
         priors : `list`
             half of range of linear fit parameters (m, b) to use as priors.
+        sampler_type : `str`
+            type of nested sampler to use ("dynamic" or "static")
         plot_nested : `bool`
             whether to plot the trace and corner plots from the `dynesty` packages.
         axes_to_fit : `list`, optional
@@ -615,7 +633,7 @@ class HECATE:
         
         m_span, b_span = priors[0], priors[1]
 
-        print("="*50)
+        print("="*40)
         print(title)
         
         for data in [phases_data, mu_data]:
@@ -638,8 +656,9 @@ class HECATE:
             if len(x_clean) < 3:
                 print(f"Warning: Not enough valid data points for {data['label']} (only {len(x_clean)} after filtering)")
                 continue
-        
-            results_nested = run_nestedsampler(x_clean, y_clean, yerr_clean, m_span, b_span, plot=plot_nested).results
+            
+            print(f"Priors: m in [-{m_span}, {m_span}], b in [-{b_span}, {b_span}]")
+            results_nested = run_nestedsampler(x_clean, y_clean, yerr_clean, m_span, b_span, plot=plot_nested, sampler_type=sampler_type).results
             lin_params, model = results_nested[0], results_nested[1]
 
             x_grid = np.linspace(x_clean.min(), x_clean.max(), 100)
@@ -656,7 +675,7 @@ class HECATE:
                 dy_grid = np.sqrt((x_grid*lin_params["m"][1])**2 + lin_params["b"][1]**2)
 
             residual = y_clean - y_fit
-            residual_err = np.sqrt(yerr_clean**2) # + dy_fit**2)
+            residual_err = np.sqrt(yerr_clean**2)
 
             data["x"] = x_clean
             data["x_grid"] = x_grid
@@ -667,18 +686,23 @@ class HECATE:
         return phases_data, mu_data
 
 
-    def plot_local_params(self, indices_final:np.array, local_params:np.array, master_params:np.array, suptitle:str=None, linear_fit:bool=False, plot_nested:bool=False, linear_fit_pairs:list=None, mu_min_plot:float=0.3, save=None):
+
+    def plot_local_params(self, local_results:np.array, master_results:np.array, indices:np.array=None, R2_threshold:float=0.8, mu_threshold:float=0.3, suptitle:str=None, linear_fit:bool=False, plot_nested:bool=False, linear_fit_pairs:list=None, mu_min_plot:float=0.3, priors_dict:dict={"RV": (1000, 10), "width": (20, 100), "intensity": (20, 100)}, sampler_type:str="dynamic", save=None, plot_phases_mu_together:bool=False):
         """Plot local CCF parameters (central RV, line-width measure and line-center intensity) in function of orbital phases and mu.
         Optionally, a linear fit via nested sampling is tested for specified parameter-axis pairs, plotting the fit and the corresponding residuals.
 
         Parameters
         ----------
-        indices_final : `numpy array`
+        local_results : `dict`
+            dictionary with local CCFs parameters (central RV, width, intensity).
+        master_params : `dict` 
+            master out-of-transit CCF parameters.
+        indices : `numpy array`, optional
             indices of local CCFs to use (to discard bad data).
-        local_params : `numpy array`
-            array of local CCFs parameters (central RV, width, intensity).
-        master_params : `numpy array` 
-            average out-of-transit CCF parameters.
+        R2_threshold : `float`
+            threshold for the coefficient of determination to consider a local CCF parameter valid.
+        mu_threshold : `float`
+            threshold for the mu value to consider a local CCF parameter valid.
         suptitle : `str`, optional
             title to display above the figure.
         linear_fit : `bool`
@@ -692,9 +716,21 @@ class HECATE:
             If specified, only those pairs will have linear fits.
         mu_min_plot : `float`, optional
             Minimum value for the mu axis in the plots.
-        save
-            path to save plots.
+        priors_dict : `dict`, optional
+            Priors for the nested sampling. Dictionary with keys "RV", "width", and "intensity" specifying the half-range for each parameter. Default is {"RV": (1000, 10), "width": (20, 100), "intensity": (20, 100)}.
+        sampler_type : `str`, optional
+            Type of nested sampler to use ("dynamic" or "static").
+        save : `str`, optional
+            Path to save plots.
+        plot_phases_mu_together : `bool`, optional
+            Whether to plot phases and mu in the same figure, with phases above mu.
         """
+        local_params = [local_results['central_rv'], local_results['width'], local_results['intensity']]
+        master_params = [master_results['central_rv'], master_results['width'], master_results['intensity']]
+
+        if indices is None:
+            indices = np.intersect1d(np.where(local_results["R2"] >= R2_threshold)[0], np.where(self.mu_in >= mu_threshold)[0],)
+        
         if linear_fit_pairs is None:
             linear_fit_pairs_set = {(axis, i) for axis in ["phases", "mu"] for i in range(3)} if linear_fit else set()
         else:
@@ -703,31 +739,52 @@ class HECATE:
         need_fit_phases = any(pair[0] == "phases" for pair in linear_fit_pairs_set)
         need_fit_mu = any(pair[0] == "mu" for pair in linear_fit_pairs_set)
         
-        if need_fit_phases:
+        if plot_phases_mu_together:
+            nrows = (2 if need_fit_phases else 1) + (2 if need_fit_mu else 1)
+            height_ratios = ([1.5, 1] if need_fit_phases else [1])
+            height_ratios += [1.5, 1] if need_fit_mu else [1]
+            fig_ph_mu, axes_ph_mu = plt.subplots(
+                nrows=nrows, ncols=3, figsize=(16, 3.7 * nrows),
+                gridspec_kw={'height_ratios': height_ratios},
+                constrained_layout=suptitle is not None,
+            )
             if suptitle is not None:
-                fig_ph, axes_ph = plt.subplots(nrows=2, ncols=3, figsize=(16,6.7), gridspec_kw={'height_ratios': [1.5, 1]}, constrained_layout=True)
-                fig_ph.suptitle(suptitle, fontsize=20)
-            else:
-                fig_ph, axes_ph = plt.subplots(nrows=2, ncols=3, figsize=(16,6.2), gridspec_kw={'height_ratios': [1.5, 1]})
+                fig_ph_mu.suptitle(suptitle, fontsize=20)
+            phases_nrows = 2 if need_fit_phases else 1
+            mu_nrows = 2 if need_fit_mu else 1
+            axes_ph = axes_ph_mu[:phases_nrows]
+            axes_mu = axes_ph_mu[phases_nrows:phases_nrows + mu_nrows]
+            if not need_fit_phases:
+                axes_ph = axes_ph[0]
+            if not need_fit_mu:
+                axes_mu = axes_mu[0]
+            fig_ph = fig_mu = fig_ph_mu
         else:
-            if suptitle is not None:
-                fig_ph, axes_ph = plt.subplots(nrows=1, ncols=3, figsize=(16,4.7), constrained_layout=True)
-                fig_ph.suptitle(suptitle, fontsize=20)
+            if need_fit_phases:
+                if suptitle is not None:
+                    fig_ph, axes_ph = plt.subplots(nrows=2, ncols=3, figsize=(16,6.7), gridspec_kw={'height_ratios': [1.5, 1]}, constrained_layout=True)
+                    fig_ph.suptitle(suptitle, fontsize=20)
+                else:
+                    fig_ph, axes_ph = plt.subplots(nrows=2, ncols=3, figsize=(16,6.2), gridspec_kw={'height_ratios': [1.5, 1]})
             else:
-                fig_ph, axes_ph = plt.subplots(nrows=1, ncols=3, figsize=(16,4.2))
-        
-        if need_fit_mu:
-            if suptitle is not None:
-                fig_mu, axes_mu = plt.subplots(nrows=2, ncols=3, figsize=(16,6.7), gridspec_kw={'height_ratios': [1.5, 1]}, constrained_layout=True)
-                fig_mu.suptitle(suptitle, fontsize=20)
+                if suptitle is not None:
+                    fig_ph, axes_ph = plt.subplots(nrows=1, ncols=3, figsize=(16,4.7), constrained_layout=True)
+                    fig_ph.suptitle(suptitle, fontsize=20)
+                else:
+                    fig_ph, axes_ph = plt.subplots(nrows=1, ncols=3, figsize=(16,4.2))
+            
+            if need_fit_mu:
+                if suptitle is not None:
+                    fig_mu, axes_mu = plt.subplots(nrows=2, ncols=3, figsize=(16,6.7), gridspec_kw={'height_ratios': [1.5, 1]}, constrained_layout=True)
+                    fig_mu.suptitle(suptitle, fontsize=20)
+                else:
+                    fig_mu, axes_mu = plt.subplots(nrows=2, ncols=3, figsize=(16,6.2), gridspec_kw={'height_ratios': [1.5, 1]})
             else:
-                fig_mu, axes_mu = plt.subplots(nrows=2, ncols=3, figsize=(16,6.2), gridspec_kw={'height_ratios': [1.5, 1]})
-        else:
-            if suptitle is not None:
-                fig_mu, axes_mu = plt.subplots(nrows=1, ncols=3, figsize=(16,4.7), constrained_layout=True)
-                fig_mu.suptitle(suptitle, fontsize=20)
-            else:
-                fig_mu, axes_mu = plt.subplots(nrows=1, ncols=3, figsize=(16,4.2))
+                if suptitle is not None:
+                    fig_mu, axes_mu = plt.subplots(nrows=1, ncols=3, figsize=(16,4.7), constrained_layout=True)
+                    fig_mu.suptitle(suptitle, fontsize=20)
+                else:
+                    fig_mu, axes_mu = plt.subplots(nrows=1, ncols=3, figsize=(16,4.2))
 
         width_unit = "km/s" if self.data_type == "CCF" else r"$\AA$"
         titles = ['Central Radial Velocity [km/s]', f'Line-width measure [{width_unit}]', 'Line-center intensity [%]']
@@ -738,7 +795,7 @@ class HECATE:
         mu_range = [mu_min_plot, self.mu_max]
         mu_range_inner = [self.mu_min, self.mu_max]
 
-        plot_data = {"phases":[axes_ph, ph_range, ph_range_inner, self.in_phases[indices_final]], "mu":[axes_mu, mu_range, mu_range_inner, self.mu_in[indices_final]]}
+        plot_data = {"phases":[axes_ph, ph_range, ph_range_inner, self.in_phases[indices]], "mu":[axes_mu, mu_range, mu_range_inner, self.mu_in[indices]]}
 
         for i in range(len(ylabels)):
 
@@ -758,13 +815,14 @@ class HECATE:
                 x = plot_data[key][3]
                 plot_index = plot_index_ph if key == "phases" else plot_index_mu
 
-                ax[plot_index].set_title(titles[i], fontsize=17)
+                if plot_phases_mu_together is False and key != "mu":
+                    ax[plot_index].set_title(titles[i], fontsize=17)
 
                 l0=ax[plot_index].axvspan(x_range[0], x_range[1], alpha=0.3, color='orange')
                 l1=ax[plot_index].axvspan(x_range_inner[0], x_range_inner[1], alpha=0.4, color='orange')
                 l2=ax[plot_index].axhline(y=master_params[i][:,0], color='blue', linestyle='-', lw=2, zorder=1)
-                ax[plot_index].scatter(x, local_params[i][:,0][indices_final],color='blue',s=60,zorder=3)
-                ax[plot_index].errorbar(x=x, y=local_params[i][:,0][indices_final], yerr=local_params[i][:,1][indices_final], capsize=6, capthick=0.5, color='black', linewidth=0, elinewidth=2)
+                ax[plot_index].scatter(x, local_params[i][:,0][indices],color='blue',s=60,zorder=3)
+                ax[plot_index].errorbar(x=x, y=local_params[i][:,0][indices], yerr=local_params[i][:,1][indices], capsize=6, capthick=0.5, color='black', linewidth=0, elinewidth=2)
                 
                 ax[plot_index].set_ylabel("Value " + ylabels[i], fontsize=15)
                 ax[plot_index].grid()
@@ -778,14 +836,10 @@ class HECATE:
                 if ("mu", i) in linear_fit_pairs_set:
                     axes_to_fit.append("mu")
 
-                if i == 0: 
-                    priors = [1000, 10]
-                elif i == 1: 
-                    priors = [100, 100]
-                elif i == 2: 
-                    priors = [100, 100]
+                params_dict = {0: 'RV', 1: 'width', 2: 'intensity'}
+                priors = priors_dict[params_dict[i]]
 
-                phases_data, mu_data = self.local_params_linear_fit(local_params[i], indices_final, titles[i], priors, plot_nested, axes_to_fit=axes_to_fit)
+                phases_data, mu_data = self.local_params_linear_fit(local_params[i], indices, titles[i], priors, sampler_type, plot_nested, axes_to_fit=axes_to_fit)
 
                 for key in plot_data.keys():
                     ax = plot_data[key][0]
@@ -830,12 +884,18 @@ class HECATE:
                     axes_mu[1,i].axis('off')
 
         labels = ['Partially in-transit','Fully in-transit','Master out of transit']
-        for fig in [fig_ph, fig_mu]:
-            fig.legend([l0,l1,l2], labels=labels, loc='lower center', ncol=3, bbox_to_anchor=(0.5, -0.1), fontsize=15)
+        figures = [fig_ph_mu] if plot_phases_mu_together else [fig_ph, fig_mu]
+        for fig in figures:
+            fig.legend([l0,l1,l2], labels=labels, loc='lower center', ncol=3, bbox_to_anchor=(0.5, -0.05 if plot_phases_mu_together else -0.1), fontsize=15)
             fig.tight_layout()
 
         if save:
-            fig_ph.savefig(save+"local_parameters_phases.pdf", dpi=400)
-            fig_mu.savefig(save+"local_parameters_mu.pdf", dpi=400)
+            if plot_phases_mu_together:
+                fig_ph_mu.savefig(save+"local_parameters_phases_mu.pdf", dpi=400)
+            else:
+                fig_ph.savefig(save+"local_parameters_phases.pdf", dpi=400)
+                fig_mu.savefig(save+"local_parameters_mu.pdf", dpi=400)
 
         plt.show()
+        plt.close(fig_ph)
+        plt.close(fig_mu)

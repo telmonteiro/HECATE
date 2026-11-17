@@ -4,8 +4,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import cm
-
-from HECATE.nested_sampling import run_nestedsampler
+from nested_sampling import run_nestedsampler
 
 
 class multi_dataset_analysis:
@@ -52,9 +51,9 @@ class multi_dataset_analysis:
 
         for data_set, data in self.data_sets.items():
             if self.data_type == "CCF":
-                avg_oot_profile = data['hecate'].local_data['avg_out_of_transit_CCF']
+                avg_oot_profile = data['hecate'].local_data['master_out_of_transit_CCF']
             else:
-                avg_oot_profile = data['hecate'].local_data['avg_out_of_transit_spectrum']
+                avg_oot_profile = data['hecate'].local_data['master_out_of_transit_spectrum']
 
             avg_oot_profiles[data_set] = avg_oot_profile
         
@@ -100,14 +99,13 @@ class multi_dataset_analysis:
         plt.show()
             
     
-    
-    def plot_parameters(self, param_type:str='phases', fit_each:bool=False, fit_combined:bool=False, combined_dataset_names:np.array=None, fit_param_indices:np.array=None, plot_nested:bool=False, suptitle:str=None, save=None):
+    def plot_parameters(self, param_type:str='phases', fit_each:bool=False, fit_combined:bool=False, combined_dataset_names:np.array=None, fit_param_indices:np.array=None, params_dic:dict={"RV": (1000, 10), "width": (20, 100), "intensity": (20, 100)}, sampler_type:str="dynamic", plot_nested:bool=False, suptitle:str=None, mu_min_plot:float=0.3, save=None):
         """Plot profile parameters from all data sets with optional linear fits.
         
         Parameters
         ----------
         param_type : `str`
-            'phases' or 'mu' - which x-axis to plot against.
+            'phases', 'mu', or 'both'. If 'both', creates a 2-row plot (phases and mu) with no fits applied.
         fit_each : `bool`
             Whether to fit each data set individually.
         fit_combined : `bool`
@@ -116,11 +114,17 @@ class multi_dataset_analysis:
             List of data set names to combine for fitting. If None and fit_combined=True, uses all data sets.
         fit_param_indices : `numpy array`, optional
             Parameter indices to fit (0, 1, 2). If None and fit_each or fit_combined is True, fits all.
+        params_dic : `dict`
+            Priors for the slope and intercept (m_span, b_span) used in fitting for each parameter with keys "RV", "width", "intensity".
+        sampler_type : `str`
+            Type of nested sampler to use ('dynamic' or 'static').
         plot_nested : `bool`
             Whether to plot Dynesty trace/corner plots.
         suptitle : `str`, optional
             Figure title.
-        save
+        mu_min_plot : `float`, optional
+            Minimum value for plotting mu.
+        save : `str`, optional
             Path to save plots.
 
         Returns
@@ -128,6 +132,9 @@ class multi_dataset_analysis:
         fit_results : `dict`
             Dictionary with fit results keyed by (data_set, param_idx, param_type).
         """        
+        # If param_type is 'both', force no fits and iterate over both types
+        param_types = ['phases', 'mu'] if param_type == 'both' else [param_type]
+        
         combined_label = None
         if fit_combined and combined_dataset_names is None: # use all data sets
             combined_dataset_names = self.data_set_names
@@ -135,7 +142,7 @@ class multi_dataset_analysis:
         if combined_dataset_names is not None:
             combined_label = '+'.join(combined_dataset_names)
         
-        need_fits = fit_each or fit_combined
+        need_fits = (fit_each or fit_combined) and param_type != 'both'
         
         # default fit_param_indices to all if fits are requested
         if need_fits and fit_param_indices is None:
@@ -145,168 +152,187 @@ class multi_dataset_analysis:
         titles = ['Central Radial Velocity [km/s]', f'Line-width measure [{width_unit}]', 'Line-center intensity [%]']
         ylabels = ["[km/s]", f"[{width_unit}]", "[%]"]
         
-        n_rows = 2 if need_fits else 1
-        fig, axes = plt.subplots(nrows=n_rows, ncols=3, figsize=(16, 7.5 if need_fits else 5.5),
-                                 gridspec_kw={'height_ratios': [1.5, 1]} if need_fits else {},
+        n_plot_rows = len(param_types)  # number of rows for param_types
+        n_rows = n_plot_rows * (2 if need_fits else 1)  # double if we need residuals
+        fig, axes = plt.subplots(nrows=n_rows, ncols=3, figsize=(16, 4.1 * n_plot_rows if not need_fits else 7.1 * n_plot_rows),
+                                 gridspec_kw={'height_ratios': [1.5, 1] * n_plot_rows} if need_fits else {},
                                  constrained_layout=True if suptitle else False)
         
+        if n_rows == 1:
+            axes = axes.reshape(1, -1)
+        elif n_plot_rows == 1 and need_fits:
+            axes = axes.reshape(2, -1)
+        
         if suptitle:
-            fig.suptitle(suptitle, fontsize=20)
+            fig.suptitle(suptitle, fontsize=20, y=0.96)
         
         fit_results = {}
         
         legend_lines = []
         legend_labels = []
         
-        for param_idx in range(3): # rv, width, intensity
-            ax_idx = (0, param_idx) if need_fits else (param_idx,)
-            axes[ax_idx].set_title(titles[param_idx], fontsize=17)
-            
-            if not need_fits:
-                axes[ax_idx].set_xlabel("Orbital phases" if param_type == "phases" else r"$\mu$", fontsize=16)
-
-            axes[ax_idx].set_ylabel("Value " + ylabels[param_idx], fontsize=16)
-            axes[ax_idx].grid()
-            axes[ax_idx].set_axisbelow(True)
-            
-            if param_type == 'phases':
-                x_range = [-self.data_sets[self.data_set_names[0]]['hecate'].tr_dur/2, self.data_sets[self.data_set_names[0]]['hecate'].tr_dur/2]
-                x_range_inner = [self.data_sets[self.data_set_names[0]]['hecate'].tr_ingress_egress/2, 
-                                 - self.data_sets[self.data_set_names[0]]['hecate'].tr_ingress_egress/2]
-            else:
-                hecate_first = self.data_sets[self.data_set_names[0]]['hecate']
-                x_range = [np.nanmin(hecate_first.mu), hecate_first.mu_max]
-                x_range_inner = [hecate_first.mu_min, hecate_first.mu_max]
-            
-            for night in self.data_set_names:
-
-                data = self.data_sets[night]
-                hecate = data['hecate']
-                indices = data['indices']
-                local_params = data['local_params']
-                master_params = data['master_params']
-                
-                if param_type == 'phases':
-                    x = hecate.in_phases[indices]
+        for ptype_idx, current_param_type in enumerate(param_types):
+            for param_idx in range(3): # rv, width, intensity
+                if need_fits:
+                    row_idx = ptype_idx * 2
+                    ax_idx = (row_idx, param_idx)
                 else:
-                    x = hecate.mu_in[indices]
+                    row_idx = ptype_idx
+                    ax_idx = (row_idx, param_idx)
                 
-                if night == self.data_set_names[0]:
-                    l0 = axes[ax_idx].axvspan(x_range[0], x_range[1], alpha=0.3, color='orange')
-                    l1 = axes[ax_idx].axvspan(x_range_inner[0], x_range_inner[1], alpha=0.4, color='orange')
+                if current_param_type == "phases":
+                    axes[ax_idx].set_title(titles[param_idx], fontsize=17)
                 
-                l2 = axes[ax_idx].axhline(y=master_params[param_idx, 0, 0], color=data['color'], linestyle='-', lw=2, zorder=1, label=f'Master OoT {data["label"]}')
-                
-                # plot night's data
-                l3 = axes[ax_idx].scatter(x, local_params[param_idx, :, 0][indices], color=data['color'], s=55, zorder=3, label=data['label']+' values')
-                
-                if param_idx == 0:
-                    legend_lines.append(l2)
-                    legend_labels.append(l2.get_label())
-                    legend_lines.append(l3)
-                    legend_labels.append(l3.get_label())
+                # Label x-axis on bottom row, or on all rows when param_type is 'both'
+                if ptype_idx == n_plot_rows - 1 or param_type == 'both':
+                    axes[ax_idx].set_xlabel("Orbital phase" if current_param_type == "phases" else r"$\mu$", fontsize=16)
 
-                axes[ax_idx].errorbar(x=x, y=local_params[param_idx, :, 0][indices], yerr=local_params[param_idx, :, 1][indices],
-                                     capsize=5, capthick=0.5, color='black', linewidth=0, elinewidth=2)
+                axes[ax_idx].set_ylabel("Value " + ylabels[param_idx], fontsize=16)
+                axes[ax_idx].grid()
+                axes[ax_idx].set_axisbelow(True)
                 
-            axes[ax_idx].set_xlim(x_range)
-
-            if fit_each and param_idx in fit_param_indices:
-
+                if current_param_type == 'phases':
+                    x_range = [-self.data_sets[self.data_set_names[0]]['hecate'].tr_dur/2, self.data_sets[self.data_set_names[0]]['hecate'].tr_dur/2]
+                    x_range_inner = [-self.data_sets[self.data_set_names[0]]['hecate'].tr_ingress_egress/2, self.data_sets[self.data_set_names[0]]['hecate'].tr_ingress_egress/2]
+                else:
+                    hecate_first = self.data_sets[self.data_set_names[0]]['hecate']
+                    x_range = [mu_min_plot, hecate_first.mu_max]
+                    x_range_inner = [hecate_first.mu_min, hecate_first.mu_max]
+                
                 for night in self.data_set_names:
+
                     data = self.data_sets[night]
                     hecate = data['hecate']
                     indices = data['indices']
                     local_params = data['local_params']
+                    master_params = data['master_params']
                     
-                    x = hecate.in_phases[indices] if param_type == 'phases' else hecate.mu_in[indices]
-                    y = local_params[param_idx, :, 0][indices]
-                    yerr = local_params[param_idx, :, 1][indices]
+                    if current_param_type == 'phases':
+                        x = hecate.in_phases[indices]
+                    else:
+                        x = hecate.mu_in[indices]
                     
-                    fit_data = self._fit_parameter(x, y, yerr, param_idx, plot_nested)
+                    if night == self.data_set_names[0]:
+                        l0 = axes[ax_idx].axvspan(x_range[0], x_range[1], alpha=0.3, color='orange')
+                        l1 = axes[ax_idx].axvspan(x_range_inner[0], x_range_inner[1], alpha=0.4, color='orange')
                     
-                    if fit_data is None:
-                        continue
+                    l2 = axes[ax_idx].axhline(y=master_params[param_idx, 0, 0], color=data['color'], linestyle='-', lw=2, zorder=1, label=f'Master OoT {data["label"]}')
                     
-                    key = (night, param_idx, param_type)
-                    fit_results[key] = fit_data
+                    # plot night's data
+                    l3 = axes[ax_idx].scatter(x, local_params[param_idx, :, 0][indices], color=data['color'], s=55, zorder=3, label=data['label']+' values')
                     
-                    axes[ax_idx].plot(fit_data['x'], fit_data['y_fit'][0], color=data['color'], linestyle='--', linewidth=2, zorder=2)
-                    axes[ax_idx].fill_between(fit_data['x_grid'], fit_data['y_grid'][0] - fit_data['y_grid'][1],
-                                            fit_data['y_grid'][0] + fit_data['y_grid'][1], color=data['color'], alpha=0.15, zorder=0)
+                    if param_idx == 0 and ptype_idx == 0:  # only add legend from first param_type
+                        legend_lines.append(l2)
+                        legend_labels.append(l2.get_label())
+                        legend_lines.append(l3)
+                        legend_labels.append(l3.get_label())
+
+                    axes[ax_idx].errorbar(x=x, y=local_params[param_idx, :, 0][indices], yerr=local_params[param_idx, :, 1][indices],
+                                         capsize=5, capthick=0.5, color='black', linewidth=0, elinewidth=2)
                     
-            if fit_combined and combined_dataset_names and param_idx in fit_param_indices: # combine data from specified data sets
+                axes[ax_idx].set_xlim(x_range)
+
+                params = {0: 'RV', 1: 'width', 2: 'intensity'}
+                priors = params_dic[params[param_idx]]
+
+                if fit_each and param_idx in fit_param_indices:
+
+                    for night in self.data_set_names:
+                        data = self.data_sets[night]
+                        hecate = data['hecate']
+                        indices = data['indices']
+                        local_params = data['local_params']
+                        
+                        x = hecate.in_phases[indices] if current_param_type == 'phases' else hecate.mu_in[indices]
+                        y = local_params[param_idx, :, 0][indices]
+                        yerr = local_params[param_idx, :, 1][indices]
+                        
+                        fit_data = self._fit_parameter(x, y, yerr, priors, plot_nested, sampler_type)
+                        
+                        if fit_data is None:
+                            continue
+                        
+                        key = (night, param_idx, current_param_type)
+                        fit_results[key] = fit_data
+                        
+                        axes[ax_idx].plot(fit_data['x'], fit_data['y_fit'][0], color=data['color'], linestyle='--', linewidth=2, zorder=2)
+                        axes[ax_idx].fill_between(fit_data['x_grid'], fit_data['y_grid'][0] - fit_data['y_grid'][1],
+                                                fit_data['y_grid'][0] + fit_data['y_grid'][1], color=data['color'], alpha=0.15, zorder=0)
+                        
+                if fit_combined and combined_dataset_names and param_idx in fit_param_indices: # combine data from specified data sets
+                    
+                    x_combined = np.array([])
+                    y_combined = np.array([])
+                    yerr_combined = np.array([])
+                    
+                    for dataset in combined_dataset_names:
+                        data = self.data_sets[dataset]
+                        hecate = data['hecate']
+                        indices = data['indices']
+                        local_params = data['local_params']
+                        
+                        x = hecate.in_phases[indices] if current_param_type == 'phases' else hecate.mu_in[indices]
+                        x_combined = np.concatenate([x_combined, x])
+                        y_combined = np.concatenate([y_combined, local_params[param_idx, :, 0][indices]])
+                        yerr_combined = np.concatenate([yerr_combined, local_params[param_idx, :, 1][indices]])
+                    
+                    fit_data = self._fit_parameter(x_combined, y_combined, yerr_combined, priors, plot_nested, sampler_type)
+                    
+                    if fit_data is not None:
+                        key = (combined_label, param_idx, current_param_type)
+                        fit_results[key] = fit_data
+                        
+                        axes[ax_idx].plot(fit_data['x'], fit_data['y_fit'][0], color='black', linestyle='--', linewidth=2, zorder=2)
+                        axes[ax_idx].fill_between(fit_data['x_grid'], fit_data['y_grid'][0] - fit_data['y_grid'][1],
+                                                 fit_data['y_grid'][0] + fit_data['y_grid'][1], color='gray', alpha=0.35, zorder=2)
                 
-                x_combined = np.array([])
-                y_combined = np.array([])
-                yerr_combined = np.array([])
-                
-                for dataset in combined_dataset_names:
-                    data = self.data_sets[dataset]
-                    hecate = data['hecate']
-                    indices = data['indices']
-                    local_params = data['local_params']
+                if need_fits and param_idx in fit_param_indices: # add residuals subplot only for fitted parameters
+                    row_idx_res = ptype_idx * 2 + 1
+                    ax_res = (row_idx_res, param_idx)
+                    axes[ax_res].set_xlabel("Orbital phases" if current_param_type == "phases" else r"$\mu$")
+                    axes[ax_res].set_ylabel("Residuals " + ylabels[param_idx])
+                    axes[ax_res].grid()
+                    axes[ax_res].set_axisbelow(True)
+                    axes[ax_res].axhline(0, lw=1, ls="--", color="black")
+                    axes[ax_res].set_xlim(x_range)
+                    axes[ax_res].axvspan(x_range[0], x_range[1], alpha=0.3, color='orange')
+                    axes[ax_res].axvspan(x_range_inner[0], x_range_inner[1], alpha=0.4, color='orange')
                     
-                    x = hecate.in_phases[indices] if param_type == 'phases' else hecate.mu_in[indices]
-                    x_combined = np.concatenate([x_combined, x])
-                    y_combined = np.concatenate([y_combined, local_params[param_idx, :, 0][indices]])
-                    yerr_combined = np.concatenate([yerr_combined, local_params[param_idx, :, 1][indices]])
-                
-                fit_data = self._fit_parameter(x_combined, y_combined, yerr_combined, param_idx, plot_nested)
-                
-                if fit_data is not None:
-                    key = (combined_label, param_idx, param_type)
-                    fit_results[key] = fit_data
+                    for night in self.data_set_names:
+                        if (night, param_idx, current_param_type) in fit_results:
+                            fit_data = fit_results[(night, param_idx, current_param_type)]
+                            axes[ax_res].scatter(fit_data['x'], fit_data['residual'][0], color=self.data_sets[night]['color'], s=60, zorder=3)
+                            axes[ax_res].errorbar(x=fit_data['x'], y=fit_data['residual'][0], yerr=fit_data['residual'][1],
+                                                 capsize=5, capthick=0.5, color="black", linewidth=0, elinewidth=2,zorder=2)
                     
-                    axes[ax_idx].plot(fit_data['x'], fit_data['y_fit'][0], color='black', linestyle='--', linewidth=2, zorder=2)
-                    axes[ax_idx].fill_between(fit_data['x_grid'], fit_data['y_grid'][0] - fit_data['y_grid'][1],
-                                             fit_data['y_grid'][0] + fit_data['y_grid'][1], color='gray', alpha=0.35, zorder=2)
-            
-            if need_fits and param_idx in fit_param_indices: # add residuals subplot only for fitted parameters
-                ax_res = (1, param_idx)
-                axes[ax_res].set_xlabel("Orbital phases" if param_type == "phases" else r"$\mu$")
-                axes[ax_res].set_ylabel("Residuals " + ylabels[param_idx])
-                axes[ax_res].grid()
-                axes[ax_res].set_axisbelow(True)
-                axes[ax_res].axhline(0, lw=1, ls="--", color="black")
-                axes[ax_res].set_xlim(x_range)
-                axes[ax_res].axvspan(x_range[0], x_range[1], alpha=0.3, color='orange')
-                axes[ax_res].axvspan(x_range_inner[0], x_range_inner[1], alpha=0.4, color='orange')
-                
-                for night in self.data_set_names:
-                    if (night, param_idx, param_type) in fit_results:
-                        fit_data = fit_results[(night, param_idx, param_type)]
-                        axes[ax_res].scatter(fit_data['x'], fit_data['residual'][0], color=self.data_sets[night]['color'], s=60, zorder=3)
+                    if combined_label and (combined_label, param_idx, current_param_type) in fit_results:
+                        fit_data = fit_results[(combined_label, param_idx, current_param_type)]
+                        axes[ax_res].scatter(fit_data['x'], fit_data['residual'][0], color='black', s=60, zorder=3, marker='s')
                         axes[ax_res].errorbar(x=fit_data['x'], y=fit_data['residual'][0], yerr=fit_data['residual'][1],
-                                             capsize=5, capthick=0.5, color="black", linewidth=0, elinewidth=2,zorder=2)
+                                             capsize=5, capthick=0.5, color='black', linewidth=0, elinewidth=2,zorder=2)
+                    
+                    axes[ax_res].set_xlim(x_range)
                 
-                if combined_label and (combined_label, param_idx, param_type) in fit_results:
-                    fit_data = fit_results[(combined_label, param_idx, param_type)]
-                    axes[ax_res].scatter(fit_data['x'], fit_data['residual'][0], color='black', s=60, zorder=3, marker='s')
-                    axes[ax_res].errorbar(x=fit_data['x'], y=fit_data['residual'][0], yerr=fit_data['residual'][1],
-                                         capsize=5, capthick=0.5, color='black', linewidth=0, elinewidth=2,zorder=2)
-                
-                axes[ax_res].set_xlim(x_range)
-            
-            elif need_fits:  # hide residuals subplot for unfitted parameters
-                axes[0,param_idx].set_xlabel("Orbital phases" if param_type == "phases" else r"$\mu$")
-                axes[(1, param_idx)].axis('off')
+                elif need_fits:  # hide residuals subplot for unfitted parameters
+                    row_idx_res = ptype_idx * 2 + 1
+                    axes[row_idx_res, param_idx].axis('off')
         
         legend_lines = [l0, l1] + legend_lines
         labels = ['Partially in-transit','Fully in-transit'] + legend_labels
         
-        fig.legend(legend_lines, labels=labels, loc='lower center', ncol=4, bbox_to_anchor=(0.5, 0.02), fontsize=15)
-        fig.tight_layout(rect=[0, 0.12, 1, 1])
+        fig.legend(legend_lines, labels=labels, loc='lower center', ncol=3, bbox_to_anchor=(0.5, 0.025), fontsize=15)
+        fig.tight_layout(rect=[0, 0.095, 1, 1])
+        fig.subplots_adjust(hspace=0.23)
 
         if save:
-            fig.savefig(f"{save}multi_night_parameters_{param_type}.pdf", dpi=400)
+            fig.savefig(f"{save}multi_night_parameters.pdf", dpi=500)
         
         plt.show()
 
         return fit_results
     
     
-    def _fit_parameter(self, x:np.array, y:np.array, yerr:np.array, param_idx:int, plot_nested:bool=False):
+    def _fit_parameter(self, x:np.array, y:np.array, yerr:np.array, priors:tuple=(20,100), plot_nested:bool=False, sampler_type:str="dynamic", jitter:bool=False):
         """Perform linear fit on a parameter using nested sampling.
         
         Parameters
@@ -317,11 +343,13 @@ class multi_dataset_analysis:
             Parameter values to fit.
         yerr : `numpy array`
             Parameter uncertainties/errors.
-        param_idx : `int`
-            Parameter index (0=RV, 1=width, 2=intensity) for setting prior ranges.
+        priors : `tuple`
+            Priors for the slope and intercept (m_span, b_span).
         plot_nested : `bool`
             Whether to plot Dynesty trace and corner plots for diagnostic purposes.
-        
+        sampler_type : `str`
+            Type of nested sampler to use ('dynamic' or 'static').
+
         Returns
         -------
         fit_data : `dict` or None
@@ -336,11 +364,8 @@ class multi_dataset_analysis:
             - 'model': 'linear' or 'zero' (constant)
             
             Returns None if insufficient valid data points (< 3).
-        """
-        if param_idx == 0:
-            m_span, b_span = 2000, 1000  # wider priors for RV
-        else:
-            m_span, b_span = 2000, 1000  # narrower for width/intensity
+        """        
+        m_span, b_span = priors
         
         valid_mask = ~(np.isnan(x) | np.isnan(y) | np.isnan(yerr)) # filter out NaN values
         x_clean = x[valid_mask]
@@ -350,7 +375,7 @@ class multi_dataset_analysis:
         if len(x_clean) < 3:
             return None
         
-        results_nested = run_nestedsampler(x_clean, y_clean, yerr_clean, m_span, b_span, plot=plot_nested).results
+        results_nested = run_nestedsampler(x_clean, y_clean, yerr_clean, m_span, b_span, plot=plot_nested, sampler_type=sampler_type, jitter=jitter).results
         lin_params, model = results_nested[0], results_nested[1]
         
         x_grid = np.linspace(x_clean.min(), x_clean.max(), 100)

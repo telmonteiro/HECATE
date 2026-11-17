@@ -1,5 +1,4 @@
 # Personal functions to fetch data.
-
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.colors import Normalize
@@ -7,9 +6,9 @@ from astropy.io import fits
 import os
 import glob
 
-from HECATE.utils import get_phase_mu
+from utils import get_phase_mu
 
-def get_CCFs(planet_params:dict, stellar_params:dict, directory_path:str='/home/telmo/phd_seminar/Eduardos_code/white_light_ccfs/', day:str='2021-08-11', index_to_remove:str="last", plot:bool=True):
+def get_CCFs(planet_params:dict, stellar_params:dict, directory_path:str='/home/telmo/PhD_work/Eduardos_code/white_light_ccfs/', day:str='2021-08-11', index_to_remove:str=None, plot:bool=True):
     """Fetch ESPRESSO white-light CCFs data.
 
     Parameters
@@ -31,22 +30,17 @@ def get_CCFs(planet_params:dict, stellar_params:dict, directory_path:str='/home/
     -------
     CCFs : `numpy array` 
         matrix with the CCF profiles (RV, flux and flux error), with shape (N_CCFs, 3, N_points).
-    time : `numpy array` 
-        time of observations in BJD.
-    airmass : `numpy array` 
-        airmass at the time of observation.
-    berv : `numpy array` 
-        BERV at time of observation.
-    bervmax : `numpy array` 
-        maximum BERV.
-    snr : `numpy array` 
-        signal-to-noise ratio of observation.
+    header_info : `dict`
+        dictionary containing the following information: time (BJD), airmass, BERV, maximum BERV,  SNR at each spectral order and CCF radial velocity and its error.
     list_ccfs : `str` 
         list of CCFs file path and names.
     """
     listfiles = glob.glob(os.path.join(directory_path, '*.fits'))
 
     list_ccfs = [name for name in listfiles if day in name and 'CCF_SKYSUB_A' in name]
+    if len(list_ccfs) == 0:
+        list_ccfs = [name for name in listfiles if day in name and 'CCF_A' in name]
+
     list_ccfs = sorted(list_ccfs)
 
     #removing low SNR observations
@@ -64,7 +58,8 @@ def get_CCFs(planet_params:dict, stellar_params:dict, directory_path:str='/home/
     airmass = np.zeros(len(list_ccfs))
     berv = np.zeros(len(list_ccfs))
     bervmax = np.zeros(len(list_ccfs))
-    snr = {}
+    RV_central = np.zeros((len(list_ccfs), 2))
+    snr_orders = np.zeros((len(list_ccfs),171)) # SNR for each order
 
     for i,name in enumerate(list_ccfs):
 
@@ -88,17 +83,11 @@ def get_CCFs(planet_params:dict, stellar_params:dict, directory_path:str='/home/
             airmass[i] = h['HIERARCH ESO TEL3 AIRM START']
         berv[i] = h['HIERARCH ESO QC BERV']
         bervmax[i] = h['HIERARCH ESO QC BERVMAX']
+        RV_central[i,0] = h['HIERARCH ESO QC CCF RV']
+        RV_central[i,1] = h['HIERARCH ESO QC CCF RV ERROR']
 
-        j = 1
-        while True:
-            try:
-                snr_val = h[f'HIERARCH ESO QC ORDER{j} SNR']
-                if j not in snr:
-                    snr[j] = []
-                snr[j].append(snr_val)
-                j += 1
-            except KeyError:
-                break
+        for j in range(0,170):
+            snr_orders[i,j] = h[f'HIERARCH ESO QC ORDER{j+1} SNR']
 
     if plot:
         phases = get_phase_mu(time, planet_params, stellar_params).phases
@@ -122,10 +111,12 @@ def get_CCFs(planet_params:dict, stellar_params:dict, directory_path:str='/home/
         plt.tight_layout()
         plt.show()
 
-    return CCFs, time, airmass, berv, bervmax, snr, list_ccfs
+    header_info = {'time': time, 'airmass': airmass, 'berv': berv, 'bervmax': bervmax, 'snr_orders': snr_orders, 'RV_central': RV_central}
+
+    return CCFs, header_info, list_ccfs
 
 
-def get_spectra(directory_path:str='/home/telmo/phd_seminar/Eduardos_code/telluric_corrected_spectra/', day:str='2021-08-11', type_spec:str='SKY', index_to_remove:str="last"):
+def get_spectra(directory_path:str='/home/telmo/PhD_work/Eduardos_code/telluric_corrected_spectra/', day:str='2021-08-11', type_spec:str='TELL_CORR_A', index_to_remove:str=None):
     """Fetch ESPRESSO spectra.
 
     Parameters
@@ -143,20 +134,12 @@ def get_spectra(directory_path:str='/home/telmo/phd_seminar/Eduardos_code/tellur
     -------
     spectra : `numpy array` 
         matrix with the spectra (wavelenth in air, flux, flux error and quality flag), with shape (N_spectra, 4, N_pixels).
-    time : `numpy array` 
-        time of observations in BJD.
-    airmass : `numpy array` 
-        airmass at the time of observation.
-    berv : `numpy array` 
-        BERV at time of observation.
-    bervmax : `numpy array` 
-        maximum BERV.
-    snr : `numpy array` 
-        signal-to-noise ratio of observation.
-    rv : `numpy array`
-        radial velocity of observation.
+    header_info : `dict`
+        dictionary containing the following information: time (BJD), airmass, BERV, maximum BERV and SNR at each spectral order.
     list_spectra : `str` 
         list of spectra file path and names.
+    headers : `list`
+        list of headers of the spectra.
     """
     listfiles = glob.glob(os.path.join(directory_path, '*.fits'))
 
@@ -167,7 +150,8 @@ def get_spectra(directory_path:str='/home/telmo/phd_seminar/Eduardos_code/tellur
     if index_to_remove == "last":
         list_spectra = list_spectra[:-1]
     else:
-        list_spectra = [x for i,x in enumerate(list_spectra) if i not in index_to_remove]
+        if index_to_remove is not None:
+            list_spectra = [x for i,x in enumerate(list_spectra) if i not in index_to_remove]
 
     hdul0 = fits.open(list_spectra[0])
     tbl = hdul0[1].data   
@@ -179,8 +163,9 @@ def get_spectra(directory_path:str='/home/telmo/phd_seminar/Eduardos_code/tellur
     airmass = np.zeros(len(list_spectra))
     berv = np.zeros(len(list_spectra))
     bervmax = np.zeros(len(list_spectra))
-    snr = np.zeros(len(list_spectra))
+    snr_orders = np.zeros((len(list_spectra),171)) # SNR for each order
     rv = np.zeros(len(list_spectra))
+    headers = []
     
     for i in range(len(list_spectra)):
 
@@ -195,13 +180,23 @@ def get_spectra(directory_path:str='/home/telmo/phd_seminar/Eduardos_code/tellur
         spectra[i,3] = np.array(tbl.field(4)) #quality
 
         time[i] = hdr['HIERARCH ESO QC BJD']
-        try:
-            airmass[i] = hdr['HIERARCH ESO TEL1 AIRM START'] 
-        except:
-            airmass[i] = hdr['HIERARCH ESO TEL3 AIRM START']
+        for telescope in (1, 3, 5):
+            key = f'HIERARCH ESO TEL{telescope} AIRM START'
+            if key in hdr:
+                airmass[i] = hdr[key]
+                break
+        else:
+            raise KeyError('No supported airmass keyword found (TEL1, TEL3, or TEL5 AIRM START)')
+
         berv[i] = hdr['HIERARCH ESO QC BERV']
         bervmax[i] = hdr['HIERARCH ESO QC BERVMAX']
-        snr[i] = hdr['HIERARCH ESO QC ORDER111 SNR'] #order 567.76 nm to 576.42 nm
         rv[i] = hdr['HIERARCH ESO QC CCF RV']
 
-    return spectra, time, airmass, berv, bervmax, snr, rv, list_spectra
+        for j in range(0,170):
+            snr_orders[i,j] = hdr[f'HIERARCH ESO QC ORDER{j+1} SNR']
+
+        headers.append(hdr)
+
+    header_info = {'time': time, 'airmass': airmass, 'berv': berv, 'bervmax': bervmax, 'snr_orders': snr_orders, 'rv': rv}
+
+    return spectra, header_info, list_spectra, headers
