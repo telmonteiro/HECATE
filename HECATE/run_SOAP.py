@@ -3,7 +3,7 @@
 import SOAP # type: ignore
 import matplotlib.pyplot as plt
 import numpy as np
-from utils import *
+from HECATE.utils import *
 
 class run_SOAP:
     """Wrapper around SOAPv4.

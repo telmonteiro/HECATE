@@ -5,7 +5,7 @@ import numpy as np
 import tqdm
 import matplotlib.pyplot as plt
 from matplotlib.colors import Normalize
-from utils import get_phase_mu
+from HECATE.utils import get_phase_mu
 from numba import jit, prange
 
 @jit(nopython=True)

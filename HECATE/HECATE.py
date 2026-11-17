@@ -5,13 +5,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from run_SOAP import run_SOAP
-from nested_sampling import run_nestedsampler
-from spectral_normalization import norm_spec
-from fit_profile import fit_profile
+from HECATE.run_SOAP import run_SOAP
+from HECATE.nested_sampling import run_nestedsampler
+from HECATE.spectral_normalization import norm_spec
+from HECATE.fit_profile import fit_profile
 
-from utils import *
-from plots import *
+from HECATE.utils import *
+from HECATE.plots import *
 
 
 class HECATE:
